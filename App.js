@@ -10,6 +10,7 @@ import Signup from './screens/Signup.js';
 import AdHome from './screens/AdHome.js';
 import Notifications from './screens/Notifications.js';
 import LoadingHomes from './screens/LoadingHome.js'
+import { AdHomeStack, NotifStack } from './components/createStack.js';
 
 const Stack = createStackNavigator();
 var isLoggedIn=false;var age=0;
@@ -39,8 +40,8 @@ function DrawerMenu()
   return(
   //adult
     <Drawer.Navigator>
-      <Drawer.Screen name="Home" component={AdHome} />
-      <Drawer.Screen name="Notifications" component={Notifications} />
+      <Drawer.Screen name="Home" component={AdHomeStack} />
+      <Drawer.Screen name="Notifications" component={NotifStack} />
     </Drawer.Navigator>
   )
   }
