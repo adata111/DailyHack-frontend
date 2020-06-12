@@ -73,16 +73,16 @@ export default function App() {
   initAuthToken();
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator >
         {isLoggedIn ? (
           <>          
           <Stack.Screen name="Welcome back" component={DrawerMenu}/>
           </>
         ) : (
         <>
-        <Stack.Screen name="Welcome" component={Login} />
-        <Stack.Screen name="signup" component={Signup} />
-        <Stack.Screen name="loading" component={LoadingHomes} />
+        <Stack.Screen name="Welcome" component={Login} options={{headerShown: false}}/>
+        <Stack.Screen name="signup" component={Signup} options={{ title:"SignUp"}}/>
+        <Stack.Screen name="loading" component={LoadingHomes} options={{ title:"Home"}}/>
         </>
         )}        
       </Stack.Navigator>

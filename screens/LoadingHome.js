@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, CommonActions } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { StyleSheet, Text, View } from 'react-native';
@@ -13,10 +13,13 @@ export default class LoadingHomes extends React.Component
 {
 
   render(){
-    const { navigation } = this.props;
   console.log('wadd');
-  const age=this.params;
+
+  const age=this.props.route.params.age;
+  
+  console.log(age);
   if(age===1){
+
   return(
     //kid
     <Drawer.Navigator>

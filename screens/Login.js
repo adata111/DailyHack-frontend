@@ -1,6 +1,7 @@
 import 'react-native-gesture-handler';
 import * as React from "react";
 import { StyleSheet,Text, View, TouchableOpacity, Picker, TextInput } from "react-native";
+import { NavigationContainer, CommonActions } from "@react-navigation/native";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage';
 import{ Button } from 'react-native-elements';
@@ -33,7 +34,7 @@ export default class Login extends React.Component{
   }
 
   displayHome(e){
-    DrawerMenu(this.state.age);
+    <DrawerMenu />
     if(this.state.age===1){
       //display kid home
     }
@@ -65,7 +66,11 @@ export default class Login extends React.Component{
     //if login successful
     this.state.age=3;
     this.storeInAsync();
-    this.props.navigation.navigate('loading', {age: this.state.age});
+    this.props.navigation.reset({
+      routes: [{ name: 'loading',params: {age: this.state.age}}]
+      
+    });
+  //  this.props.navigation.navigate('loading', {age: this.state.age});
   }
 
   render(){
@@ -123,6 +128,7 @@ const styles = StyleSheet.create({
     margin: 15,
     height: 40,
     width: 50,
+    paddingHorizontal: 15,
     borderColor: "black",
     borderWidth: 1
   },
