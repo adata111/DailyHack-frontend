@@ -40,7 +40,7 @@ function DrawerMenu()
   return(
   //adult
     <Drawer.Navigator>
-      <Drawer.Screen name="Home" component={AdHomeStack} />
+      <Drawer.Screen name="Home" component={AdHomeStack} options={{headerShown: false}}/>
       <Drawer.Screen name="Notifications" component={NotifStack} />
     </Drawer.Navigator>
   )
@@ -77,13 +77,13 @@ export default function App() {
       <Stack.Navigator >
         {isLoggedIn ? (
           <>          
-          <Stack.Screen name="Welcome back" component={DrawerMenu}/>
+          <Stack.Screen name="Welcome back" component={DrawerMenu} />
           </>
         ) : (
         <>
         <Stack.Screen name="Welcome" component={Login} options={{headerShown: false}}/>
-        <Stack.Screen name="signup" component={Signup} options={{ title:"SignUp"}}/>
-        <Stack.Screen name="loading" component={LoadingHomes} options={{ title:"Home"}}/>
+        <Stack.Screen name="signup" component={Signup} options={{ title:"SignUp", headerShown: true}}/>
+        <Stack.Screen name="loading" component={LoadingHomes} options={{ title:"Home", headerShown: false}}/>
         </>
         )}        
       </Stack.Navigator>

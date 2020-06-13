@@ -43,7 +43,7 @@ export default class LoadingHomes extends React.Component
   return(
   
     <Drawer.Navigator>
-      <Drawer.Screen name="Home" component={AdHomeStack} />
+      <Drawer.Screen name="Home" component={AdHomeStack}/>
       <Drawer.Screen name="Notifications" component={NotifStack} />
     </Drawer.Navigator>
   )
