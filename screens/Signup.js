@@ -35,25 +35,44 @@ export default class Signup extends React.Component{
 
   render(){
   return (
-    <View style={{ 
-   flex: 1,
-   alignItems:'center',
-   justifyContent:'center'
-  }}>
-      <Text>signup screen</Text>
-       <Picker mode='dropdown' 
-      style={{ height: 50, width: 220 }} 
-      selectedValue={this.state.age}
-      onValueChange={(itemValue, itemIndex) => this.setState({ age: itemValue })}>
+    <View style={styles.container}>
+      <Text style={styles.title}>Sign Up!</Text>
+      <Text style={styles.text}>First Name</Text>
+        <TextInput style={styles.input} //placeholder="First Name" 
+        placeholderTextColor='black'
+        underlineColorAndroid={'transparent'} />
+        <Text style={styles.text}>Last Name</Text>
+        <TextInput style={styles.input} //placeholder="Last Name" 
+        placeholderTextColor='black'
+        underlineColorAndroid={'transparent'} />
+        <Text style={styles.text}>Username</Text>
+        <TextInput style={styles.input} //placeholder="Username" 
+        placeholderTextColor='black'
+        underlineColorAndroid={'transparent'} />
+        <Text style={styles.text}>Password</Text>
+        <TextInput style={styles.input} //placeholder="Username" 
+        placeholderTextColor='black'
+        underlineColorAndroid={'transparent'} />
+        <Text style={styles.text}>Email-id</Text>
+        <TextInput style={styles.input} //placeholder="Username" 
+        placeholderTextColor='black'
+        underlineColorAndroid={'transparent'} />
+        <Picker mode='dropdown' 
+        style={styles.picker} 
+        selectedValue={this.state.age}
+        onValueChange={(itemValue, itemIndex) => this.setState({ age: itemValue })}>
         <Picker.Item label="Select your age group..." value=""/>
         <Picker.Item label="Kids" value="kids" />
         <Picker.Item label="Teens" value="teens" />
         <Picker.Item label="Adults" value="adults" />
         <Picker.Item label="Elderly" value="elderly" />
-      </Picker>
-      <Text>{this.state.age}</Text>
-    </View>
-  );
+        </Picker>
+        
+        <TouchableOpacity style={styles.button}>
+        <Text style={styles.btntext}>Submit</Text>
+        </TouchableOpacity>
+        </View>
+      );
 }
 }
 
