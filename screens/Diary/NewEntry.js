@@ -16,7 +16,7 @@ export default class newList extends React.Component{
   render(){
   return (
     <ImageBackground
-        source={require('./../../assets/diaryBackground.png')  
+        source={require('../../assets/diaryBackground.png')  
           //uri:
           //'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
                 

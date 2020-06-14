@@ -8,7 +8,7 @@ export default class Signup extends React.Component{
     this.state = {
       name: "",
       pass: "",
-      age: ""
+      age: "",
     };
     this.displayHome = this.displayHome.bind(this);
   }
