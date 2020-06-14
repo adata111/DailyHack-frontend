@@ -77,7 +77,7 @@ export default class Login extends React.Component{
   render(){
   return (
     <ImageBackground
-   source={require('../assets/loginPage5.png')}
+   source={require('./../assets/loginPage5.png')}
    style={styles.back}>
    <View style={styles.container}>
    <TextInput

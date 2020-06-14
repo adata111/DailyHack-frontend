@@ -6,7 +6,7 @@ import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
 import AllEntries from './../screens/Diary/AllEntries.js';
-import NewEntry from './../screens/Diary/NewEntry.js';
+import NewEntry from '../screens/Diary/NewEntry.js';
 import AllLists from './../screens/Shopping/AllLists.js';
 import AdHome from './../screens/AdHome.js';
 import Notifications from './../screens/Notifications.js';

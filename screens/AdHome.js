@@ -13,7 +13,7 @@ export default class AdHome extends React.Component{
      <Card>
      <View style={{ alignItems: 'center' }}>
      <Image
-     source={require('../assets/diary.png')}
+     source={require('./../assets/diary.png')}
 
      style={{
       width: 150,
