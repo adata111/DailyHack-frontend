@@ -1,14 +1,15 @@
 import 'react-native-gesture-handler';
 import * as React from "react";
-import { StyleSheet,Text, View, TouchableOpacity, Picker, TextInput } from "react-native";
+import { StyleSheet,Text, View, TouchableOpacity, Picker, TextInput, ImageBackground, Image } from "react-native";
 import { NavigationContainer, CommonActions } from "@react-navigation/native";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage';
 import{ Button } from 'react-native-elements';
 import AdHome from './AdHome.js';
 import Notifications from './Notifications.js';
-import {DrawerMenu} from './../components/drawer.js'
-import LoadingHomes from './LoadingHome.js'
+import {DrawerMenu} from './../components/drawer.js';
+import LoadingHomes from './LoadingHome.js';
+import Constants from 'expo-constants';
 
 const Drawer = createDrawerNavigator();
 
@@ -75,61 +76,89 @@ export default class Login extends React.Component{
 
   render(){
   return (
-    <View style={{ 
-   flex: 1,
-   alignItems:'center',
-   justifyContent:'center'
-  }}>
-        <TextInput
-          style={styles.input}
-          underlineColorAndroid="transparent"
-          placeholder="Username"
-          placeholderTextColor="black"
-          autoCapitalize="none"
-          onChange = {(enteredName) => this.setState({ name: enteredName})}
-        />
-        <TextInput
-          style={styles.input}
-          underlineColorAndroid="transparent"
-          placeholder="Password"
-          placeholderTextColor="black"
-          autoCapitalize="none"
-          secureTextEntry={true}
-          onChange = {(enteredPass) => this.setState({ pass: enteredPass})}
-        />
-       <TouchableOpacity
-        style={ styles.button }>
-      <Button title="Login" onPress={this.handleLogin}/>
-      </TouchableOpacity>
-       <TouchableOpacity
-        style={ styles.button }>
-      <Button title="Sign Up" onPress={() => this.props.navigation.navigate('signup')}/>
-      </TouchableOpacity>
-    </View>
-  );
+    <ImageBackground
+   source={require('../assets/loginPage5.png')}
+   style={styles.back}>
+   <View style={styles.container}>
+   <TextInput
+   style={styles.input}
+   underlineColorAndroid="transparent"
+   placeholder="Username"
+   placeholderTextColor="black"
+   autoCapitalize="none"
+   onChange = {(enteredName) => this.setState({ name: enteredName})}
+   />
+   <TextInput
+   style={styles.input}
+   underlineColorAndroid="transparent"
+   placeholder="Password"
+   placeholderTextColor="black"
+   autoCapitalize="none"
+   secureTextEntry={true}
+   onChange = {(enteredPass) => this.setState({ pass: enteredPass})}
+   />
+   <TouchableOpacity style={ styles.button } onPress={this.handleLogin}>
+   <Text style={ styles.buttonText }>Login</Text>
+   </TouchableOpacity>
+   <TouchableOpacity style={ styles.button } onPress={() => this.props.navigation.navigate('signup')}>
+   <Text style={ styles.buttonText }>Sign Up</Text>
+   </TouchableOpacity>
+   </View>
+   </ImageBackground>
+   );
 }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    marginTop: 20,
-    justifyContent: 'center',
-  },
-  button: {
-    alignItems: "center",
+   flex: 1,
+   alignSelf: 'stretch',
+   alignItems: 'center',
+   backgroundColor: 'rgba(255,255,255,0.3)',
+   justifyContent: 'center',
+   paddingLeft: 60,
+   paddingRight: 60,
+ },
+ button: {
+   /*alignItems: "center",
     paddingVertical: 10,
     margin: 5,
     paddingHorizontal: 15,
-    borderRadius: 25,
+    borderRadius: 25,*/
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    padding: 20,
+    //backgroundColor: '#2ba189',
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    borderRadius: 5,
+    marginBottom: 10,
   },
+
+  buttonText: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+
+  back: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
+
   input: {
-    margin: 15,
-    height: 40,
-    width: 50,
-    paddingHorizontal: 15,
-    borderColor: "black",
-    borderWidth: 1
-  },
-});
+   color: 'black',
+   alignSelf: 'stretch',
+   height: 40,
+   paddingTop: 10,
+   paddingBottom: 10,
+   paddingLeft:10,
+   marginBottom: 20,
+   borderBottomColor: 'black',
+   borderBottomWidth: 1,
+     //borderRadius: 5,
+     textAlignVertical: "top",
+     //backgroundColor: 'rgba(255,255,255,0.6)',
+   },
+ });

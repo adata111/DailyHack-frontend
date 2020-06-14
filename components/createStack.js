@@ -5,7 +5,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-import Diary from './../screens/Diary.js';
+import AllEntries from './../screens/Diary/AllEntries.js';
+import NewEntry from './../screens/Diary/NewEntry.js';
 import AllLists from './../screens/Shopping/AllLists.js';
 import AdHome from './../screens/AdHome.js';
 import Notifications from './../screens/Notifications.js';
@@ -23,7 +24,8 @@ export function AdHomeStack({navigation}){
                 color="blue" 
                 style={{ margin: 7,}} /></TouchableOpacity>)
 		}} />
-		<AdHomeStk.Screen name="Diary" component={Diary} options={{title:"My Diary", headerShown: true}} screenProps={{lockMode: 'locked-closed'}}/>
+		<AdHomeStk.Screen name="Diary" component={AllEntries} options={{title:"My Diary", headerShown: true}} screenProps={{lockMode: 'locked-closed'}}/>
+		<AdHomeStk.Screen name="NewEntry" component={NewEntry} options={{title:"New Entry", headerShown: true}} screenProps={{lockMode: 'locked-closed'}}/>
 		<AdHomeStk.Screen name="Shopping" component={AllLists} />
 		<AdHomeStk.Screen name="NewList" component={NewList} options={{title: "New List"}} />
 	</AdHomeStk.Navigator>
@@ -35,7 +37,7 @@ const NotifStk = createStackNavigator();
 export function NotifStack(){
 	return(
 	<NotifStk.Navigator>
-		<NotifStk.Screen name="Notifications" component={Notifications} options={{headerShown: false}} />
+		<NotifStk.Screen name="Notifications" component={Notifications} options={{headerShown: true}} />
 	</NotifStk.Navigator>
 	)
 }
