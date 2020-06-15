@@ -18,6 +18,8 @@ export function AdHomeStack({navigation}){
 	return(
 	<AdHomeStk.Navigator>
 		<AdHomeStk.Screen name="Home" component={AdHome} options={{
+		title: "Home",
+			headerShown: true,
 			headerLeft: (props)=>(<TouchableOpacity onPress={()=>{navigation.openDrawer()}}><Ionicons 
                 name="md-menu" 
                 size={25} 

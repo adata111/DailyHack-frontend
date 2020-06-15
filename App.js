@@ -40,7 +40,7 @@ function DrawerMenu()
   return(
   //adult
     <Drawer.Navigator>
-      <Drawer.Screen name="Home" component={AdHomeStack} options={{headerShown: false}}/>
+      <Drawer.Screen name="Home" component={AdHomeStack}/>
       <Drawer.Screen name="Notifications" component={NotifStack} />
     </Drawer.Navigator>
   )
@@ -77,7 +77,7 @@ export default function App() {
       <Stack.Navigator >
         {isLoggedIn ? (
           <>          
-          <Stack.Screen name="Welcome back" component={DrawerMenu} />
+          <Stack.Screen name="Welcome back" component={DrawerMenu} options={{ title:"Home", headerShown:false}}/>
           </>
         ) : (
         <>

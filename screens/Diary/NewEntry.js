@@ -1,5 +1,7 @@
 import 'react-native-gesture-handler';
-import React from "react";
+import React, {useState} from "react";
+import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { StyleSheet, 
   Text, 
   View, 
@@ -11,9 +13,31 @@ import { StyleSheet,
   Image,
   ActivityIndicator } from 'react-native';
   import Constants from 'expo-constants';
+  import moment from "moment";
 
-export default class newList extends React.Component{
+export default class NewEntry extends React.Component{
+  constructor(props){
+    super(props);
+    this.state={
+      isDatePickerVisible: false,
+      date: ""
+    };
+    this.hideDatePicker = this.hideDatePicker.bind(this);
+    this.handleConfirm = this.handleConfirm.bind(this);
+  }
+
+  hideDatePicker(){
+    this.setState({ isDatePickerVisible: false});
+  };
+
+  handleConfirm(date) {
+    this.hideDatePicker();
+    this.setState({ date:moment(date).format('MMMM Do YYYY')});
+  };
+
   render(){
+    
+  
   return (
     <ImageBackground
         source={require('../../assets/diaryBackground.png')  
@@ -27,9 +51,21 @@ export default class newList extends React.Component{
         <View style={styles.container}>
 
         <Text style={styles.title}>Daily Diary</Text>
+        <TouchableOpacity onPress={() => this.setState({ isDatePickerVisible: true})}>
         <TextInput style={styles.textinput} placeholder="Today's Date" 
         placeholderTextColor="rgba(5,4,4,0.6)"
-        underlineColorAndroid={'transparent'} />
+        underlineColorAndroid={'transparent'} 
+        editable={false}
+        value={this.state.date}
+        onTouchStart={() => this.setState({ isDatePickerVisible: true})}
+        />
+        </TouchableOpacity>
+        <DateTimePickerModal
+          isVisible={this.state.isDatePickerVisible}
+          mode="date"
+          onConfirm={this.handleConfirm}
+          onCancel={() => this.setState({ isDatePickerVisible: false})}
+        />
         <TextInput style={styles.textinput} placeholder="Title" 
         placeholderTextColor="rgba(5,4,4,0.6)"
         underlineColorAndroid={'transparent'} />
