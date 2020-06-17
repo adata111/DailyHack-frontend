@@ -20,10 +20,14 @@ export default class NewEntry extends React.Component{
     super(props);
     this.state={
       isDatePickerVisible: false,
-      date: ""
+      key:0,
+      date: "",
+      title: ""
     };
     this.hideDatePicker = this.hideDatePicker.bind(this);
     this.handleConfirm = this.handleConfirm.bind(this);
+    this.save = this.save.bind(this);
+    this.handleTitleChange = this.handleTitleChange.bind(this);
   }
 
   hideDatePicker(){
@@ -32,8 +36,19 @@ export default class NewEntry extends React.Component{
 
   handleConfirm(date) {
     this.hideDatePicker();
-    this.setState({ date:moment(date).format('MMMM Do YYYY')});
+    this.setState({ date:moment(date).format('Do MMMM YYYY')});
   };
+
+  handleTitleChange(e){
+    console.log(e.nativeEvent.text);
+    this.setState({ title: e.nativeEvent.text});
+  }
+
+  save(){
+    console.log(this.props.route);
+    console.log(this.state.title);
+    this.props.navigation.navigate('Diary',{key: Date.now(), date:this.state.date,title:this.state.title});
+  }
 
   render(){
     
@@ -51,6 +66,7 @@ export default class NewEntry extends React.Component{
         <View style={styles.container}>
 
         <Text style={styles.title}>Daily Diary</Text>
+
         <TouchableOpacity onPress={() => this.setState({ isDatePickerVisible: true})}>
         <TextInput style={styles.textinput} placeholder="Today's Date" 
         placeholderTextColor="rgba(5,4,4,0.6)"
@@ -60,6 +76,7 @@ export default class NewEntry extends React.Component{
         onTouchStart={() => this.setState({ isDatePickerVisible: true})}
         />
         </TouchableOpacity>
+
         <DateTimePickerModal
           isVisible={this.state.isDatePickerVisible}
           mode="date"
@@ -68,11 +85,13 @@ export default class NewEntry extends React.Component{
         />
         <TextInput style={styles.textinput} placeholder="Title" 
         placeholderTextColor="rgba(5,4,4,0.6)"
-        underlineColorAndroid={'transparent'} />
+        underlineColorAndroid={'transparent'} 
+        onChange = {this.handleTitleChange}
+        />
         <TextInput style={styles.textinputDiary} placeholder="Share your thoughts" 
         placeholderTextColor="rgba(5,4,4,0.6)" multiline={true}
         underlineColorAndroid={'transparent'} />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={this.save}>
           <Text style={styles.btntext}>Save</Text>
         </TouchableOpacity>
         </View>
