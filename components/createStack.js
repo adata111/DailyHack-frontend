@@ -36,10 +36,17 @@ export function AdHomeStack({navigation}){
 
 const NotifStk = createStackNavigator();
 
-export function NotifStack(){
+export function NotifStack({navigation}){
 	return(
 	<NotifStk.Navigator>
-		<NotifStk.Screen name="Notifications" component={Notifications} options={{headerShown: true}} />
+		<NotifStk.Screen name="Notifications" component={Notifications} options={{
+			headerShown: true,
+			headerLeft: (props)=>(<TouchableOpacity onPress={()=>{navigation.openDrawer()}}><Ionicons 
+                name="md-menu" 
+                size={25} 
+                color="blue" 
+                style={{ margin: 7,}} /></TouchableOpacity>)
+		}} />
 	</NotifStk.Navigator>
 	)
 }

@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import * as React from "react";
-import { StyleSheet,Text, View, TouchableOpacity, Picker, TextInput, ImageBackground, Image } from "react-native";
+import { StyleSheet,Text, View, TouchableOpacity, Picker, TextInput, ImageBackground, Image, Alert } from "react-native";
 import { NavigationContainer, CommonActions } from "@react-navigation/native";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -11,16 +11,6 @@ import {DrawerMenu} from './../components/drawer.js';
 import LoadingHomes from './LoadingHome.js';
 import Constants from 'expo-constants';
 
-const Drawer = createDrawerNavigator();
-
-function create(){
-  return(
-    <View>
-    <Text>hekko</Text>
-    </View>
-  )
-}  
-
 export default class Login extends React.Component{
   constructor(props){
     super(props);
@@ -29,30 +19,8 @@ export default class Login extends React.Component{
       pass: "",
       age: 0
     };
-    this.displayHome = this.displayHome.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.storeInAsync = this.storeInAsync.bind(this);
-  }
-
-  displayHome(e){
-    <DrawerMenu />
-    if(this.state.age===1){
-      //display kid home
-    }
-    else if(this.state.age===2){
-      //display teen home
-    }
-    else if(this.state.age===3){
-      
-      this.props.navigation.navigate('Home');
-    }
-    else if(this.state.age===4){
-      //display elderly home
-    }
-    else{
-      //alert select age
-    }
-    //e.preventDefault();
   }
 
   storeInAsync = async() =>{
@@ -62,14 +30,47 @@ export default class Login extends React.Component{
   }
   handleLogin(){
     //send data to backend
+    //Alert.alert("hiii");
+    console.log("hiii");
+    const param1=this.state.name;
+    const param2=this.state.pass;
+    console.log(param1);
+    fetch('http://192.168.1.17:9000/users',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name:param1,
+        pass:param2
+      })
+    })
+
     //recieve login confirmation and age from backend
+    .then((response) => (response.json()))
     
-    //if login successful
-    this.state.age=3;
-    this.storeInAsync();
-    this.props.navigation.reset({
-      routes: [{ name: 'loading',params: {age: this.state.age}}]
-      
+    .then((res) => {
+      console.log("response");
+      console.warn(res);
+      //Alert.alert(res.message);
+      //if login successful
+      if(res.success === true){
+        this.state.age=res.age;
+        this.storeInAsync();
+        this.props.navigation.reset({
+          routes: [{ name: 'loading',params: {age: this.state.age}}]
+          
+        });
+      }
+      else {
+        alert("User doesn't exist");
+        console.warn("user doesn't exist");
+      }
+    })
+    
+    .catch(err => {
+      console.log(err);
     });
   //  this.props.navigation.navigate('loading', {age: this.state.age});
   }
@@ -86,7 +87,7 @@ export default class Login extends React.Component{
    placeholder="Username"
    placeholderTextColor="black"
    autoCapitalize="none"
-   onChange = {(enteredName) => this.setState({ name: enteredName})}
+   onChange = {(e) => this.setState({ name: e.nativeEvent.text})}
    />
    <TextInput
    style={styles.input}
@@ -95,7 +96,7 @@ export default class Login extends React.Component{
    placeholderTextColor="black"
    autoCapitalize="none"
    secureTextEntry={true}
-   onChange = {(enteredPass) => this.setState({ pass: enteredPass})}
+   onChange = {(e) => this.setState({ pass: e.nativeEvent.text})}
    />
    <TouchableOpacity style={ styles.button } onPress={this.handleLogin}>
    <Text style={ styles.buttonText }>Login</Text>

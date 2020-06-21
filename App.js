@@ -58,14 +58,14 @@ function DrawerMenu()
 
 
 
-initAuthToken = async () => {
+const initAuthToken = async () => {
   const authData = await AsyncStorage.getItem('auth_data');
 
   if(authData !== null){
     console.log("hi");
     const authDataJson = JSON.parse(authData);
     age=authDataJson.age;
-    drawerMenu=DrawerMenu(age);
+    //drawerMenu=DrawerMenu(age);
     isLoggedIn=true;
   }
 }
