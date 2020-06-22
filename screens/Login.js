@@ -35,7 +35,7 @@ export default class Login extends React.Component{
     const param1=this.state.name;
     const param2=this.state.pass;
     console.log(param1);
-    fetch('http://192.168.1.17:9000/users',{
+    fetch('http://localhost:9000/users',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',

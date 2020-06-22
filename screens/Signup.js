@@ -26,6 +26,7 @@ export default class Signup extends React.Component{
 
   handleSignup(){
     var ageGrp=0;
+    
     if(this.state.age==="kids"){
       ageGrp=1;
     }
@@ -40,16 +41,53 @@ export default class Signup extends React.Component{
     }
     else{
       //alert select age
+      alert("Select Age");
+      return;
     }
-    //send data to backend
-    //recieve sigup confirmation from backend
     
-    //if signup successful
-    this.storeInAsync();
-    this.props.navigation.reset({
-      routes: [{ name: 'loading',params: {age: ageGrp}}]
-      
+    //send data to backend
+    fetch('http://localhost:9000/signup',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name:this.state.name,
+        pass:this.state.pass,
+        age:ageGrp,
+        Fname:this.state.Fname,
+        Lname:this.state.Lname
+      })
+    })
+
+    //recieve sigup confirmation from backend
+    .then((response) => (response.json()))
+    
+    .then((res) => {
+      console.log("response");
+      console.warn(res);
+      //Alert.alert(res.message);
+      //if signup successful
+      if(res.success === true){
+        this.state.age=res.age;
+        this.storeInAsync();
+        alert(res.message);
+        this.props.navigation.reset({
+          routes: [{ name: 'loading',params: {age: ageGrp}}]
+          
+        });
+      }
+      else {
+        alert(res.message);
+        console.warn("user already exists or error");
+      }
+    })
+    
+    .catch(err => {
+      console.log(err);
     });
+    
   //  this.props.navigation.navigate('loading', {age: this.state.age});
   }
 
@@ -65,31 +103,31 @@ export default class Signup extends React.Component{
         <TextInput style={styles.input} //placeholder="First Name" 
         placeholderTextColor='black'
         underlineColorAndroid={'transparent'} 
-        onChange = {(enteredFName) => this.setState({ Fname: enteredFName})}/>
+        onChange = {(e) => this.setState({ Fname: e.nativeEvent.text})}/>
         <Text style={styles.text}>Last Name</Text>
         <TextInput style={styles.input} //placeholder="Last Name" 
         placeholderTextColor='black'
         underlineColorAndroid={'transparent'} 
-        onChange = {(enteredLName) => this.setState({ Lname: enteredLName})}/>
+        onChange = {(e) => this.setState({ Lname: e.nativeEvent.text})}/>
         <Text style={styles.text}>Username</Text>
         <TextInput style={styles.input} //placeholder="Username" 
         placeholderTextColor='black'
         underlineColorAndroid={'transparent'}
         autoCapitalize="none" 
-        onChange = {(enteredName) => this.setState({ name: enteredName})}/>
+        onChange = {(e) => this.setState({ name: e.nativeEvent.text})}/>
         <Text style={styles.text}>Password</Text>
         <TextInput style={styles.input} //placeholder="Username" 
         placeholderTextColor='black'
         underlineColorAndroid={'transparent'} 
         autoCapitalize="none"
         secureTextEntry={true}
-        onChange = {(enteredPass) => this.setState({ pass: enteredPass})}/>
+        onChange = {(e) => this.setState({ pass: e.nativeEvent.text})}/>
         <Text style={styles.text}>Email-id</Text>
         <TextInput style={styles.input} //placeholder="Username" 
         placeholderTextColor='black'
         underlineColorAndroid={'transparent'} 
         autoCapitalize="none"
-        onChange = {(enteredEmail) => this.setState({ email: enteredEmail})}/>
+        onChange = {(e) => this.setState({ email: e.nativeEvent.text})}/>
         <View style={styles.dropdown}>
         <Picker mode='dropdown' 
         style={styles.picker} 
@@ -184,7 +222,6 @@ const styles = StyleSheet.create({
      backgroundColor: 'rgba(255,255,255,0.6)',
    },
    dropdown: {
-     color: 'black',
      alignSelf: 'stretch',
      height: 50,
      paddingTop: 0,
@@ -195,7 +232,6 @@ const styles = StyleSheet.create({
      borderColor: 'black',
      borderWidth: 1,
      borderRadius: 5,
-     textAlignVertical: "top",
      backgroundColor: 'rgba(255,255,255,0.7)',
    },
    button: {
