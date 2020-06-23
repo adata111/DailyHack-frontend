@@ -15,7 +15,7 @@ export default class LoadingHomes extends React.Component
 {
 
   render(){
-  console.log('wadd');
+  console.log('loading Home');
 
   const age=this.props.route.params.age;
   

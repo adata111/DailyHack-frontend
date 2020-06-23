@@ -66,7 +66,7 @@ export default class AdHome extends React.Component{
     }}
     />
     </View>
-    <Button title="Sports" />
+    <Button title="Sports" onPress={() => this.props.navigation.navigate('Sports')}/>
     </Card>
 
     </View>

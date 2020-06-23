@@ -10,7 +10,11 @@ import NewEntry from '../screens/Diary/NewEntry.js';
 import AllLists from './../screens/Shopping/AllLists.js';
 import AdHome from './../screens/AdHome.js';
 import Notifications from './../screens/Notifications.js';
-import NewList from './../screens/Shopping/NewList.js'
+import NewList from './../screens/Shopping/NewList.js';
+import Allfeatures from './../screens/Sports/Allfeatures.js';
+import StopWatch from './../screens/Sports/StopWatch.js';
+import Timer from './../screens/Sports/Timer.js';
+import Fitness from './../screens/Sports/Diet.js';
 
 const AdHomeStk = createStackNavigator();
 
@@ -30,6 +34,10 @@ export function AdHomeStack({navigation}){
 		<AdHomeStk.Screen name="NewEntry" component={NewEntry} options={{title:"New Entry", headerShown: true}} screenProps={{lockMode: 'locked-closed'}}/>
 		<AdHomeStk.Screen name="Shopping" component={AllLists} />
 		<AdHomeStk.Screen name="NewList" component={NewList} options={{title: "New List"}} />
+		<AdHomeStk.Screen name="Sports" component={Allfeatures} options={{title: "Sports Home"}} />
+		<AdHomeStk.Screen name="StopWatch" component={StopWatch} options={{title: "Stop Watch", headerShown: false}} />
+		<AdHomeStk.Screen name="Timer" component={Timer} options={{title: "Timer", headerShown: false}} />
+		<AdHomeStk.Screen name="Fitness" component={Fitness} options={{title: "Diet", headerShown: false}} />
 	</AdHomeStk.Navigator>
 	)
 }
