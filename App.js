@@ -13,7 +13,7 @@ import LoadingHomes from './screens/LoadingHome.js'
 import { AdHomeStack, NotifStack } from './components/createStack.js';
 
 const Stack = createStackNavigator();
-var isLoggedIn=false;var age=0;
+var isLoggedIn=false;var age=0;var name="";
 const Drawer = createDrawerNavigator();
 function DrawerMenu()
 {
@@ -65,6 +65,8 @@ const initAuthToken = async () => {
     console.log("hi");
     const authDataJson = JSON.parse(authData);
     age=authDataJson.age;
+    age=3;
+    name=authDataJson.name;
     //drawerMenu=DrawerMenu(age);
     isLoggedIn=true;
   }

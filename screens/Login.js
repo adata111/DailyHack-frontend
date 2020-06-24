@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import * as React from "react";
-import { StyleSheet,Text, View, TouchableOpacity, Picker, TextInput, ImageBackground, Image, Alert } from "react-native";
+import { StyleSheet,Text, View, TouchableOpacity, Picker, TextInput, ImageBackground, Image, Alert, Platform } from "react-native";
 import { NavigationContainer, CommonActions } from "@react-navigation/native";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -25,10 +25,19 @@ export default class Login extends React.Component{
 
   storeInAsync = async() =>{
     await AsyncStorage.setItem('auth_data', JSON.stringify({
-      age: this.state.age
+      age: this.state.age,
+      name: this.state.name
     }));
   }
   handleLogin(){
+
+    if(Platform.OS === 'ios' || Platform.OS === 'android'){
+      this.storeInAsync();
+      this.props.navigation.reset({
+        routes: [{ name: 'loading',params: {age: this.state.age, name:this.state.name}}]      
+      });
+    }
+    else{
     //send data to backend
     //Alert.alert("hiii");
     console.log("hiii");
@@ -59,7 +68,7 @@ export default class Login extends React.Component{
         this.state.age=res.age;
         this.storeInAsync();
         this.props.navigation.reset({
-          routes: [{ name: 'loading',params: {age: this.state.age}}]
+          routes: [{ name: 'loading',params: {age: this.state.age, name:this.state.name}}]
           
         });
       }
@@ -72,6 +81,7 @@ export default class Login extends React.Component{
     .catch(err => {
       console.log(err);
     });
+  }
   //  this.props.navigation.navigate('loading', {age: this.state.age});
   }
 

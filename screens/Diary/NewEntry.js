@@ -11,7 +11,8 @@ import { StyleSheet,
   TouchableWithoutFeedback,
   ImageBackground,
   Image,
-  ActivityIndicator } from 'react-native';
+  ActivityIndicator,
+  Platform } from 'react-native';
   import Constants from 'expo-constants';
   import moment from "moment";
 
@@ -19,15 +20,19 @@ export default class NewEntry extends React.Component{
   constructor(props){
     super(props);
     this.state={
+      editMode: true,
       isDatePickerVisible: false,
       key:0,
       date: "",
-      title: ""
+      title: "",
+      text:""
     };
     this.hideDatePicker = this.hideDatePicker.bind(this);
     this.handleConfirm = this.handleConfirm.bind(this);
     this.save = this.save.bind(this);
+    this.edit = this.edit.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
   }
 
   hideDatePicker(){
@@ -44,14 +49,88 @@ export default class NewEntry extends React.Component{
     this.setState({ title: e.nativeEvent.text});
   }
 
+  handleTextChange(e){
+    console.log(e.nativeEvent.text);
+    this.setState({ text: e.nativeEvent.text});
+  }
+
+  edit(){
+    //console.log(this.editMode);
+    this.setState({editMode : !(this.state.editMode)});
+  }
+
   save(){
     console.log(this.props.route);
     console.log(this.state.title);
-    this.props.navigation.navigate('Diary',{key: Date.now(), date:this.state.date,title:this.state.title});
+
+    if(Platform.OS === 'ios' || Platform.OS === 'android'){
+      this.edit();
+      this.props.route.params.beforeGoBack();
+    }
+    else{
+    //send to backend
+    
+    fetch('http://localhost:9000/saveEntry',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        edit:!(this.props.route.params.edit),
+        key:this.state.key,
+        name:this.props.route.params.name,
+        date:this.state.date,
+        title:this.state.title,
+        text:this.state.text
+      })
+    })
+
+    //recieve entry added confirmation from backend
+    .then((response) => (response.json()))
+    
+    .then((res) => {
+      console.log("response");
+      console.warn(res);
+      //Alert.alert(res.message);
+      //if entry added
+      if(res.success === true){
+        alert(res.message);
+        this.edit();
+        this.props.route.params.beforeGoBack();
+      }
+      else {
+        alert(res.message);
+        console.warn("user already exists or error");
+      }
+    })
+    
+    .catch(err => {
+      console.log(err);
+    });
+    }
+    //this.props.navigation.navigate('Diary',{key: this.state.key, date:this.state.date,title:this.state.title});
+    
+  }
+
+  componentDidMount(){
+    if(!this.props.route.params.edit){
+      console.log(this.props.route.params);
+    this.setState({
+      editMode:this.props.route.params.edit,
+      key: this.props.route.params.key,
+      date:this.props.route.params.date,
+      title:this.props.route.params.title,
+      text:this.props.route.params.text
+    });
+    }
+    else{
+      this.setState({key: this.props.route.params.key});
+    }
   }
 
   render(){
-    
+    console.log("start");
   
   return (
     <ImageBackground
@@ -67,13 +146,13 @@ export default class NewEntry extends React.Component{
 
         <Text style={styles.title}>Daily Diary</Text>
 
-        <TouchableOpacity onPress={() => this.setState({ isDatePickerVisible: true})}>
+        <TouchableOpacity onPress={() => this.state.editMode?(this.setState({ isDatePickerVisible: true})):null}>
         <TextInput style={styles.textinput} placeholder="Today's Date" 
         placeholderTextColor="rgba(5,4,4,0.6)"
         underlineColorAndroid={'transparent'} 
         editable={false}
         value={this.state.date}
-        onTouchStart={() => this.setState({ isDatePickerVisible: true})}
+        onTouchStart={() => this.state.editMode?(this.setState({ isDatePickerVisible: true})):null}
         />
         </TouchableOpacity>
 
@@ -83,17 +162,27 @@ export default class NewEntry extends React.Component{
           onConfirm={this.handleConfirm}
           onCancel={() => this.setState({ isDatePickerVisible: false})}
         />
-        <TextInput style={styles.textinput} placeholder="Title" 
+        <TextInput style={styles.textinput} placeholder={this.state.editMode?("Title"):null} 
         placeholderTextColor="rgba(5,4,4,0.6)"
         underlineColorAndroid={'transparent'} 
+        value={this.state.title}
+        editable={this.state.editMode}
         onChange = {this.handleTitleChange}
         />
         <TextInput style={styles.textinputDiary} placeholder="Share your thoughts" 
         placeholderTextColor="rgba(5,4,4,0.6)" multiline={true}
-        underlineColorAndroid={'transparent'} />
+        underlineColorAndroid={'transparent'} 
+        editable={this.state.editMode}
+        value={this.state.text}
+        onChange = {this.handleTextChange}
+        />
+        {this.state.editMode?(
         <TouchableOpacity style={styles.button} onPress={this.save}>
           <Text style={styles.btntext}>Save</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>):
+        (<TouchableOpacity style={styles.button} onPress={this.edit}>
+          <Text style={styles.btntext}>Edit</Text>
+        </TouchableOpacity>)}
         </View>
         </ImageBackground>
 

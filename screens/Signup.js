@@ -20,7 +20,8 @@ export default class Signup extends React.Component{
 
   storeInAsync = async() =>{
     await AsyncStorage.setItem('auth_data', JSON.stringify({
-      age: this.state.age
+      age: this.state.age,
+      name: this.state.name
     }));
   }
 
@@ -45,6 +46,14 @@ export default class Signup extends React.Component{
       return;
     }
     
+    if(Platform.OS === 'ios' || Platform.OS === 'android'){
+      this.storeInAsync();
+     //   alert(res.message);
+      this.props.navigation.reset({
+        routes: [{ name: 'loading',params: {age: ageGrp, name:this.state.name}}]    
+      });
+    }
+    else{
     //send data to backend
     fetch('http://localhost:9000/signup',{
       method: 'POST',
@@ -74,7 +83,7 @@ export default class Signup extends React.Component{
         this.storeInAsync();
         alert(res.message);
         this.props.navigation.reset({
-          routes: [{ name: 'loading',params: {age: ageGrp}}]
+          routes: [{ name: 'loading',params: {age: ageGrp, name:this.state.name}}]
           
         });
       }
@@ -87,7 +96,7 @@ export default class Signup extends React.Component{
     .catch(err => {
       console.log(err);
     });
-    
+    }
   //  this.props.navigation.navigate('loading', {age: this.state.age});
   }
 

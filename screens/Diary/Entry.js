@@ -5,7 +5,7 @@ export default class Entry extends React.Component {
 	render() {
 	return (
 		
-
+	<TouchableOpacity onPress={this.props.view}>
 		<View key={this.props.val.key} style={styles.entry}>
 
 		<Text style={styles.entryText}>{this.props.val.date}</Text>
@@ -16,7 +16,8 @@ export default class Entry extends React.Component {
 
 		</TouchableOpacity>
 		</View>
-		);
+	</TouchableOpacity>
+	);
 	}
 }
 
