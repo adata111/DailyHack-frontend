@@ -7,7 +7,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import AdHome from './AdHome.js';
 import Notifications from './Notifications.js';
 
-import { AdHomeStack, NotifStack } from './../components/createStack.js';
+import { AdHomeStack, NotifStack, ProfileStack } from './../components/createStack.js';
 
 const Drawer = createDrawerNavigator();
 
@@ -45,6 +45,7 @@ export default class LoadingHomes extends React.Component
     <Drawer.Navigator>
       <Drawer.Screen name="Home" component={AdHomeStack} options={{headerShown: true }}/>
       <Drawer.Screen name="Notifications" component={NotifStack} />
+      <Drawer.Screen name="Profile" component={ProfileStack} />
     </Drawer.Navigator>
   )
   }

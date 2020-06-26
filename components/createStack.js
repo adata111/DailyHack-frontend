@@ -15,6 +15,7 @@ import Allfeatures from './../screens/Sports/Allfeatures.js';
 import StopWatch from './../screens/Sports/StopWatch.js';
 import Timer from './../screens/Sports/Timer.js';
 import Fitness from './../screens/Sports/Diet.js';
+import Profile from './../screens/Profile.js';
 
 const AdHomeStk = createStackNavigator();
 
@@ -56,5 +57,22 @@ export function NotifStack({navigation}){
                 style={{ margin: 7,}} /></TouchableOpacity>)
 		}} />
 	</NotifStk.Navigator>
+	)
+}
+
+const ProfileStk = createStackNavigator();
+
+export function ProfileStack(){
+	return(
+	<ProfileStk.Navigator>
+		<ProfileStk.Screen name="Profile" component={Profile} options={{
+			headerShown: true,
+			headerLeft: (props)=>(<TouchableOpacity onPress={()=>{navigation.openDrawer()}}><Ionicons 
+                name="md-menu" 
+                size={25} 
+                color="blue" 
+                style={{ margin: 7,}} /></TouchableOpacity>)
+		}} />
+    </ProfileStk.Navigator>
 	)
 }

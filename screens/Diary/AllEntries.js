@@ -1,61 +1,119 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView, TouchableOpacity, Platform } from 'react-native';
 import Constants from 'expo-constants';
 import Entry from './Entry';
 import moment from "moment";
+
+
 
 export default class AllEntries extends React.Component {
 
   constructor(props){
     super(props);
     this.state = {
-      entryArray: [],
+      entryArray: [{key:12345679, date:"22nd June 2020", title:"check", text:"this is some text"}],
       entryText: '',
     }
-    this.addEntry=this.addEntry.bind(this);
+    this.reloadOnBack=this.reloadOnBack.bind(this);
+    this.fetchEntries=this.fetchEntries.bind(this);
+    this.createEntries=this.createEntries.bind(this);
+    this._unsubscribeSiFocus = this.props.navigation.addListener('focus', e => {
+        //console.warn('focus diary');
+        
+    });
+    this._unsubscribeSiBlur = this.props.navigation.addListener('blur', e => {
+        //console.warn('blur diary');
+    });
   }
 
-  addEntry(dt, titl) {
-    if (titl) {
-      var d = new Date();
-      var entries=this.state.entryArray;
-      entries.push({
-        key: Date.now(),
-        date: dt,
-        title:titl
+  fetchEntries(){
+
+ // if(Platform.OS === 'ios' || Platform.OS === 'android'){
+  //  return [{key:12345679, date:"22nd June 2020", title:"check", text:"this is some text"}];
+ // }
+  //else{
+  fetch('http://localhost:9000/getAllEntries',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: this.props.route.params.name
+    })
+    })
+
+    //recieve login confirmation and age from backend
+    .then((response) => (response.json()))
+    
+    .then((res) => {
+      console.log("response");
+      console.warn(res);
+      if(res.success){
+      this.setState({entryArray:res.content});
       }
-      )
-      this.setState({entryArray:entries});
-    }
+      else{
+        alert("Couldn't fetch data. Please try again.");
+      }
+      //Alert.alert(res.message);
+      
+    })
+    
+    .catch(err => {
+      console.log(err);
+    });
+  //}
+}
+  componentDidMount(){
+//  if(Platform.OS === 'ios' || Platform.OS === 'android'){}
+//  else{
+    this.fetchEntries();
+    console.log(this.state.entryArray);
+  //}
+    console.log("diary mount");
   }
 
+  reloadOnBack(){
+    this.fetchEntries();
+  //  this.setState({entryArray: entries});
+  }
+
+  createEntries(){
+   return (this.state.entryArray.map((val) => {
+      console.log("key"+val.key);
+      return <Entry key={val.key} val={val}
+          deleteMethod={ ()=> this.deleteEntry(val.key) }  view={ ()=> this.viewEntry(val.key)}/>
+    })
+   )
+ }
 
   render() {
     console.log("diary render");
-    if(this.props.route.params){
+    
+    /*if(this.props.route.params){
       console.log(this.props.route.params);
       var entries=this.state.entryArray;
       console.log(entries);
-      var it=entries.filter(i => i.key===this.props.route.params.key);
+      var it=this.state.entryArray.filter(i => i.key===this.props.route.params.key);
       console.log(it);
       if(it && it.length){}
       else{
       entries.push({
           key:this.props.route.params.key,
           date:this.props.route.params.date,
-          title:this.props.route.params.title});
+          title:this.props.route.params.title,
+          text: this.props.route.params.text
+        });
       console.log(entries);
     this.state.entryArray=entries;
       }
       console.log("entries");
       console.log(entries);
       console.log("entries");
-    }
+    }*/
 
-    var entries = this.state.entryArray.map((val) => {
-      return <Entry key={val.key} val={val}
-          deleteMethod={ (key)=> this.deleteEntry(key) } />
-    })
+    
+//    console.log(entries);
 
   return (
     <View style={styles.container}>
@@ -64,7 +122,8 @@ export default class AllEntries extends React.Component {
       </View>
 
       <ScrollView style={styles.scrollContainer}>
-      {entries}
+      {console.log("hihi")}
+      {this.createEntries()}
 
       </ScrollView>
 
@@ -74,7 +133,7 @@ export default class AllEntries extends React.Component {
 
       <TouchableOpacity 
       style={styles.addButton} 
-      onPress={() => this.props.navigation.navigate('NewEntry')}>
+      onPress={() => this.props.navigation.navigate('NewEntry', {edit:true, key:Date.now(), beforeGoBack: ()=>{this.reloadOnBack()}, name:this.props.route.params.name})}>
         <Text style={styles.addButtonText}>+</Text>
       </TouchableOpacity>
 
@@ -82,11 +141,68 @@ export default class AllEntries extends React.Component {
     );
   }
 
+  //
+
   deleteEntry(key) {
     console.log("del");
-    var itt=this.state.entryArray.filter(it => it.key!==key);
+    
+    if(Platform.OS === 'ios' || Platform.OS === 'android'){
+      var itt=this.state.entryArray.filter(it => it.key!==key);
+      console.log(itt);
+      this.setState({ entryArray: itt });
+    }
+
+    else{
+    //send to backend
+    
+    fetch('http://localhost:9000/saveEntry',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        edit:3,
+        key:key,
+        name:this.props.route.params.name
+      })
+    })
+
+    //recieve entry added confirmation from backend
+    .then((response) => (response.json()))
+    
+    .then((res) => {
+      console.log("response");
+      console.warn(res);
+      //Alert.alert(res.message);
+      //if entry added
+      if(res.success === true){
+    //    alert(res.message);
+        this.setState({entryArray:res.content});
+        
+      }
+      else {
+        alert(res.message);
+        console.warn("error");
+      }
+    })
+    
+    .catch(err => {
+      console.log(err);
+    });
+    }
+  }
+
+  viewEntry(key){
+    console.log("view");
+    console.log(key);
+    var itt=this.state.entryArray.filter(it => it.key===key);
+    //get text value from backend
+    console.log(this.state.entryArray);
     console.log(itt);
-    this.setState({ entryArray: itt })
+    //var itt = JSON.parse(ittt);
+    console.log(itt[0]);
+    this.props.navigation.navigate('NewEntry', {edit:false, key:key, date:itt[0].date, title:itt[0].title, text:itt[0].text, beforeGoBack: ()=>{this.reloadOnBack()}, name:this.props.route.params.name})
   }
 }
 

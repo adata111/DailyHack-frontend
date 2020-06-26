@@ -66,6 +66,9 @@ export default class NewEntry extends React.Component{
     if(Platform.OS === 'ios' || Platform.OS === 'android'){
       this.edit();
       this.props.route.params.beforeGoBack();
+      if(this.props.route.params.edit){
+        this.props.navigation.goBack();
+      }
     }
     else{
     //send to backend
@@ -77,7 +80,7 @@ export default class NewEntry extends React.Component{
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        edit:!(this.props.route.params.edit),
+        edit:(!(this.props.route.params.edit))+1,
         key:this.state.key,
         name:this.props.route.params.name,
         date:this.state.date,
@@ -97,11 +100,14 @@ export default class NewEntry extends React.Component{
       if(res.success === true){
         alert(res.message);
         this.edit();
-        this.props.route.params.beforeGoBack();
+   //     this.props.route.params.beforeGoBack();
+        if(this.props.route.params.edit){
+          this.props.navigation.goBack();
+        }
       }
       else {
         alert(res.message);
-        console.warn("user already exists or error");
+        console.warn("error");
       }
     })
     

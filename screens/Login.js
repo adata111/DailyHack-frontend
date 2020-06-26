@@ -33,14 +33,20 @@ export default class Login extends React.Component{
 
     if(Platform.OS === 'ios' || Platform.OS === 'android'){
       this.storeInAsync();
-      this.props.navigation.reset({
-        routes: [{ name: 'loading',params: {age: this.state.age, name:this.state.name}}]      
-      });
+
+      this.props.navigation.dispatch(
+        CommonActions.reset({
+          
+        routes: [
+                  {name: 'Login'} , 
+                  { name: 'loading',params: {age: this.state.age, name:this.state.name}},
+                ],  
+      }));
     }
     else{
     //send data to backend
     //Alert.alert("hiii");
-    console.log("hiii");
+    console.log(Date.now());
     const param1=this.state.name;
     const param2=this.state.pass;
     console.log(param1);
@@ -67,6 +73,10 @@ export default class Login extends React.Component{
       if(res.success === true){
         this.state.age=res.age;
         this.storeInAsync();
+        localStorage.setItem('auth_data', JSON.stringify({
+        age: this.state.age,
+        name: this.state.name
+      }));
         this.props.navigation.reset({
           routes: [{ name: 'loading',params: {age: this.state.age, name:this.state.name}}]
           

@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from "react";
-import { StyleSheet,Text, View, Button, Image } from "react-native";
+import { StyleSheet,Text, View, Button, Image, Platform, Alert, BackHandler } from "react-native";
 import { Card, CardItem } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 //import AllLists from './Shopping/AllLists.js';
@@ -14,17 +14,64 @@ export default class AdHome extends React.Component{
       name: "",
     }
     this.getFromAsync=this.getFromAsync.bind(this);
+    this._unsubscribeSiFocus = this.props.navigation.addListener('focus', e => {
+        
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    });
+    this._unsubscribeSiBlur = this.props.navigation.addListener('blur', e => {
+        
+        BackHandler.removeEventListener(
+            'hardwareBackPress',
+            this.handleBackButton,
+        );
+    });
   }
   getFromAsync = async()=>{
-    const authData = await AsyncStorage.getItem('auth_data');
-    if(authData !== null){
-      console.log("hi");
-      const authDataJson = JSON.parse(authData);
-      this.setState({name: authDataJson.name});
+    if(Platform.OS === 'ios' || Platform.OS === 'android'){
+      const authData = await AsyncStorage.getItem('auth_data');
+      if(authData !== null){
+        console.log("hi");
+        const authDataJson = JSON.parse(authData);
+        this.setState({name: authDataJson.name});
+      }
     }
+    else{
+      const authData = localStorage.getItem('auth_data');
+      if(authData !== null){
+        console.log("hi");
+        const authDataJson = JSON.parse(authData);
+        this.setState({name: authDataJson.name});
+      }
+    }     
   }
+
+  handleBackButton = () => {
+   Alert.alert(
+       'Exit App',
+       'Exiting the application?', [{
+           text: 'Cancel',
+           onPress: () => console.log('Cancel Pressed'),
+           style: 'cancel'
+       }, {
+           text: 'OK',
+           onPress: () => BackHandler.exitApp()
+       }, ], {
+           cancelable: false
+       }
+    )
+    return true;
+  } 
+
   componentDidMount(){
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     this.getFromAsync();
+  }
+
+  componentWillUnmount(){
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+  componentDidDisappear(){
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
   }
   render(){
   return (

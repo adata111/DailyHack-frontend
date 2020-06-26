@@ -10,7 +10,7 @@ import Signup from './screens/Signup.js';
 import AdHome from './screens/AdHome.js';
 import Notifications from './screens/Notifications.js';
 import LoadingHomes from './screens/LoadingHome.js'
-import { AdHomeStack, NotifStack } from './components/createStack.js';
+import { AdHomeStack, NotifStack, ProfileStack } from './components/createStack.js';
 
 const Stack = createStackNavigator();
 var isLoggedIn=false;var age=0;var name="";
@@ -42,6 +42,7 @@ function DrawerMenu()
     <Drawer.Navigator>
       <Drawer.Screen name="Home" component={AdHomeStack}/>
       <Drawer.Screen name="Notifications" component={NotifStack} />
+      <Drawer.Screen name="Profile" component={ProfileStack} />
     </Drawer.Navigator>
   )
   }
@@ -79,11 +80,11 @@ export default function App() {
       <Stack.Navigator >
         {isLoggedIn ? (
           <>          
-          <Stack.Screen name="Welcome back" component={DrawerMenu} options={{ title:"Home", headerShown:false}}/>
+          <Stack.Screen name="Welcome back" component={LoadingHomes} options={{ title:"Home", headerShown:false}}/>
           </>
         ) : (
         <>
-        <Stack.Screen name="Welcome" component={Login} options={{headerShown: false}}/>
+        <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
         <Stack.Screen name="signup" component={Signup} options={{ title:"SignUp", headerShown: true}}/>
         <Stack.Screen name="loading" component={LoadingHomes} options={{ title:"Home", headerShown: false}}/>
         </>
