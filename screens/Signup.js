@@ -46,16 +46,16 @@ export default class Signup extends React.Component{
       return;
     }
     
-    if(Platform.OS === 'ios' || Platform.OS === 'android'){
+  /*  if(Platform.OS === 'ios' || Platform.OS === 'android'){
       this.storeInAsync();
      //   alert(res.message);
       this.props.navigation.reset({
         routes: [{ name: 'loading',params: {age: ageGrp, name:this.state.name}}]    
       });
     }
-    else{
+    else{*/
     //send data to backend
-    fetch('http://localhost:9000/signup',{
+    fetch('https://78e71d54ecf9.ngrok.io/signup',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -96,7 +96,7 @@ export default class Signup extends React.Component{
     .catch(err => {
       console.log(err);
     });
-    }
+//    }
   //  this.props.navigation.navigate('loading', {age: this.state.age});
   }
 

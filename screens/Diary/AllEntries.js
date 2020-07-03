@@ -3,23 +3,25 @@ import { StyleSheet, Text, View, TextInput, ScrollView, TouchableOpacity, Platfo
 import Constants from 'expo-constants';
 import Entry from './Entry';
 import moment from "moment";
-
-
+const { manifest } = Constants;
+import { Entypo } from '@expo/vector-icons';
+import MyCalendar from './Calendar1';
 
 export default class AllEntries extends React.Component {
 
   constructor(props){
     super(props);
     this.state = {
-      entryArray: [{key:12345679, date:"22nd June 2020", title:"check", text:"this is some text"}],
+      entryArray: [],
       entryText: '',
+      viewCal:false,
     }
     this.reloadOnBack=this.reloadOnBack.bind(this);
     this.fetchEntries=this.fetchEntries.bind(this);
     this.createEntries=this.createEntries.bind(this);
     this._unsubscribeSiFocus = this.props.navigation.addListener('focus', e => {
         //console.warn('focus diary');
-        
+        this.fetchEntries();
     });
     this._unsubscribeSiBlur = this.props.navigation.addListener('blur', e => {
         //console.warn('blur diary');
@@ -27,12 +29,12 @@ export default class AllEntries extends React.Component {
   }
 
   fetchEntries(){
-
+console.log("fethcing");
  // if(Platform.OS === 'ios' || Platform.OS === 'android'){
   //  return [{key:12345679, date:"22nd June 2020", title:"check", text:"this is some text"}];
  // }
   //else{
-  fetch('http://localhost:9000/getAllEntries',{
+  fetch('https://172fe0dea8ac.ngrok.io/getAllEntries',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -67,10 +69,17 @@ export default class AllEntries extends React.Component {
   componentDidMount(){
 //  if(Platform.OS === 'ios' || Platform.OS === 'android'){}
 //  else{
-    this.fetchEntries();
+    this.focusListener = this.props.navigation.addListener('focus', ()=>{
+      this.fetchEntries();
+    });
     console.log(this.state.entryArray);
   //}
     console.log("diary mount");
+  }
+
+
+  componentWillUnmount(){
+    this.props.navigation.removeListener('focus', this.fetchEntries);
   }
 
   reloadOnBack(){
@@ -119,23 +128,40 @@ export default class AllEntries extends React.Component {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>- YOUR DIARY ENTRIES -</Text>
+        <TouchableOpacity style={{
+          position:'absolute',
+          paddingBottom: 10,
+          right:20
+        }}
+        onPress={() => this.setState({viewCal: !this.state.viewCal})}> 
+        {this.state.viewCal?
+        <Entypo name="list" size={24} color="white" />:
+        <Entypo name="calendar" size={24} color="white" />
+        }
+        </TouchableOpacity>
       </View>
 
+      {this.state.viewCal?
+        < MyCalendar entryArray={this.state.entryArray}/>:
+        (
       <ScrollView style={styles.scrollContainer}>
       {console.log("hihi")}
       {this.createEntries()}
 
       </ScrollView>
+      )
+      }
 
       <View style={styles.footer}>
       
       </View>
-
+      { !this.state.viewCal &&
       <TouchableOpacity 
       style={styles.addButton} 
-      onPress={() => this.props.navigation.navigate('NewEntry', {edit:true, key:Date.now(), beforeGoBack: ()=>{this.reloadOnBack()}, name:this.props.route.params.name})}>
+      onPress={() => this.props.navigation.navigate('NewEntry', {edit:true, key:Date.now(), name:this.props.route.params.name})}>
         <Text style={styles.addButtonText}>+</Text>
       </TouchableOpacity>
+      }
 
     </View>
     );
@@ -202,7 +228,7 @@ export default class AllEntries extends React.Component {
     console.log(itt);
     //var itt = JSON.parse(ittt);
     console.log(itt[0]);
-    this.props.navigation.navigate('NewEntry', {edit:false, key:key, date:itt[0].date, title:itt[0].title, text:itt[0].text, beforeGoBack: ()=>{this.reloadOnBack()}, name:this.props.route.params.name})
+    this.props.navigation.navigate('NewEntry', {edit:false, key:key, date:itt[0].date, title:itt[0].title, text:itt[0].text, name:this.props.route.params.name})
   }
 }
 
@@ -227,7 +253,7 @@ const styles = StyleSheet.create({
 
   scrollContainer: {
     flex: 1,
-    marginBottom: 100,
+    marginBottom: 10,
   },
 
   footer: {

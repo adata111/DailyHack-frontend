@@ -164,7 +164,7 @@ export default class AdHome extends React.Component{
     }}
     />
     </View>
-    <Button title="Expenses" />
+    <Button title="Expenses" onPress={() => this.props.navigation.navigate('Expenses',{name: this.state.name})}/>
     </Card>
 
     </View>

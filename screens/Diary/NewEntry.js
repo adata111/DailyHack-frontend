@@ -63,7 +63,7 @@ export default class NewEntry extends React.Component{
     console.log(this.props.route);
     console.log(this.state.title);
 
-    if(Platform.OS === 'ios' || Platform.OS === 'android'){
+/*    if(Platform.OS === 'ios' || Platform.OS === 'android'){
       this.edit();
       this.props.route.params.beforeGoBack();
       if(this.props.route.params.edit){
@@ -71,9 +71,9 @@ export default class NewEntry extends React.Component{
       }
     }
     else{
-    //send to backend
+*/    //send to backend
     
-    fetch('http://localhost:9000/saveEntry',{
+    fetch('https://78e71d54ecf9.ngrok.io/saveEntry',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -100,7 +100,7 @@ export default class NewEntry extends React.Component{
       if(res.success === true){
         alert(res.message);
         this.edit();
-   //     this.props.route.params.beforeGoBack();
+    //    this.props.route.params.beforeGoBack();
         if(this.props.route.params.edit){
           this.props.navigation.goBack();
         }
@@ -114,7 +114,7 @@ export default class NewEntry extends React.Component{
     .catch(err => {
       console.log(err);
     });
-    }
+  //  }
     //this.props.navigation.navigate('Diary',{key: this.state.key, date:this.state.date,title:this.state.title});
     
   }

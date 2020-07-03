@@ -31,7 +31,7 @@ export default class Login extends React.Component{
   }
   handleLogin(){
 
-    if(Platform.OS === 'ios' || Platform.OS === 'android'){
+/*    if(Platform.OS === 'ios' || Platform.OS === 'android'){
       this.storeInAsync();
 
       this.props.navigation.dispatch(
@@ -43,14 +43,14 @@ export default class Login extends React.Component{
                 ],  
       }));
     }
-    else{
+    else{*/
     //send data to backend
     //Alert.alert("hiii");
     console.log(Date.now());
     const param1=this.state.name;
     const param2=this.state.pass;
     console.log(param1);
-    fetch('http://localhost:9000/users',{
+    fetch('https://172fe0dea8ac.ngrok.io/users',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -71,27 +71,32 @@ export default class Login extends React.Component{
       //Alert.alert(res.message);
       //if login successful
       if(res.success === true){
-        this.state.age=res.age;
+        this.state.age=3;
         this.storeInAsync();
-        localStorage.setItem('auth_data', JSON.stringify({
+      /*  localStorage.setItem('auth_data', JSON.stringify({
         age: this.state.age,
         name: this.state.name
       }));
-        this.props.navigation.reset({
-          routes: [{ name: 'loading',params: {age: this.state.age, name:this.state.name}}]
+      */  
+        this.props.navigation.dispatch(
+        CommonActions.reset({
           
-        });
+        routes: [
+                  {name: 'Login'} , 
+                  { name: 'loading',params: {age: this.state.age, name:this.state.name}},
+                ],  
+      }));
       }
       else {
-        alert("User doesn't exist");
-        console.warn("user doesn't exist");
+        alert("Incorrect Username or Password");
+        console.warn("Incorrect Username or Password");
       }
     })
     
     .catch(err => {
       console.log(err);
     });
-  }
+//  }
   //  this.props.navigation.navigate('loading', {age: this.state.age});
   }
 

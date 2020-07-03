@@ -16,6 +16,8 @@ import StopWatch from './../screens/Sports/StopWatch.js';
 import Timer from './../screens/Sports/Timer.js';
 import Fitness from './../screens/Sports/Diet.js';
 import Profile from './../screens/Profile.js';
+import App from './../screens/Diary/Calendar1';
+import Home from './../screens/Expenses/ExHome';
 
 const AdHomeStk = createStackNavigator();
 
@@ -39,6 +41,7 @@ export function AdHomeStack({navigation}){
 		<AdHomeStk.Screen name="StopWatch" component={StopWatch} options={{title: "Stop Watch", headerShown: false}} />
 		<AdHomeStk.Screen name="Timer" component={Timer} options={{title: "Timer", headerShown: false}} />
 		<AdHomeStk.Screen name="Fitness" component={Fitness} options={{title: "Diet", headerShown: false}} />
+		<AdHomeStk.Screen name="Expenses" component={Home} options={{title:"Expenses", headerShown: true}} screenProps={{lockMode: 'locked-closed'}}/>
 	</AdHomeStk.Navigator>
 	)
 }
