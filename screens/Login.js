@@ -10,6 +10,7 @@ import Notifications from './Notifications.js';
 import {DrawerMenu} from './../components/drawer.js';
 import LoadingHomes from './LoadingHome.js';
 import Constants from 'expo-constants';
+import { url } from './../components/url';
 
 export default class Login extends React.Component{
   constructor(props){
@@ -23,10 +24,13 @@ export default class Login extends React.Component{
     this.storeInAsync = this.storeInAsync.bind(this);
   }
 
-  storeInAsync = async() =>{
+  storeInAsync = async(res) =>{
     await AsyncStorage.setItem('auth_data', JSON.stringify({
-      age: this.state.age,
-      name: this.state.name
+      age: res.age,
+      name: this.state.name,
+      fname: res.fName,
+      lname: res.lName,
+      email: res.email
     }));
   }
   handleLogin(){
@@ -49,16 +53,16 @@ export default class Login extends React.Component{
     console.log(Date.now());
     const param1=this.state.name;
     const param2=this.state.pass;
-    console.log(param1);
-    fetch('https://172fe0dea8ac.ngrok.io/users',{
+    
+    fetch(url+'/login',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name:param1,
-        pass:param2
+        userName:param1,
+        password:param2
       })
     })
 
@@ -71,19 +75,22 @@ export default class Login extends React.Component{
       //Alert.alert(res.message);
       //if login successful
       if(res.success === true){
-        this.state.age=3;
-        this.storeInAsync();
-      /*  localStorage.setItem('auth_data', JSON.stringify({
-        age: this.state.age,
+        //this.state.age=3;
+        if(Platform.OS === 'ios' || Platform.OS === 'android'){
+          this.storeInAsync(res);
+        }
+        else{
+        localStorage.setItem('auth_data', JSON.stringify({
+        //age: this.state.age,
         name: this.state.name
       }));
-      */  
+      }  
         this.props.navigation.dispatch(
         CommonActions.reset({
           
         routes: [
                   {name: 'Login'} , 
-                  { name: 'loading',params: {age: this.state.age, name:this.state.name}},
+                  { name: 'loading',params: {age: res.age, name:this.state.name}},
                 ],  
       }));
       }

@@ -6,6 +6,7 @@ import moment from "moment";
 const { manifest } = Constants;
 import { Entypo } from '@expo/vector-icons';
 import MyCalendar from './Calendar1';
+import { url } from './../../components/url';
 
 export default class AllEntries extends React.Component {
 
@@ -34,7 +35,7 @@ console.log("fethcing");
   //  return [{key:12345679, date:"22nd June 2020", title:"check", text:"this is some text"}];
  // }
   //else{
-  fetch('https://172fe0dea8ac.ngrok.io/getAllEntries',{
+  fetch(url+'/getAllEntries',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -142,7 +143,7 @@ console.log("fethcing");
       </View>
 
       {this.state.viewCal?
-        < MyCalendar entryArray={this.state.entryArray}/>:
+        < MyCalendar entryArray={this.state.entryArray} navigation={this.props.navigation} route={this.props.route}/>:
         (
       <ScrollView style={styles.scrollContainer}>
       {console.log("hihi")}
@@ -172,16 +173,16 @@ console.log("fethcing");
   deleteEntry(key) {
     console.log("del");
     
-    if(Platform.OS === 'ios' || Platform.OS === 'android'){
+  /*  if(Platform.OS === 'ios' || Platform.OS === 'android'){
       var itt=this.state.entryArray.filter(it => it.key!==key);
       console.log(itt);
       this.setState({ entryArray: itt });
     }
 
     else{
-    //send to backend
+*/    //send to backend
     
-    fetch('http://localhost:9000/saveEntry',{
+    fetch(url+'/saveEntry',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -204,7 +205,9 @@ console.log("fethcing");
       //if entry added
       if(res.success === true){
     //    alert(res.message);
-        this.setState({entryArray:res.content});
+    //    this.setState({entryArray:res.content});
+        var entry = this.state.entryArray.filter(it => it.key!==key);
+        this.setState({entryArray:entry});
         
       }
       else {
@@ -216,7 +219,7 @@ console.log("fethcing");
     .catch(err => {
       console.log(err);
     });
-    }
+  //  }
   }
 
   viewEntry(key){

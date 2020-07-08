@@ -119,7 +119,7 @@ export default class AdHome extends React.Component{
     }}
     />
     </View>
-    <Button title="Medicines" />
+    <Button title="Medicines" onPress={() => this.props.navigation.navigate('MedRecord',{name: this.state.name})}/>
     </Card>
 
     <Card>
@@ -133,7 +133,7 @@ export default class AdHome extends React.Component{
     }}
     />
     </View>
-    <Button title="Sports" onPress={() => this.props.navigation.navigate('Sports',{name: this.state.name})}/>
+    <Button title="Fitness" onPress={() => this.props.navigation.navigate('Sports',{name: this.state.name})}/>
     </Card>
 
     </View>
@@ -164,7 +164,7 @@ export default class AdHome extends React.Component{
     }}
     />
     </View>
-    <Button title="Expenses" onPress={() => this.props.navigation.navigate('Expenses',{name: this.state.name})}/>
+    <Button title="Expenses" onPress={() => this.props.navigation.navigate('Manager',{name: this.state.name})}/>
     </Card>
 
     </View>

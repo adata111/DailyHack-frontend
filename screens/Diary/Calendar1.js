@@ -2,8 +2,9 @@ import * as React from 'react';
 import * as RN from 'react-native';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
+import moment from "moment";
 
 export default class MyCalendar extends React.Component {
   
@@ -33,17 +34,20 @@ export default class MyCalendar extends React.Component {
       a.push(false);
     }
   //  this.setState({dots:a});
-    this.setDots();
+    this.setState({dots:this.setDots()});
   }
 
+
   changeMonth = (n) => {
+    var a=this.state.activeDate;
     this.setState(() => {
       this.state.activeDate.setMonth(
         this.state.activeDate.getMonth() + n
-        )
+        );
+      this.state.dots=this.setDots();
       return this.state;
     });
-    this.setDots();
+  //  this.setDots();
     //requst backend for dates
   }
 
@@ -100,11 +104,11 @@ dispMatrix(matrix){
   <Col>
   <TouchableOpacity disabled={(k===0 || d===' ')?true:false} 
     onPress={()=>this.viewEntry(d, this.state.activeDate.getMonth()+1, this.state.activeDate.getFullYear())}>
-    <View style={this.state.dots[d]?styles.dottedDate:{}}>
-    <Text style={(ind===0?(k===0?styles.sun:styles.sunDates) : (k===0?styles.dayRowText:styles.otherRowText))}>
+    <View>
+    <Text style={[(ind===0?(k===0?styles.sun:styles.sunDates) : (k===0?styles.dayRowText:styles.otherRowText)), this.state.dots[d] && styles.dottedDate]}>
      {d}
       </Text>
-      {this.state.dots[d] && <View style={{paddingLeft:10, paddingTop:0}}><Entypo name="dot-single" size={24} color="black" /></View>}
+      {false && <View style={{paddingLeft:10, paddingTop:0}}><Entypo name="dot-single" size={24} color="black" /></View>}
       </View>
       </TouchableOpacity>
       </Col>
@@ -116,36 +120,54 @@ dispMatrix(matrix){
     );
   return m;
 }
-
+//
 setDots(){
   var a=this.state.entryArray;
-  var b= a.filter(entry => entry.date.split(" ")[1]===this.months[this.state.activeDate.getMonth()]);
-  a = b.filter(entry => entry.date.split(" ")[2]===(""+this.state.activeDate.getFullYear()));
-  console.log("dots");
   console.log(a);
+  var b= a.filter(entry => entry.date.split(" ")[1]===this.months[this.state.activeDate.getMonth()]); //get entries in selected month
+  a = b.filter(entry => entry.date.split(" ")[2]===(""+this.state.activeDate.getFullYear())); //get entries in the selected year
+  b = a.map(entry => entry.date.split(" ")[0]); //get just the dates
+  console.log("dots");
+  console.log(b);
   console.log("dots");
   var ind=0;
   var temp=[];
   for(var i=0;i<=31;i++){
     temp.push(false);
   }
-  for(var i=0;i<a.length;i++){
-    ind = a[i].date.substring(0,2);
+  for(var i=0;i<b.length;i++){
+    console.log(b[i]);
+    ind = (b[i].length===3)?(b[i].substring(0,1)):(b[i].substring(0,2));
     console.log(ind);
     temp[ind]=true;
   }
-  this.setState({dots:temp});
+  return temp;
 }
 
 viewEntry(d,m,y){
-  if(m<10 && d<10)
-  console.log(y+'-0'+m+'-0'+d);  
-  else if(m<10)
-  console.log(y+'-0'+m+'-'+d);
-  else if(d<10)
-  console.log(y+'-'+m+'-0'+d);
-  else
-  console.log(y+'-'+m+'-'+d);
+  var mydate="";
+  if(m<10 && d<10){
+  mydate=(y+'-0'+m+'-0'+d); 
+  } 
+  else if(m<10){
+  mydate=(y+'-0'+m+'-'+d);
+  }
+  else if(d<10){
+  mydate=(y+'-'+m+'-0'+d);
+  }
+  else{
+  mydate=(y+'-'+m+'-'+d);
+  }
+  if(this.state.dots[d]){
+    var itt = this.state.entryArray.filter(entry => (entry.date.split(" ")[1]===this.months[m-1]));
+    var it = itt.filter(entry => entry.date.split(" ")[2]===(""+y));
+    itt = it.filter(entry => ((entry.date.substring(0,2)===(""+d)) || ((entry.date.substring(0,1)===(""+d) && d<10))));
+    this.props.navigation.navigate('NewEntry', {edit:false, key:itt[0].key, date:itt[0].date, title:itt[0].title, text:itt[0].text, name:this.props.route.params.name});
+  }
+  else{
+    mydate=moment(mydate).format('Do MMMM YYYY')
+    this.props.navigation.navigate('NewEntry', {edit:true, key:Date.now(), date:mydate, name:this.props.route.params.name});
+  }
   //get data from backend
   //this.props.navigation.navigate('NewEntry', {edit:false, key:key, date:itt[0].date, title:itt[0].title, text:itt[0].text, name:this.props.route.params.name});
 }
@@ -154,6 +176,7 @@ render() {
 
   var matrix = this.generateMatrix();
   var today = this.state.activeDate.getDate();
+  console.log(this.state.activeDate+"as");
   var hi = this.dispMatrix(matrix);
  //   console.log(this.props.entryArray);
  // console.log("hi");
@@ -286,8 +309,11 @@ render() {
   },
 
   dottedDate: {
-    borderWidth:2, 
-    borderRadius:50,
+    textShadowColor: 'green',
+    fontWeight: 'bold',
+    textShadowRadius: 10,
+    fontSize: 18,
+    paddingBottom:10,
   }
 
 });

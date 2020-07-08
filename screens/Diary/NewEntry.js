@@ -15,6 +15,7 @@ import { StyleSheet,
   Platform } from 'react-native';
   import Constants from 'expo-constants';
   import moment from "moment";
+  import { url } from './../../components/url';
 
 export default class NewEntry extends React.Component{
   constructor(props){
@@ -41,6 +42,7 @@ export default class NewEntry extends React.Component{
 
   handleConfirm(date) {
     this.hideDatePicker();
+  //  console.warn(moment('2020-06-22').format('Do MMM YYYY'));
     this.setState({ date:moment(date).format('Do MMMM YYYY')});
   };
 
@@ -73,7 +75,7 @@ export default class NewEntry extends React.Component{
     else{
 */    //send to backend
     
-    fetch('https://78e71d54ecf9.ngrok.io/saveEntry',{
+    fetch(url+'/saveEntry',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -131,7 +133,7 @@ export default class NewEntry extends React.Component{
     });
     }
     else{
-      this.setState({key: this.props.route.params.key});
+      this.setState({key: this.props.route.params.key, date:this.props.route.params.date});
     }
   }
 
