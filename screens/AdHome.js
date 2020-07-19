@@ -150,7 +150,7 @@ export default class AdHome extends React.Component{
     }}
     />
     </View>
-    <Button title="Events" />
+    <Button title="Events" onPress={() => this.props.navigation.navigate('EventHome',{name: this.state.name})}/>
     </Card>
 
     <Card>

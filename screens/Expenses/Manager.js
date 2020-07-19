@@ -8,14 +8,17 @@ import { url } from './../../components/url';
 import moment from "moment";
 
 const graphicColor = ['green', 'red']; // Colors
-const wantedGraphicData = [{ y: 1 }, { y: 7 }, { y: 4 }]; // Data that we want to display
-const defaultGraphicData = [{ y: 0 }, { y: 0 }]; // Data used to make the animate prop work
+const defaultGraphicData = [{ y: 10 }, { y: 0 }];
 
 export default class Manager extends React.Component {
   constructor(props){
     super(props);
     this.state={
       graphicData:defaultGraphicData,
+      monthlyTrans:[],
+      inc:0,
+      sav:0,
+      exp:0,
     }
 
     this.fetchEntries=this.fetchEntries.bind(this);
@@ -65,7 +68,8 @@ export default class Manager extends React.Component {
           inc,
           exp,
           sav:(inc - exp),
-          graphicData:[{ x:"Savings", y:(inc-exp)}, {x:"Expenditure", y:exp}]
+          graphicData:[{ x:"Savings", y:(inc-exp)}, {x:"Expenditure", y:exp}],
+          monthlyTrans:res.content,
         })
         
       }
@@ -84,7 +88,11 @@ export default class Manager extends React.Component {
       <View style={styles.container}>
       <View style={{paddingTop:0, paddingBottom:300, paddingLeft:50}}>
       <VictoryPie
-        animate={{ easing: 'exp' }}
+        animate={{ 
+          easing: 'exp', 
+          duration: 2000,
+          onLoad: { duration: 1000 } 
+        }}
         data={this.state.graphicData}
         width={300}
         height={300}
@@ -135,7 +143,7 @@ export default class Manager extends React.Component {
       </Row>
       <Row>
       <Col style={{ borderColor: 'rgb(29, 53, 87)', borderWidth: 2, marginRight: 10, justifyContent: 'center',}}>
-       <TouchableOpacity onPress={() => this.props.navigation.navigate('Reports')}>
+       <TouchableOpacity onPress={() => this.props.navigation.navigate('Reports',{name:this.props.route.params.name, monthlyTrans:this.state.monthlyTrans})}>
       <View style={{ alignItems: 'center', justifyContent: 'center',}}>
       <Image
       source={require('../../assets/bar-chart-min.png')}
@@ -151,7 +159,7 @@ export default class Manager extends React.Component {
       </TouchableOpacity>
       </Col>
       <Col style={{ borderColor: 'rgb(29, 53, 87)', borderWidth: 2, justifyContent: 'center',}}>
-       <TouchableOpacity onPress={() => this.props.navigation.navigate('AllTrans')}>
+       <TouchableOpacity onPress={() => this.props.navigation.navigate('AllTrans',{name:this.props.route.params.name})}>
       <View style={{ alignItems: 'center', justifyContent: 'center',}}>
       <Image
       source={require('../../assets/note-min.png')}

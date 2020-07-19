@@ -16,6 +16,8 @@ import { StyleSheet,
   import Constants from 'expo-constants';
   import moment from "moment";
   import Transac from './ExpList.js';
+  import { url } from './../../components/url';
+
   export default class NewEntry extends React.Component{
     constructor(props){
       super(props);
@@ -28,6 +30,7 @@ import { StyleSheet,
       this.hideDatePicker = this.hideDatePicker.bind(this);
       this.handleDateConfirm = this.handleDateConfirm.bind(this);
       this.createTrans = this.createTrans.bind(this);
+      this.getAllTrans = this.getAllTrans.bind(this);
     }
 
     hideDatePicker(){
@@ -36,7 +39,7 @@ import { StyleSheet,
 
     handleDateConfirm(date) {
       this.hideDatePicker();
-      this.setState({ date:moment(date).format('Do MMMM YYYY')});
+      this.setState({ date:moment(date).format('DD-MM-YYYY')});
     };
 
     createTrans(){
@@ -47,10 +50,42 @@ import { StyleSheet,
     })
      )
    }
+   getAllTrans(){
+    fetch(url+'/expensesGetAllEntries',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: this.props.route.params.name,
+        date: this.state.date
+    })
+    })
+
+    //recieve login confirmation and age from backend
+    .then((response) => (response.json()))
+    
+    .then((res) => {
+      console.log("response");
+      console.warn(res);
+      if(res.success){
+      this.setState({transArray:res.content});
+      }
+      else{
+        alert("Couldn't fetch data. Please try again.");
+      }
+      //Alert.alert(res.message);
+      
+    })
+    
+    .catch(err => {
+      console.log(err);
+    });
+   }
 
 
    render(){
-
     return (
       <View style={styles.container}>
 
@@ -73,7 +108,7 @@ import { StyleSheet,
       />
 
       <View style={{ alignItems: 'center', justifyContent: 'center', }}>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={this.getAllTrans}>
       <Text style={styles.btntext}>Get Transactions</Text>
       </TouchableOpacity>
       </View>

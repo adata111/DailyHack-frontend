@@ -72,7 +72,7 @@ export function AdHomeStack({navigation}){
       /></TouchableOpacity>)}} />
 		<AdHomeStk.Screen name="Income" component={Income} options={{title: "Income", headerShown: false}} />
 		<AdHomeStk.Screen name="Expenditure" component={Expenditure} options={{title: "Expenditure", headerShown: false}} />
-		<AdHomeStk.Screen name="Reports" component={Reports} options={{title: "Reports", headerShown: false}} />
+		<AdHomeStk.Screen name="Reports" component={Reports} options={{title: "Reports", headerShown: true}} />
 		<AdHomeStk.Screen name="AllTrans" component={AllTrans} options={{title: "All Transactions", headerShown: true}} />
 		<AdHomeStk.Screen name="Calculator" component={Calculator} options={{title: "Calculator", headerShown: false}} />
 		<AdHomeStk.Screen name="Medicine" component={MedTab} options={{title: "Medicine Home Page", headerShown: false}} />

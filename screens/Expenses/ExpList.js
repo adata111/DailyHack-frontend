@@ -8,7 +8,7 @@ export default class Transac extends React.Component {
 		<TouchableOpacity onPress={this.props.view}>
 		<View key={this.props.keyval} style={styles.item}>
 		
-		<Text  style={ (this.props.val.type === income) ? styles.itemTextIncome : styles.itemTextExp}>{this.props.val.type}</Text>
+		<Text  style={ (this.props.val.type === "income") ? styles.itemTextIncome : styles.itemTextExp}>{this.props.val.type}</Text>
 		<Text style={styles.itemText}>{this.props.val.cost}</Text>
 		<Text style={styles.itemText}>{this.props.val.pur}</Text>
 
