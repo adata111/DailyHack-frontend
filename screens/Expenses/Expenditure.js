@@ -196,10 +196,20 @@ import { StyleSheet,
           underlineColorAndroid={'transparent'} 
           onChange = {this.handleAmtChange}
           keyboardType={'numeric'}/>
-          <TextInput style={styles.textinput} placeholder="Purpose" 
-          placeholderTextColor="black"
-          underlineColorAndroid={'transparent'} 
-          onChange = {this.handlePurChange}/>
+          <View style={styles.dropdown}>
+          <Picker mode='dropdown' 
+          style={styles.picker} 
+          selectedValue={this.state.mode}
+          onValueChange={(itemValue, itemIndex) => this.setState({ pur: itemValue })}>
+          <Picker.Item label="Purpose" value=""/>
+          <Picker.Item label="Shopping" value="Shopping" />
+          <Picker.Item label="Restaurant" value="Restaurant" />
+          <Picker.Item label="Fuel" value="Fuel" />
+          <Picker.Item label="Medical" value="Medical" />
+          <Picker.Item label="Travel" value="Travel" />
+          <Picker.Item label="Other" value="Other" />
+          </Picker>
+          </View>
           <TextInput style={styles.textinputDiary} placeholder="Description (Optional)" 
           placeholderTextColor="black" multiline={true}
           underlineColorAndroid={'transparent'} />
