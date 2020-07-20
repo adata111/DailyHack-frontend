@@ -1,4 +1,7 @@
 node_modules/**/*
+yarn-error.log
+components/url.js
+
 .expo/*
 npm-debug.*
 *.jks
@@ -12,5 +15,3 @@ web-report/
 
 # macOS
 .DS_Store
-yarn-error.log
-components/url.js

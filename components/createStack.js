@@ -29,6 +29,7 @@ import Food from './../screens/Sports/Food.js';
 import Water from './../screens/Sports/Water.js';
 import Sleep from './../screens/Sports/Sleep.js';
 import { MedTab } from'./MedTab.js';
+import Inventory from './../screens/Medicines/inventory.js';
 import EventHome from './../screens/Events/eventRecord.js';
 import EveReminder from './../screens/Events/eveReminder.js';
 import EveNotes from './../screens/Events/eveNotes.js';
@@ -61,21 +62,25 @@ export function AdHomeStack({navigation}){
 		<AdHomeStk.Screen name="Timer" component={Timer} options={{title: "Timer", headerShown: false}} />
 		<AdHomeStk.Screen name="Diet" component={Diet} options={{title: "Diet", headerShown: false}} />
 		<AdHomeStk.Screen name="Manager" component={Manager} options={{title: "Daily Expenses Manager", headerShown: true,
-		headerRight: (props)=> (<TouchableOpacity onPress={() => navigation.navigate('Calculator')}><Image
-      source={require('../assets/calculator.png')}
-
-      style={{
-        width: 35,
-        height: 35,
-        right: 20,
-      }}
-      /></TouchableOpacity>)}} />
+			headerRight: (props)=> (
+				<TouchableOpacity onPress={() => navigation.navigate('Calculator')}>
+					<Image source={require('../assets/calculator.png')}
+						style={{
+				        width: 35,
+				        height: 35,
+				        right: 20,
+				      	}}
+				    />
+				</TouchableOpacity>
+			) 
+		}}/>
 		<AdHomeStk.Screen name="Income" component={Income} options={{title: "Income", headerShown: false}} />
 		<AdHomeStk.Screen name="Expenditure" component={Expenditure} options={{title: "Expenditure", headerShown: false}} />
 		<AdHomeStk.Screen name="Reports" component={Reports} options={{title: "Reports", headerShown: true}} />
 		<AdHomeStk.Screen name="AllTrans" component={AllTrans} options={{title: "All Transactions", headerShown: true}} />
 		<AdHomeStk.Screen name="Calculator" component={Calculator} options={{title: "Calculator", headerShown: false}} />
 		<AdHomeStk.Screen name="Medicine" component={MedTab} options={{title: "Medicine Home Page", headerShown: false}} />
+		<AdHomeStk.Screen name="Inventory" component={Inventory} options={{title: "Inventory", headerShown: true}} />
 		<AdHomeStk.Screen name="EventHome" component={EventHome} options={{title: "Events", headerShown: true}} />
 		<AdHomeStk.Screen name="EveReminder" component={EveReminder} options={{title: "Add a Reminder", headerShown: true}} />
 		<AdHomeStk.Screen name="EveNotes" component={EveNotes} options={{title: "Make a Note", headerShown: true}} />

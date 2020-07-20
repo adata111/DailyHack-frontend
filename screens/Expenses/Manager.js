@@ -4,11 +4,12 @@ import Constants from 'expo-constants';
 import { Card, CardItem } from 'react-native-elements';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { VictoryPie } from 'victory-native';
+import Svg, { Circle, Rect } from 'react-native-svg';
 import { url } from './../../components/url';
 import moment from "moment";
 
-const graphicColor = ['green', 'red']; // Colors
-const defaultGraphicData = [{ y: 10 }, { y: 0 }];
+const graphicColor = ['#156064', '#e63946']; // Colors
+const defaultGraphicData = [{ y: 10 }, { y: 100 }];
 
 export default class Manager extends React.Component {
   constructor(props){
@@ -86,20 +87,47 @@ export default class Manager extends React.Component {
     console.log(this.props.route.params.name);
     return (
       <View style={styles.container}>
-      <View style={{paddingTop:0, paddingBottom:300, paddingLeft:50}}>
+      <View style={{ top:220 }}>
       <VictoryPie
-        animate={{ 
-          easing: 'exp', 
-          duration: 2000,
-          onLoad: { duration: 1000 } 
-        }}
+        animate={{ easing: 'exp' }}
         data={this.state.graphicData}
-        width={300}
-        height={300}
+        width={400}
+        height={400}
         colorScale={graphicColor}
-        innerRadius={0}
+        innerRadius={80}
       />
+
+      <View style={{ bottom: 230, left: 170, }}>
+      <Text style={{ fontSize:18, fontWeight:"bold" }}>Income</Text>
+      <Text style={{ fontSize:18, fontWeight:"bold" }}>{this.state.inc}</Text>
+      </View>
+
     </View>
+
+    
+
+      <View style={{ top:130, left:30 }}>
+       <Svg height="50%" width="50%" viewBox="0 0 100 100" 
+       >
+       <Rect x="15" y="15" width="10" height="10" strokeWidth="2" fill="#e63946" />
+    </Svg>
+   
+    </View>
+     <View style={{ bottom:205, left:90, }}>
+      <Text style={{ fontWeight:"bold" }}>Expenses</Text>
+      </View>
+
+
+    <View style={{ bottom:248, left:200 }}>
+       <Svg height="50%" width="50%" viewBox="0 0 100 100" 
+       >
+       <Rect x="15" y="15" width="10" height="10" strokeWidth="2" fill="#156064" />
+    </Svg>
+   
+    </View>
+     <View style={{ bottom:580, left:260, }}>
+      <Text style={{ fontWeight:"bold" }}>Savings</Text>
+      </View>
       <Text style={styles.paragraph}>
       
       </Text>
@@ -108,7 +136,7 @@ export default class Manager extends React.Component {
       <Row>
       
       <Col style={{ borderColor: 'rgb(29, 53, 87)', borderWidth: 2, marginBottom: 10, marginRight: 10, justifyContent: 'center',}}>
-      <TouchableOpacity onPress={() => this.props.navigation.navigate('Income',{name:this.props.route.params.name, edit:1})}>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('Income',{name:this.props.route.params.name, edit:1, key:Date.now()})}>
       <View style={{ alignItems: 'center', }}>
       <Image
       source={require('../../assets/payment-min.png')}
@@ -125,7 +153,7 @@ export default class Manager extends React.Component {
       </Col>
       
       <Col style={{ borderColor: 'rgb(29, 53, 87)', borderWidth: 2, marginBottom: 10, justifyContent: 'center',}}>
-       <TouchableOpacity onPress={() => this.props.navigation.navigate('Expenditure',{name:this.props.route.params.name, edit:1})}>
+       <TouchableOpacity onPress={() => this.props.navigation.navigate('Expenditure',{name:this.props.route.params.name, edit:1, key:Date.now()})}>
       <View style={{ alignItems: 'center', justifyContent: 'center',}}>
       <Image
       source={require('../../assets/pay-min.png')}

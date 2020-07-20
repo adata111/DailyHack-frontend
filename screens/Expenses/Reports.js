@@ -2,6 +2,7 @@ import  React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import Constants from 'expo-constants';
 import { VictoryChart, VictoryLine, VictoryTheme, VictoryLabel, VictoryZoomContainer } from 'victory-native';
+import { url } from './../../components/url';
 
 export default class Reports extends React.Component {
   constructor(props){
@@ -10,9 +11,55 @@ export default class Reports extends React.Component {
       monthlyTrans:[],
     }
     this.generateGraph = this.generateGraph.bind(this);
+    this.fetchEntries = this.fetchEntries.bind(this);
   }
-  componentDidMount(){
+  fetchEntries(){
+    fetch(url+'/getPieChart',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name:this.props.route.params.name,
+        
+      })
+    })
+
+    .then((response) => (response.json()))
     
+    .then((res) => {
+      console.log("response");
+      console.warn(res);
+      //Alert.alert(res.message);
+      /*if(res.success === true){
+        var d=moment(Date.now()).format('MM-YYYY');
+        var currMonth=res.content.filter(i => i._id.month===d);
+        var inc=currMonth.filter(i=>i._id.type==="income")[0].amt;
+        var exp = currMonth.filter(i=>i._id.type==="expenses")[0].amt;
+        console.log(currMonth);
+        console.log(inc);
+        this.setState({
+          inc,
+          exp,
+          sav:(inc - exp),
+          graphicData:[{ x:"Savings", y:(inc-exp)}, {x:"Expenditure", y:exp}],
+          monthlyTrans:res.content,
+        })
+        
+      }
+      else {
+        alert("Something went wrong. Please try again");
+      }*/
+    })
+    
+    .catch(err => {
+      console.log(err);
+    });
+  }
+
+  componentDidMount(){
+    this.fetchEntries();
     this.setState({
       monthlyTrans:this.props.route.params.monthlyTrans,
     });
@@ -28,9 +75,6 @@ months = ["Jan", "Feb", "Mar", "Apr",
     //allYears = ["2020","2020"];
     var years = [...new Set(allYears)];
     years.sort(function(a, b){return (b-a)});
-    console.log(years);
-    console.log("hin");
-    console.log(allYears);
     var graphs = years.map((year) =>{
       var graphData = this.months.map( (m, ind) =>{
         var ex=this.state.monthlyTrans.filter(i => 
@@ -59,7 +103,7 @@ months = ["Jan", "Feb", "Mar", "Apr",
           <VictoryLine
             style={{
               data: { stroke: "#c43a31" },
-              parent: { border: "1px solid #ccc"}
+              parent: { border: "1px solid #fff"}
             }}
             data={graphData}
             /*animate={{
@@ -97,7 +141,6 @@ months = ["Jan", "Feb", "Mar", "Apr",
       paddingTop: Constants.statusBarHeight,
       backgroundColor: 'white',
       padding: 8,
-      backgroundColor: 'rgba(202, 240, 248, 0.3)',
     },
     paragraph: {
       margin: 24,

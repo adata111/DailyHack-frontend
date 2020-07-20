@@ -75,8 +75,47 @@ import { StyleSheet,
 
     save(){
       console.log(this.props.route);
-      console.log(this.state.title);
-      this.props.navigation.navigate('Diary',{key: Date.now(), date:this.state.date,title:this.state.title});
+      fetch(url+'/getMonthlyExpenses',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name:this.props.route.params.name,
+        start_year:this.state.Stdate.getFullYear(),
+        start_month:this.state.Stdate.getMonth(),
+        start_date: this.state.Stdate.getDate(),
+        end_year:this.state.Endate.getFullYear(),
+        end_month:this.state.Endate.getMonth(),
+        end_date: this.state.Endate.getDate(),
+        hour: this.state.Stdate.getHour(),
+        minutes: this.state.Stdate.getMinute(),
+        seconds: this.state.Stdate.getSeconds()
+      })
+
+    })
+
+    .then((response) => (response.json()))
+    
+    .then((res) => {
+      console.log("response");
+      console.warn(res);
+      //Alert.alert(res.message);
+      if(res.success === true){
+        console.warn(res);
+        this.props.navigation.navigate('MedHome');
+        
+      }
+      else {
+        alert("Something went wrong. Please try again");
+      }
+    })
+    
+    .catch(err => {
+      console.log(err);
+    });
+      
     }
 
     render(){

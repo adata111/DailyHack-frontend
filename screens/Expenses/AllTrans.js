@@ -31,6 +31,12 @@ import { StyleSheet,
       this.handleDateConfirm = this.handleDateConfirm.bind(this);
       this.createTrans = this.createTrans.bind(this);
       this.getAllTrans = this.getAllTrans.bind(this);
+      this._unsubscribeSiFocus = this.props.navigation.addListener('focus', e => {
+        //console.warn('focus all trans');
+        if(this.state.date!==""){ 
+          this.getAllTrans();
+        }
+    });
     }
 
     hideDatePicker(){
@@ -43,6 +49,7 @@ import { StyleSheet,
     };
 
     createTrans(){
+      console.log(this.state.transArray);
      return (this.state.transArray.map((val) => {
       console.log("key"+val.key);
       return <Transac key={val.key} val={val}
@@ -51,7 +58,7 @@ import { StyleSheet,
      )
    }
    getAllTrans(){
-    fetch(url+'/expensesGetAllEntries',{
+    fetch(url+'/getAllEntries',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -70,7 +77,7 @@ import { StyleSheet,
       console.log("response");
       console.warn(res);
       if(res.success){
-      this.setState({transArray:res.content});
+      this.setState({transArray:res.content[0].expense[0].contents});
       }
       else{
         alert("Couldn't fetch data. Please try again.");
@@ -84,6 +91,18 @@ import { StyleSheet,
     });
    }
 
+   componentDidMount(){
+//  if(Platform.OS === 'ios' || Platform.OS === 'android'){}
+//  else{
+    this.focusListener = this.props.navigation.addListener('focus', ()=>{
+      if(this.state.date!==""){ 
+          this.getAllTrans();
+        }
+    });
+  }
+  componentWillUnmount(){
+    this.props.navigation.removeListener('focus', this.getAllTrans);
+  }
 
    render(){
     return (
@@ -123,13 +142,16 @@ import { StyleSheet,
     viewEntry(key){
       console.log("view");
       console.log(key);
-      var itt=this.state.entryArray.filter(it => it.key===key);
-      //get text value from backend
-      console.log(this.state.entryArray);
+      var itt=this.state.transArray.filter(it => it.key===key);
+      console.log(this.state.transArray);
       console.log(itt);
-    //var itt = JSON.parse(ittt);
-    console.log(itt[0]);
-    this.props.navigation.navigate('NewEntry', {edit:false, key:key, date:itt[0].date, title:itt[0].title, text:itt[0].text, name:this.props.route.params.name})
+    console.log(itt[0].cost);
+    if(itt[0].type==="income"){
+      this.props.navigation.navigate('Income', {edit:false, trans:itt[0], date:this.state.date, name:this.props.route.params.name});
+    }
+    else{
+      this.props.navigation.navigate('Expenditure', {edit:false, trans:itt[0], date:this.state.date, name:this.props.route.params.name});
+    }
   }
 
 
