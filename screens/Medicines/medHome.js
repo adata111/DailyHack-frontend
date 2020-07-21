@@ -4,10 +4,66 @@ import Constants from 'expo-constants';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-
+import { url } from './../../components/url';
+import AsyncStorage from '@react-native-community/async-storage';
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
 
 export default class MedHome extends React.Component {
+  constructor(props){
+      super(props);
+      this.state={
+        name:"",
+      }
+      this.getFromAsync = this.getFromAsync.bind(this);
+      this.sendToken = this.sendToken.bind(this);
+  }
+
+  componentDidMount(){
+    this.getFromAsync();
+    
+  }
+  getFromAsync = async()=>{
+    if(Platform.OS === 'ios' || Platform.OS === 'android'){
+      const authData = await AsyncStorage.getItem('auth_data');
+      if(authData !== null){
+        console.log("hi");
+        const authDataJson = JSON.parse(authData);
+        console.log(authDataJson);
+        this.setState({name: authDataJson.name});
+      }
+    }
+    else{
+      const authData = localStorage.getItem('auth_data');
+      if(authData !== null){
+        console.log("web");
+        const authDataJson = JSON.parse(authData);
+        this.setState({name: authDataJson.name});
+      }
+    }   
+    this.sendToken();  
+  }
+  sendToken = async () => {
+    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    if (status !== 'granted') {
+      return;
+    }
+    let token = (await Notifications.getExpoPushTokenAsync()).data;
+    return fetch(url+'/token', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token: token,
+      }),
+    });
+
+    this.notificationSubscription = Notifications.addListener(this.handleNotification);
+  }
   render() {
+    console.log(this.props.route);
     return (
       <View style={styles.container}>
 
@@ -22,7 +78,7 @@ export default class MedHome extends React.Component {
       </View>
 
       <View style={{ paddingLeft: 20, paddingRight: 20, alignSelf: 'stretch', bottom: 20, }}>
-      <TouchableOpacity style={ styles.button} onPress={() => this.props.navigation.navigate('MedRecord')}>
+      <TouchableOpacity style={ styles.button} onPress={() => this.props.navigation.navigate('MedRecord',{name:this.state.name,key:Date.now()})}>
       <View style={{ flexDirection: 'row', alignItems: 'center', }}>
       <Image
       source={require('../../assets/pill.png')} style={styles.img}/>
@@ -30,7 +86,7 @@ export default class MedHome extends React.Component {
       </View>
       </TouchableOpacity>
 
-      <TouchableOpacity style={ styles.button} onPress={() => this.props.navigation.navigate('MeasureRecord')}>
+      <TouchableOpacity style={ styles.button} onPress={() => this.props.navigation.navigate('MeasureRecord',{name:this.state.name,key:Date.now()})}>
       <View style={{ flexDirection: 'row', alignItems: 'center', }}>
       <Ionicons name="md-pulse" size={50} color="#1e555c" />
       
@@ -38,7 +94,7 @@ export default class MedHome extends React.Component {
       </View>
       </TouchableOpacity>
 
-      <TouchableOpacity style={ styles.button} onPress={() => this.props.navigation.navigate('DocRecord')}>
+      <TouchableOpacity style={ styles.button} onPress={() => this.props.navigation.navigate('DocRecord',{name:this.state.name,key:Date.now()})}>
       <View style={{ flexDirection: 'row', alignItems: 'center', }}>
       <FontAwesome name="stethoscope" size={50} color="#1e555c" />
       <Text style={styles.btnText}>   Appointments</Text>

@@ -1,17 +1,24 @@
 import  React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Picker, TextInput } from 'react-native';
 import Constants from 'expo-constants';
 import { VictoryChart, VictoryLine, VictoryTheme, VictoryLabel, VictoryZoomContainer } from 'victory-native';
 import { url } from './../../components/url';
+import Pie from './purPie';
+import moment from "moment";import { VictoryPie } from 'victory-native';
+import Svg, { Circle, Rect } from 'react-native-svg';
 
 export default class Reports extends React.Component {
   constructor(props){
     super(props);
     this.state={
       monthlyTrans:[],
+      month:"",
+      year:(new Date()).getFullYear(),
+      pieData:[{ y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 10 }, { y: 100 }],
     }
     this.generateGraph = this.generateGraph.bind(this);
     this.fetchEntries = this.fetchEntries.bind(this);
+    this.createPie = this.createPie.bind(this);
   }
   fetchEntries(){
     fetch(url+'/getPieChart',{
@@ -22,7 +29,7 @@ export default class Reports extends React.Component {
       },
       body: JSON.stringify({
         name:this.props.route.params.name,
-        
+        month:(this.state.month+"-"+this.state.year),
       })
     })
 
@@ -32,25 +39,23 @@ export default class Reports extends React.Component {
       console.log("response");
       console.warn(res);
       //Alert.alert(res.message);
-      /*if(res.success === true){
-        var d=moment(Date.now()).format('MM-YYYY');
-        var currMonth=res.content.filter(i => i._id.month===d);
-        var inc=currMonth.filter(i=>i._id.type==="income")[0].amt;
-        var exp = currMonth.filter(i=>i._id.type==="expenses")[0].amt;
-        console.log(currMonth);
-        console.log(inc);
+      if(res.success === true){
+        const exp = res.content.reduce((t,i)=> t + i.expenses, 0);
+        console.log(exp);
+        var data = res.content.map((d)=>{
+          return({x:d._id.purpose, y:d.expenses})
+        })
+        data.sort((a,b)=>(a.x > b.x) ? 1 : ((b.x > a.x) ? -1 : 0)); 
         this.setState({
-          inc,
+          
           exp,
-          sav:(inc - exp),
-          graphicData:[{ x:"Savings", y:(inc-exp)}, {x:"Expenditure", y:exp}],
-          monthlyTrans:res.content,
+          pieData:data,
         })
         
       }
       else {
         alert("Something went wrong. Please try again");
-      }*/
+      }
     })
     
     .catch(err => {
@@ -59,7 +64,7 @@ export default class Reports extends React.Component {
   }
 
   componentDidMount(){
-    this.fetchEntries();
+    
     this.setState({
       monthlyTrans:this.props.route.params.monthlyTrans,
     });
@@ -67,7 +72,7 @@ export default class Reports extends React.Component {
 months = ["Jan", "Feb", "Mar", "Apr", 
   "May", "Jun", "Jul", "Aug", "Sep", "Oct", 
   "Nov", "Dec"];
-
+ graphicColor = ['#ef476f', '#ee964b', '#ffd166',  '#06d6a0', '#118ab2', '#073b4c'];
   generateGraph(){
     var allYears = this.state.monthlyTrans.map((i) => {
       var year = i._id.month.split("-")[1];
@@ -121,11 +126,142 @@ months = ["Jan", "Feb", "Mar", "Apr",
     
   }
 
-  render() {
-    console.log(this.props.route.params.monthlyTrans);
-    
+  createPie() {
+    console.log(this.props.exp);
+    console.log("pie");
     return (
       <View style={styles.container}>
+      <View style={{ top:20, position: 'absolute', }}>
+      <VictoryPie
+        animate={{ easing: 'exp' }}
+        data={this.state.pieData}
+        width={400}
+        height={400}
+        colorScale={this.graphicColor}
+        innerRadius={80}
+        labels={({ datum }) => datum.y+" "+datum.x}
+      />
+
+      <View style={{ bottom: 170, left: 160, position: 'absolute', }}>
+      <Text style={{ fontSize:18, fontWeight:"bold" }}>Expenses</Text>
+      <Text style={{ fontSize:18, fontWeight:"bold" }}>{this.state.exp}</Text>
+      </View>
+      </View>
+
+      <View style={{ position: 'absolute', top:450, left:80, }}>
+      <View style={{ flexDirection:"row", }}>
+      
+       <Svg height="50%" width="50%" viewBox="0 0 100 100" 
+       >
+       <Rect x="120" y="-100" width="200" height="800" strokeWidth="2" fill="#e63946" />
+    </Svg>
+      <View style={{ right: 140, bottom:5, }}>
+      <Text style={{ fontWeight:"bold" }}>Shopping</Text>
+      </View>
+      </View>
+      <View style={{ flexDirection:"row", }}>
+      
+        <Svg height="50%" width="50%" viewBox="0 0 100 100" 
+       >
+       <Rect x="120" y="-100" width="200" height="800" strokeWidth="2" fill="#ee964b" />
+    </Svg>
+      <View style={{ right: 140, bottom:5, }}>
+      <Text style={{ fontWeight:"bold" }}>Restaurant</Text>
+      </View>
+      </View>
+      <View style={{ flexDirection:"row", }}>
+      
+        <Svg height="50%" width="50%" viewBox="0 0 100 100" 
+       >
+       <Rect x="120" y="-100" width="200" height="800" strokeWidth="2" fill="#ffd166" />
+    </Svg>
+      <View style={{ right: 140, bottom:5, }}>
+      <Text style={{ fontWeight:"bold" }}>Fuel</Text>
+      </View>
+      </View>
+      </View>
+
+
+
+       <View style={{ position: 'absolute', top:450, left:220, }}>
+       <View style={{ flexDirection:"row", }}>
+      
+       <Svg height="50%" width="50%" viewBox="0 0 100 100" 
+       >
+       <Rect x="120" y="-100" width="200" height="800" strokeWidth="2" fill="#06d6a0" />
+    </Svg>
+      <View style={{ right: 120, bottom:5, }}>
+      <Text style={{ fontWeight:"bold" }}>Medical</Text>
+      </View>
+      </View>
+
+      <View style={{ flexDirection:"row", }}>
+      
+        <Svg height="50%" width="50%" viewBox="0 0 100 100" 
+       >
+       <Rect x="120" y="-100" width="200" height="800" strokeWidth="2" fill="#118ab2" />
+    </Svg>
+      <View style={{ right: 120, bottom:5, }}>
+      <Text style={{ fontWeight:"bold" }}>Travel</Text>
+      </View>
+      </View>
+
+      <View style={{ flexDirection:"row", }}>
+      
+        <Svg height="50%" width="50%" viewBox="0 0 100 100" 
+       >
+       <Rect x="120" y="-100" width="200" height="800" strokeWidth="2" fill="#073b4c" />
+    </Svg>
+      <View style={{ right: 120, bottom:5, }}>
+      <Text style={{ fontWeight:"bold" }}>Other</Text>
+      </View>
+      </View>
+      </View>  
+      </View>
+      );
+    }
+
+  render() {
+    console.log(this.props.route.params.monthlyTrans);
+    return (
+    
+      <View style={styles.container}>
+    {/*  <View>
+      <View style={{ flexDirection: 'row', justifyContent: 'flex-start', bottom: 100, }}>
+      <View style={styles.dropdown}>
+      <Picker mode='dropdown' 
+      style={styles.picker} 
+      selectedValue={this.state.month}
+      onValueChange={(itemValue, itemIndex) => this.setState({ month: itemValue })}>
+      <Picker.Item label="Select a Month" value=""/>
+      <Picker.Item label=" January" value="01" />
+      <Picker.Item label="February" value="02" />
+      <Picker.Item label="March" value="03" />
+      <Picker.Item label="April" value="04" />
+      <Picker.Item label="May" value="05" />
+      <Picker.Item label="June" value="06" />
+      <Picker.Item label="July" value="07" />
+      <Picker.Item label="August" value="08" />
+      <Picker.Item label="September" value="09" />
+      <Picker.Item label="October" value="10" />
+      <Picker.Item label="November" value="11" />
+      <Picker.Item label="December" value="12" />
+      </Picker>
+      </View>
+
+      <TextInput style={styles.textinput} placeholder="Enter a Year" 
+      placeholderTextColor="black"
+      underlineColorAndroid={'transparent'} keyboardType={'numeric'}
+      onChange = {(e)=>this.setState({ year: e.nativeEvent.text})}
+      value={""+this.state.year}/>
+      </View>
+
+      <TouchableOpacity style={styles.button} onPress={this.fetchEntries}>
+      <Text style={styles.btntext}>Get Records</Text>
+      </TouchableOpacity>
+      {this.createPie()}
+      </View>*/}
+
       <Text>Expenditure Reports</Text>
       {this.generateGraph()}
      
@@ -135,17 +271,101 @@ months = ["Jan", "Feb", "Mar", "Apr",
   }
 
   const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      paddingTop: Constants.statusBarHeight,
-      backgroundColor: 'white',
-      padding: 8,
-    },
-    paragraph: {
-      margin: 24,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: 'white',
+    padding: 8,
+    backgroundColor: '#fff',
+  },
+  paragraph: {
+    margin: 24,
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+
+  picker: {
+    height: 50, 
+        // width: 220,
+        alignSelf: 'stretch',
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+        //borderRadius: 5,
+        //backgroundColor: 'rgba(255,255,255,0.6)',
+      },
+
+      dropdown: {
+       color: 'black',
+       width: 220,
+       height: 50,
+       paddingTop: 0,
+       paddingBottom: 10,
+       paddingLeft:0,
+       marginTop: 10,
+       marginBottom: 20,
+       borderColor: 'black',
+       borderWidth: 1,
+       borderRadius: 5,
+       textAlignVertical: "top",
+       fontSize: 18,
+       left: 20,
+       backgroundColor: 'rgba(30, 85, 92,0.1)',
+     },
+
+     textinput: {
+      color: 'black',
       fontSize: 18,
-      fontWeight: 'bold',
-      textAlign: 'center',
+      width: 130,
+      height: 50,
+      paddingTop: 10,
+      paddingBottom: 10,
+      paddingLeft:10,
+      marginBottom: 20,
+      borderColor: 'black',
+      borderWidth: 1,
+      borderRadius: 5,
+      textAlignVertical: "top",
+      top: 10,
+      left: 30,
+      backgroundColor: 'rgba(30, 85, 92,0.1)',
     },
+
+    button: {
+      width: 250,
+      height:60,
+      alignItems: 'center',
+      padding: 10,
+      backgroundColor: '#1e555c',
+      borderColor: 'black',
+      borderWidth: 1,
+      borderRadius: 5,
+      bottom: 100,
+      left: 80,
+    },
+
+    btntext: {
+      color: '#fff',
+      fontSize: 20,
+      fontWeight: "bold",
+    },
+nameText: {
+      fontSize: 20,
+      fontWeight: '400',
+    },
+
+    footer: {
+      position: 'absolute',
+      bottom: 20,
+      left: 10,
+      right: 10,
+      zIndex: 10,
+      top: 380,
+      flexDirection: 'row',
+      justifyContent: 'center',
+
+    },
+
+
   });

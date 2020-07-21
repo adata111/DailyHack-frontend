@@ -34,6 +34,7 @@ function MedHomeStack({navigation}){
 		<MedHomeStk.Screen name="DocRecord" component={DocRecord} options={{title: "Doctor Appointments", headerShown: true}} />
 	</MedHomeStk.Navigator>
 	)
+  //
 }
 
 const Tab = createBottomTabNavigator();

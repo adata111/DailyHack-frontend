@@ -69,7 +69,7 @@ export default class Manager extends React.Component {
           inc,
           exp,
           sav:(inc - exp),
-          graphicData:[{ x:"Savings", y:(inc-exp)}, {x:"Expenditure", y:exp}],
+          graphicData:[{ x:"Sav", y:(inc-exp)}, {x:"Exp", y:exp}],
           monthlyTrans:res.content,
         })
         
@@ -82,6 +82,7 @@ export default class Manager extends React.Component {
     .catch(err => {
       console.log(err);
     });
+    
   }
   render() {
     console.log(this.props.route.params.name);
