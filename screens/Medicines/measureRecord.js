@@ -17,6 +17,7 @@ import { StyleSheet,
   ImageBackground,
   Image,
   ActivityIndicator,
+  ScrollView,
   Picker, Button, Platform  } from 'react-native';
   import Constants from 'expo-constants';
   import moment from "moment";
@@ -197,6 +198,8 @@ async registerForPushNotificationsAsync() {
 render(){
   return (
     <View style={styles.container}>
+
+        <ScrollView>
         <View style={styles.input}>
 
         <View style={styles.dropdown}>
@@ -277,6 +280,7 @@ render(){
         <Text style={styles.btntext}>Set a Reminder</Text>
         </TouchableOpacity>
         </View>
+        </ScrollView>
         </View>
 
   );
@@ -295,6 +299,7 @@ render(){
       top: 100,
       paddingLeft: 40,
       paddingRight: 40,
+      height:700,
     },
 
     header: {

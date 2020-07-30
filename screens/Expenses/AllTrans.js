@@ -11,6 +11,7 @@ import { StyleSheet,
   TouchableWithoutFeedback,
   ImageBackground,
   Image,
+   ScrollView,
   ActivityIndicator,
   Picker } from 'react-native';
   import Constants from 'expo-constants';
@@ -108,6 +109,8 @@ import { StyleSheet,
     return (
       <View style={styles.container}>
 
+      <ScrollView>
+
       <View style={styles.input}>
       <TouchableOpacity onPress={() => this.setState({ isDatePickerVisible: true})}>
       <TextInput style={styles.textinput} placeholder="Date" 
@@ -133,6 +136,9 @@ import { StyleSheet,
       </View>
       {this.createTrans()}
       </View>
+
+      </ScrollView>
+
       </View>
 
 
@@ -167,6 +173,7 @@ const styles = StyleSheet.create({
     top: 40,
     paddingLeft: 20,
     paddingRight: 20,
+    height:1000,
   },
 
   textinput: {

@@ -8,6 +8,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import AllEntries from './../screens/Diary/AllEntries.js';
 import NewEntry from '../screens/Diary/NewEntry.js';
 import AllLists from './../screens/Shopping/AllLists.js';
+import ShopHome from '../screens/Shopping/shopHome.js';
+import RoleSelect from '../screens/Shopping/roleSelect.js';
+import RtsOptions from '../screens/Shopping/rtsOptions.js';
 import AdHome from './../screens/AdHome.js';
 import Notifications from './../screens/Notifications.js';
 import HelpCenter from './../screens/Help-center.js';
@@ -29,6 +32,8 @@ import Food from './../screens/Sports/Food.js';
 import Water from './../screens/Sports/Water.js';
 import Sleep from './../screens/Sports/Sleep.js';
 import { MedTab } from'./MedTab.js';
+import { SellTab } from'./SellTab.js';
+import { BuyTab } from'./BuyTab.js';
 import Record from './../screens/Medicines/recordMeas.js';
 import EventHome from './../screens/Events/eventRecord.js';
 import EveReminder from './../screens/Events/eveReminder.js';
@@ -52,7 +57,6 @@ export function AdHomeStack({navigation}){
 		}} />
 		<AdHomeStk.Screen name="Diary" component={AllEntries} options={{title:"My Diary", headerShown: true}} screenProps={{lockMode: 'locked-closed'}}/>
 		<AdHomeStk.Screen name="NewEntry" component={NewEntry} options={{title:"New Entry", headerShown: true}} screenProps={{lockMode: 'locked-closed'}}/>
-		<AdHomeStk.Screen name="Shopping" component={AllLists} />
 		<AdHomeStk.Screen name="NewList" component={NewList} options={{title: "New List"}} />
 		<AdHomeStk.Screen name="NewListSports" component={NewListSports} options={{title: "Make a Workout Schedule"}} />
 		<AdHomeStk.Screen name="AllListSports" component={AllListSports} options={{title: "Sports Home"}} />
@@ -89,6 +93,12 @@ export function AdHomeStack({navigation}){
 		<AdHomeStk.Screen name="EveNotes" component={EveNotes} options={{title: "Make a Note", headerShown: true}} />
 		<AdHomeStk.Screen name="EveSpecial" component={EveSpecial} options={{title: "Special Events", headerShown: true}} />
 		<AdHomeStk.Screen name="EventsDisplay" component={EventsDisplay} options={{title: "Events List", headerShown: true}} />
+		<AdHomeStk.Screen name="Sell" component={SellTab} options={{title: "Medicine Home Page", headerShown: false}} />
+		<AdHomeStk.Screen name="Buy" component={BuyTab} options={{title: "Medicine Home Page", headerShown: false}} />
+		<AdHomeStk.Screen name="ShoppingHome" component={ShopHome} options={{title:"Shopping Home", headerShown: true}} />
+		<AdHomeStk.Screen name="Shopping" component={AllLists} options={{title:"Shopping List", headerShown: true}} />
+		<AdHomeStk.Screen name="RoleSelect" component={RoleSelect} options={{title:"Select a Role", headerShown: true}} />
+		<AdHomeStk.Screen name="RtsOptions" component={RtsOptions} options={{title:"Mode of Shopping", headerShown: true}} />
 	</AdHomeStk.Navigator>
 	)
 }
@@ -118,7 +128,7 @@ const HelpStk = createStackNavigator();
 export function HelpStack(){
 	return(
 	<HelpStk.Navigator>
-		<HelpStk.Screen name="Help Center" component={HelpCenter} options={{ title: "Help Centre", headerShown: true }} />
+		<HelpStk.Screen name="Feedback" component={HelpCenter} options={{ title: "Feedback", headerShown: true }} />
 	</HelpStk.Navigator>
 	)
 }

@@ -11,6 +11,7 @@ import { StyleSheet,
   Keyboard, 
   TouchableWithoutFeedback,
   ImageBackground,
+   ScrollView,
   Image,
   ActivityIndicator,
   Picker } from 'react-native';
@@ -187,6 +188,9 @@ import { StyleSheet,
         <MaterialIcons name="delete" size={24} color="black" />
         </TouchableOpacity>}
         </View>
+
+        <ScrollView>
+
         <View style={styles.input}>
         <TouchableOpacity onPress={() => this.state.edit?(this.setState({ isDatePickerVisible: true})):null}>
         <TextInput style={styles.textinput} placeholder="Date" 
@@ -261,6 +265,7 @@ import { StyleSheet,
           <Text style={styles.btntext}>{this.state.edit?"Save":"Edit"}</Text>
           </TouchableOpacity>
           </View>
+          </ScrollView>
           </View>
 
 
@@ -277,6 +282,7 @@ import { StyleSheet,
       top: 100,
       paddingLeft: 40,
       paddingRight: 40,
+      height:700,
     },
 
     header: {

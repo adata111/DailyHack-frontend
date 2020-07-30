@@ -155,6 +155,8 @@ render(){
   return (
     <View style={styles.container}>
 
+    <ScrollView>
+
     <View style={styles.input}>
 
     <TextInput style={styles.textinput} placeholder="Name of the Doctor" 
@@ -223,6 +225,8 @@ render(){
     <Text style={styles.btntext}>Set a Reminder</Text>
     </TouchableOpacity>
     </View>
+
+    </ScrollView>
     </View>
 
 
@@ -240,6 +244,7 @@ const styles = StyleSheet.create({
     top: 100,
     paddingLeft: 40,
     paddingRight: 40,
+    height:700,
   },
 
   header: {

@@ -9,212 +9,51 @@ import { url } from './../../components/url';
 
 export default class MedReports extends React.Component {
 
-  constructor(props){
-    super(props);
-    this.state = {
-      reportsArray: [],
-      reportsText: '',
-      viewCal:false,
-    }
-    this.reloadOnBack=this.reloadOnBack.bind(this);
-    this.fetchEntries=this.fetchEntries.bind(this);
-    this.createEntries=this.createEntries.bind(this);
-    this.getFromAsync=this.getFromAsync.bind(this);
-    this._unsubscribeSiFocus = this.props.navigation.addListener('focus', e => {
-        //console.warn('focus diary');
-        this.fetchEntries();
-    });
- //   this._unsubscribeSiBlur = this.props.navigation.addListener('blur', e => {
-        //console.warn('blur diary');
-   // });
-  }
-
-  fetchEntries(){
-console.log("fethcing");
- // if(Platform.OS === 'ios' || Platform.OS === 'android'){
-  //  return [{key:12345679, date:"22nd June 2020", title:"check", text:"this is some text"}];
- // }
-  //else{
-  fetch(url+'/getMedMeasure',{
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: this.state.name
-    })
-    })
-
-    .then((response) => (response.json()))
-    
-    .then((res) => {
-      console.log("response");
-      console.warn(res);
-      if(res.success){
-      this.setState({reportsArray:res.content});
-      }
-      else{
-        alert("Couldn't fetch data. Please try again.");
-      }
-      //Alert.alert(res.message);
-      
-    })
-    
-    .catch(err => {
-      console.log(err);
-    });
-  //}
-}
-getFromAsync = async()=>{
-    if(Platform.OS === 'ios' || Platform.OS === 'android'){
-      const authData = await AsyncStorage.getItem('auth_data');
-      if(authData !== null){
-        console.log("hi");
-        const authDataJson = JSON.parse(authData);
-        console.log(authDataJson);
-        this.setState({name: authDataJson.name});
-      }
-    }
-    else{
-      const authData = localStorage.getItem('auth_data');
-      if(authData !== null){
-        console.log("web");
-        const authDataJson = JSON.parse(authData);
-        this.setState({name: authDataJson.name});
-      }
-    }   
-  //  this.sendToken();  
-  }
- async componentDidMount(){
-    await this.getFromAsync();
-//  if(Platform.OS === 'ios' || Platform.OS === 'android'){}
-//  else{
-    this.focusListener = this.props.navigation.addListener('focus', ()=>{
-      this.fetchEntries();
-    });
-    console.log(this.state.reportsArray);
-  //}
-    console.log("diary mount");
-  }
-
-
-  componentWillUnmount(){
-    this.props.navigation.removeListener('focus', this.fetchEntries);
-  }
-
-  reloadOnBack(){
-    this.fetchEntries();
-  //  this.setState({reportsArray: entries});
-  }
-
-  createEntries(){
-   return (this.state.reportsArray.map((val) => {
-      console.log("key"+val.key);
-      return <Note key={val.key} val={val}
-          deleteMethod={ ()=> this.deleteEntry(val.key) }  view={ ()=> this.viewEntry(val.key)}/>
-    })
-   )
- }
+ 
 
   render() {
-    console.log("diary render");
     
-    /*if(this.props.route.params){
-      console.log(this.props.route.params);
-      var entries=this.state.reportsArray;
-      console.log(entries);
-      var it=this.state.reportsArray.filter(i => i.key===this.props.route.params.key);
-      console.log(it);
-      if(it && it.length){}
-      else{
-      entries.push({
-          key:this.props.route.params.key,
-          date:this.props.route.params.date,
-          title:this.props.route.params.title,
-          text: this.props.route.params.text
-        });
-      console.log(entries);
-    this.state.reportsArray=entries;
-      }
-      console.log("entries");
-      console.log(entries);
-      console.log("entries");
-    }*/
-
-    
-//    console.log(entries);
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>- YOUR REPORTS -</Text>
       </View>
 
-      <ScrollView style={styles.scrollContainer}>
-      {console.log("hihi")}
-      {this.createEntries()}
+       <ScrollView style={styles.scrollContainer}>
+      
+      <View style={styles.note}>
 
+      <Text style={styles.noteText}>20/07/2020</Text>
+      <Text style={styles.noteText}>Crocin</Text>
+      <Text style={styles.noteText}>20:00</Text>
+
+
+      </View>
+
+
+      <View style={styles.note}>
+
+      <Text style={styles.noteText}>26/07/2020</Text>
+      <Text style={styles.noteText}>Vitamin B</Text>
+      <Text style={styles.noteText}>16:00</Text>
+
+      </View>
+
+      <View style={styles.note}>
+ <Text style={styles.noteText}>28/07/2020</Text>
+      <Text style={styles.noteText}>Vitamin B</Text>
+      <Text style={styles.noteText}>13:00</Text>
+      </View>
       </ScrollView>
+
      
     </View>
     );
   }
 
-  //
+  
 
-  deleteEntry(key) {
-    console.log("del");
-    
-  /*  if(Platform.OS === 'ios' || Platform.OS === 'android'){
-      var itt=this.state.reportsArray.filter(it => it.key!==key);
-      console.log(itt);
-      this.setState({ reportsArray: itt });
-    }
-
-    else{
-*/    //send to backend
-    
-    fetch(url+'/saveReportsEntry',{
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        edit:3,
-        key:key,
-        name:this.props.route.params.name
-      })
-    })
-
-    //recieve entry added confirmation from backend
-    .then((response) => (response.json()))
-    
-    .then((res) => {
-      console.log("response");
-      console.warn(res);
-      //Alert.alert(res.message);
-      //if entry added
-      if(res.success === true){
-    //    alert(res.message);
-    //    this.setState({reportsArray:res.content});
-        var entry = this.state.reportsArray.filter(it => it.key!==key);
-        this.setState({reportsArray:entry});
-        
-      }
-      else {
-        alert(res.message);
-        console.warn("error");
-      }
-    })
-    
-    .catch(err => {
-      console.log(err);
-    });
-  //  }
-  }
-
+  
   viewEntry(key){
     console.log("view");
     console.log(key);
@@ -234,12 +73,37 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    backgroundColor: '#2BA189',
+    backgroundColor: '#1e555c',
     alignItems: 'center',
     justifyContent: 'center',
     borderBottomWidth: 10,
     borderBottomColor: '#ddd',
+    top:30,
   },
+
+  scrollContainer: {
+      flex: 1,
+      marginBottom: 100,
+      top:60,
+    },
+
+
+  note: {
+      position: 'relative',
+      padding: 20,
+      paddingRight: 100,
+      borderBottomWidth: 2,
+      borderBottomColor: '#ededed',
+    },
+
+
+      noteText: {
+      paddingLeft: 20,
+      fontWeight:"bold",
+      borderLeftWidth: 10,
+      borderLeftColor: '#1e555c',
+    },
+
 
   headerText: {
     color: 'white',

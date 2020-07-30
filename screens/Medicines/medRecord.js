@@ -246,54 +246,17 @@ componentDidMount() {
 
 render(){
  var notes = this.state.noteArray.map((val,key) => {
-          return (<View key={key} style={{ position: 'relative',
-            top: 20,
-            left: 5,
-            right: 20,
-            paddingLeft: 30,
-            paddingRight: 30,}}>
-
-
-            <TouchableOpacity style={{ right:20, }} onPress={() => this.setState({ isTimePickerVisible: true})}>
-            <TextInput style={styles.textinput} placeholder="Time" 
-            placeholderTextColor="black"
-            underlineColorAndroid={'transparent'} 
-            editable={false}
-            value={this.state.time}
-            onTouchStart={() => this.setState({ isTimePickerVisible: true})}
-            />
-            </TouchableOpacity>
-
-            <DateTimePickerModal
-            isVisible={this.state.isTimePickerVisible}
-            mode="time"
-            onConfirm={this.handleTimeConfirm}
-            onCancel={() => this.setState({ isTimePickerVisible: false})}
-            />
-            <TouchableOpacity onpress={this.props.deleteNote} style={{
-              position: 'absolute',
-              justifyContent: 'center',
-              alignItems: 'center',
-              //backgroundColor: '#2980b9',
-              padding: 10,
-              top: 0,
-              bottom: 20,
-              right: 10,
-            }}>
-
-            <AntDesign name="closecircle" size={24} color="red" />
-
-            </TouchableOpacity>
-
-            </View>)
-
-        })
-
+        return <Note key={key} keyval={key} val={val}
+        deleteMethod={ ()=> this.deleteNote(key) } />
+      })
 
   return (
     <View style={styles.container}>
 
-    <ScrollView style={styles.input}>
+      <ScrollView>
+
+
+    <View style={styles.input}>
 
     <TextInput style={styles.textinput} placeholder="Name of the Medicine" 
     placeholderTextColor="black"
@@ -366,6 +329,7 @@ render(){
     }}>
     <Text style={styles.btntext}>Set a Reminder</Text>
     </TouchableOpacity>
+    </View>
     </ScrollView>
     </View>
     );
@@ -436,7 +400,7 @@ const styles = StyleSheet.create({
     top: 30,
     paddingLeft: 40,
     paddingRight: 40,
-    height:2000,
+    height:700,
   },
 
   header: {
@@ -503,8 +467,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     position: 'absolute',
-    top:780,
-    left:20,
+    top:480,
+    left:50,
   },
 
   saveButton: {
