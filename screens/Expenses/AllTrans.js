@@ -58,7 +58,7 @@ import { StyleSheet,
      )
    }
    getAllTrans(){
-    fetch(url+'/getAllEntries',{
+    fetch(url+'/getAllExpenseEntries',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',

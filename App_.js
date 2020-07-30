@@ -35,7 +35,7 @@ export default function App() {
     };
   }, []);
 
-  return (
+  return ( 
     <View
       style={{
         flex: 1,
@@ -91,7 +91,7 @@ async function registerForPushNotificationsAsync() {
     if (finalStatus !== 'granted') {
       alert('Failed to get push token for push notification!');
       return;
-    }
+    } 
     //Creates a token.
     token = (await Notifications.getExpoPushTokenAsync()).data;
     console.log(token);

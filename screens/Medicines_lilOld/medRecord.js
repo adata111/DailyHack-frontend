@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React, {useState} from "react";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { AntDesign, Feather } from '@expo/vector-icons';
+
 import { url } from './../../components/url';
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
@@ -17,8 +17,7 @@ import { StyleSheet,
   ImageBackground,
   Image,
   ActivityIndicator,
-  Picker,
-  ScrollView } from 'react-native';
+  Picker } from 'react-native';
   import Constants from 'expo-constants';
   import moment from "moment";
   import TimePicker from 'react-native-simple-time-picker';
@@ -45,6 +44,7 @@ import { StyleSheet,
         Stdate: "",
         Endate: "",
         name:"",
+        desc: "",
         desc: "",
         chStdate: new Date(),
         mode: "",
@@ -125,22 +125,17 @@ import { StyleSheet,
             userName: this.props.route.params.name,
             title: "Medicine Reminder",
             body: "It's time to take "+this.state.name,
-            name: this.state.name,
-            data: {key:this.state.key,screen:"Reminder",title:"Medicine Record",head:this.state.name,desc:this.state.desc},
+            data: "Idk what to send",
             start_year: Stdate.getFullYear(),
             start_month: ""+(parseInt(Stdate.getMonth())+1),
             start_date: parseInt(Stdate.getDate()),
             end_year: date.split("-")[2],
             end_month: date.split("-")[1],
             end_date: parseInt(date.split("-")[0]),
-            timeArray: [this.state.time.split(" : ")[0]+":"+this.state.time.split(" : ")[1]+":00"],
-            key : this.state.key,
-            description:this.state.desc,
-            time: noteArray.map((i)=> {return(i.time)}),
+            hour: this.state.time.split(" : ")[0],
+            minutes: this.state.time.split(" : ")[1],
+            seconds: "00",
             curr_token: expoPushToken,
-            totalPills: this.state.curr,
-            remindWhen: this.state.rem,
-            dose: this.state.each
           })
         });
       }
@@ -180,7 +175,7 @@ import { StyleSheet,
   return token;
 }
 
-      changeNumCurr = (n) => {
+changeNumCurr = (n) => {
         if(this.state.curr == 0)
         {
           if(n>0)
@@ -221,11 +216,14 @@ import { StyleSheet,
           {
             this.setState({ each: this.state.each + n});  
           }
+          
         }
+
         else if(this.state.each > 0)
         {
           this.setState({ each: this.state.each + n});  
-        }        
+        }
+        
       }
 
       showDialog(isShow){
@@ -244,56 +242,17 @@ componentDidMount() {
   });*/
 }
 
+
 render(){
- var notes = this.state.noteArray.map((val,key) => {
-          return (<View key={key} style={{ position: 'relative',
-            top: 20,
-            left: 5,
-            right: 20,
-            paddingLeft: 30,
-            paddingRight: 30,}}>
-
-
-            <TouchableOpacity style={{ right:20, }} onPress={() => this.setState({ isTimePickerVisible: true})}>
-            <TextInput style={styles.textinput} placeholder="Time" 
-            placeholderTextColor="black"
-            underlineColorAndroid={'transparent'} 
-            editable={false}
-            value={this.state.time}
-            onTouchStart={() => this.setState({ isTimePickerVisible: true})}
-            />
-            </TouchableOpacity>
-
-            <DateTimePickerModal
-            isVisible={this.state.isTimePickerVisible}
-            mode="time"
-            onConfirm={this.handleTimeConfirm}
-            onCancel={() => this.setState({ isTimePickerVisible: false})}
-            />
-            <TouchableOpacity onpress={this.props.deleteNote} style={{
-              position: 'absolute',
-              justifyContent: 'center',
-              alignItems: 'center',
-              //backgroundColor: '#2980b9',
-              padding: 10,
-              top: 0,
-              bottom: 20,
-              right: 10,
-            }}>
-
-            <AntDesign name="closecircle" size={24} color="red" />
-
-            </TouchableOpacity>
-
-            </View>)
-
+  var notes = this.state.noteArray.map((val,key) => {
+          return <Note key={key} keyval={key} val={val}
+          deleteMethod={ ()=> this.deleteNote(key) } />
         })
-
 
   return (
     <View style={styles.container}>
 
-    <ScrollView style={styles.input}>
+    <View style={styles.input}>
 
     <TextInput style={styles.textinput} placeholder="Name of the Medicine" 
     placeholderTextColor="black"
@@ -357,6 +316,151 @@ render(){
 
           </View>
 
+
+          <View style={{ position:'absolute', top:380 }}>
+          <View style={{ left:80 }}>
+          <Text style={styles.paragraph}>
+          Current Inventory
+          </Text>
+
+          </View>
+
+          <View style={{ left: 120, }}>
+          <Text style={{
+            fontWeight: 'bold',
+            fontSize: 24,
+            textAlign: 'center',
+            color: 'black',
+            borderBottomWidth: 1,
+            width: 100,
+            borderBottomColor: '#1e555c',
+          }}>
+          {this.state.curr} &nbsp;
+          </Text>
+          </View>
+
+          <TouchableOpacity style={{
+            position:'absolute',
+            left:220,
+            top: 50
+          }}
+          onPress={() => this.changeNumCurr(+1)}>
+          <AntDesign name="pluscircle" size={26} color="#1e555c" />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={{
+            position:'absolute',
+            left:90,
+            top: 50
+          }}
+          onPress={() => this.changeNumCurr(-1)}>
+          <AntDesign name="minuscircle" size={26} color="#1e555c" />
+          </TouchableOpacity>
+
+          <View style={{ left:130 }}>
+          <Text style={styles.paragraph}>
+          Pill(s)
+          </Text>
+
+          </View>
+
+          
+          </View>
+
+          <View style={{ position:'absolute', top:500 }}>
+
+          <View style={{ left:50 }}>
+          <Text style={styles.paragraph}>
+          Pill(s) taken in one dose
+          </Text>
+          </View>
+
+
+          <View style={{ left: 120, }}>
+          <Text style={{
+            fontWeight: 'bold',
+            fontSize: 24,
+            textAlign: 'center',
+            color: 'black',
+            borderBottomWidth: 1,
+            width: 100,
+            borderBottomColor: '#1e555c',
+            marginBottom: 20,
+          }}>
+          {this.state.each} &nbsp;
+          </Text>
+          </View>
+
+          <TouchableOpacity style={{
+            position:'absolute',
+            left:220,
+            top: 50
+          }}
+          onPress={() => this.changeNumEach(+0.25)}>
+          <AntDesign name="pluscircle" size={26} color="#1e555c" />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={{
+            position:'absolute',
+            left:90,
+            top: 50
+          }}
+          onPress={() => this.changeNumEach(-0.25)}>
+          <AntDesign name="minuscircle" size={26} color="#1e555c" />
+          </TouchableOpacity>
+
+          </View>
+
+          <View style={{ position:'absolute', top:590 }}>
+
+          <View style={{ left:90 }}>
+          <Text style={styles.paragraph}>
+          Remind me when
+          </Text>
+          </View>
+
+          
+
+          <View style={{ left: 120, }}>
+          <Text style={{
+            fontWeight: 'bold',
+            fontSize: 24,
+            textAlign: 'center',
+            color: 'black',
+            borderBottomWidth: 1,
+            width: 100,
+            borderBottomColor: '#1e555c',
+          }}>
+          {this.state.rem} &nbsp;
+          </Text>
+          </View>
+
+          <TouchableOpacity style={{
+            position:'absolute',
+            left:220,
+            top: 50
+          }}
+          onPress={() => this.changeNumRem(+1)}>
+          <AntDesign name="pluscircle" size={26} color="#1e555c" />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={{
+            position:'absolute',
+            left:90,
+            top: 50
+          }}
+          onPress={() => this.changeNumRem(-1)}>
+          <AntDesign name="minuscircle" size={26} color="#1e555c" />
+          </TouchableOpacity>
+
+          <View style={{ left:70 }}>
+          <Text style={styles.paragraph}>
+          pill(s) are remaining
+          </Text>
+          </View>
+
+          </View>
+
           <TouchableOpacity onPress={this.addNote.bind(this)} style={styles.button}>
           <Text style={styles.btntext}>Add Reminder Time   <Feather name="clock" size={24} color="white" /></Text>
           </TouchableOpacity>
@@ -366,30 +470,10 @@ render(){
     }}>
     <Text style={styles.btntext}>Set a Reminder</Text>
     </TouchableOpacity>
-    </ScrollView>
+    </View>
     </View>
     );
   }
-
-  addNote() {
-    var d = new Date();
-    this.state.noteArray.push({
-      'date' :  d.getFullYear() +
-      "/" + (d.getMonth() + 1) +
-      "/" + d.getDate(),
-      'note': this.state.noteText,
-      key: Date.now(),
-    });
-    this.setState({ noteArray: this.state.noteArray })
-    this.setState({ noteText: '' });
-  }
-
-  deleteNote(key) {
-    this.state.noteArray.splice(key, 1);
-    this.setState({ noteArray: this.state.noteArray })
-  }
-
-
 }
 
 const styles = StyleSheet.create({

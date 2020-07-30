@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, ScrollView, TouchableOpacity, Platform } from 'react-native';
 import Constants from 'expo-constants';
-import Entry from './Entry';
+import Entry from './eveDisplayNote';
 import moment from "moment";
 const { manifest } = Constants;
 import { Entypo } from '@expo/vector-icons';
-import MyCalendar from './Calendar1';
+import MyCalendar from './Calendar';
 import { url } from './../../components/url';
 
 export default class AllEntries extends React.Component {
@@ -13,18 +13,14 @@ export default class AllEntries extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      entryArray: [],
-      entryText: '',
+      eventArray: [],
+      eventText: '',
       viewCal:false,
     }
     this.reloadOnBack=this.reloadOnBack.bind(this);
     this.fetchEntries=this.fetchEntries.bind(this);
     this.createEntries=this.createEntries.bind(this);
-    this._unsubscribeSiFocus = this.props.navigation.addListener('focus', e => {
-        //console.warn('focus diary');
-        this.fetchEntries();
-    });
- //   this._unsubscribeSiBlur = this.props.navigation.addListener('blur', e => {
+     //   this._unsubscribeSiBlur = this.props.navigation.addListener('blur', e => {
         //console.warn('blur diary');
    // });
   }
@@ -35,8 +31,7 @@ console.log("fethcing");
   //  return [{key:12345679, date:"22nd June 2020", title:"check", text:"this is some text"}];
  // }
   //else{
-    setTimeout(() => {
-  fetch(url+'/getAllDiaryEntries',{
+  fetch(url+'/getAllEventEntries',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -53,7 +48,7 @@ console.log("fethcing");
       console.log("response");
       console.warn(res);
       if(res.success){
-      this.setState({entryArray:res.content});
+      this.setState({eventArray:res.content});
       }
       else{
         alert("Couldn't fetch data. Please try again.");
@@ -65,14 +60,13 @@ console.log("fethcing");
     .catch(err => {
       console.log(err);
     });
-  },10)
   //}
 }
   componentDidMount(){
 //  if(Platform.OS === 'ios' || Platform.OS === 'android'){}
 //  else{
     this.focusListener = this.props.navigation.addListener('focus', ()=>{
-      this.fetchEntries();
+      this.setState({eventArray:this.props.route.params.eventArray})
     });
     console.log(this.state.entryArray);
   //}
@@ -85,12 +79,11 @@ console.log("fethcing");
   }
 
   reloadOnBack(){
-    this.fetchEntries();
-  //  this.setState({entryArray: entries});
+  //  this.setState({eventArray: entries});
   }
 
   createEntries(){
-   return (this.state.entryArray.map((val) => {
+   return (this.state.eventArray.map((val) => {
       console.log("key"+val.key);
       return <Entry key={val.key} val={val}
           deleteMethod={ ()=> this.deleteEntry(val.key) }  view={ ()=> this.viewEntry(val.key)}/>
@@ -103,9 +96,9 @@ console.log("fethcing");
     
     /*if(this.props.route.params){
       console.log(this.props.route.params);
-      var entries=this.state.entryArray;
+      var entries=this.state.eventArray;
       console.log(entries);
-      var it=this.state.entryArray.filter(i => i.key===this.props.route.params.key);
+      var it=this.state.eventArray.filter(i => i.key===this.props.route.params.key);
       console.log(it);
       if(it && it.length){}
       else{
@@ -116,7 +109,7 @@ console.log("fethcing");
           text: this.props.route.params.text
         });
       console.log(entries);
-    this.state.entryArray=entries;
+    this.state.eventArray=entries;
       }
       console.log("entries");
       console.log(entries);
@@ -129,41 +122,20 @@ console.log("fethcing");
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>- YOUR DIARY ENTRIES -</Text>
-        <TouchableOpacity style={{
-          position:'absolute',
-          paddingBottom: 10,
-          right:20
-        }}
-        onPress={() => this.setState({viewCal: !this.state.viewCal})}> 
-        {this.state.viewCal?
-        <Entypo name="list" size={24} color="white" />:
-        <Entypo name="calendar" size={24} color="white" />
-        }
-        </TouchableOpacity>
+        <Text style={styles.headerText}>- YOUR EVENT ENTRIES -</Text>
+        
       </View>
 
-      {this.state.viewCal?
-        < MyCalendar entryArray={this.state.entryArray} navigation={this.props.navigation} route={this.props.route}/>:
-        (
       <ScrollView style={styles.scrollContainer}>
       {console.log("hihi")}
       {this.createEntries()}
 
       </ScrollView>
-      )
-      }
-
+      
       <View style={styles.footer}>
       
       </View>
-      { !this.state.viewCal &&
-      <TouchableOpacity 
-      style={styles.addButton} 
-      onPress={() => this.props.navigation.navigate('NewEntry', {edit:true, key:Date.now(), name:this.props.route.params.name})}>
-        <Text style={styles.addButtonText}>+</Text>
-      </TouchableOpacity>
-      }
+      
 
     </View>
     );
@@ -175,9 +147,9 @@ console.log("fethcing");
     console.log("del");
     
   /*  if(Platform.OS === 'ios' || Platform.OS === 'android'){
-      var itt=this.state.entryArray.filter(it => it.key!==key);
+      var itt=this.state.eventArray.filter(it => it.key!==key);
       console.log(itt);
-      this.setState({ entryArray: itt });
+      this.setState({ eventArray: itt });
     }
 
     else{
@@ -206,9 +178,9 @@ console.log("fethcing");
       //if entry added
       if(res.success === true){
     //    alert(res.message);
-    //    this.setState({entryArray:res.content});
-        var entry = this.state.entryArray.filter(it => it.key!==key);
-        this.setState({entryArray:entry});
+    //    this.setState({eventArray:res.content});
+        var entry = this.state.eventArray.filter(it => it.key!==key);
+        this.setState({eventArray:entry});
         
       }
       else {
@@ -226,13 +198,18 @@ console.log("fethcing");
   viewEntry(key){
     console.log("view");
     console.log(key);
-    var itt=this.state.entryArray.filter(it => it.key===key);
+    var itt=this.state.eventArray.filter(it => it.key===key);
     //get text value from backend
-    console.log(this.state.entryArray);
+    console.log(this.state.eventArray);
     console.log(itt);
     //var itt = JSON.parse(ittt);
     console.log(itt[0]);
-    this.props.navigation.navigate('NewEntry', {edit:false, key:key, date:itt[0].date, title:itt[0].title, text:itt[0].text, name:this.props.route.params.name})
+    if(itt[0].title==="Event Reminder")
+    this.props.navigation.navigate('EveReminder', {edit:false, key:key, data:itt[0],  date:this.props.route.params.date, name:this.props.route.params.name});
+    else if(itt[0].title==="Special Event Reminder")
+    this.props.navigation.navigate('EveSpecial', {edit:false, key:key, date:this.props.route.params.date, data:itt[0], name:this.props.route.params.name});
+    else
+    this.props.navigation.navigate('EveNotes', {edit:false, key:key, data:itt[0], date:this.props.route.params.date, name:this.props.route.params.name});
   }
 }
 
@@ -242,7 +219,7 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    backgroundColor: '#2BA189',
+    backgroundColor: '#3D348B',
     alignItems: 'center',
     justifyContent: 'center',
     borderBottomWidth: 10,
@@ -295,4 +272,4 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 24,
   }
-});
+})

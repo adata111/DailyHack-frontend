@@ -1,5 +1,4 @@
-/*Medicine home page containing buttons leading to pages for input*/
-import  React, { Component } from 'react';
+ import  React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Constants from 'expo-constants';
 import { MaterialCommunityIcons } from '@expo/vector-icons';

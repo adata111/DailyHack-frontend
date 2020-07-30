@@ -5,6 +5,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import moment from "moment";
+import { url } from './../../components/url';
 
 export default class MyCalendar extends React.Component {
   
@@ -12,7 +13,7 @@ export default class MyCalendar extends React.Component {
     super(props);
     this.state={
       activeDate: new Date(),
-      entryArray: this.props.entryArray,
+      entryArray: [],
       dots: [],
     };
   }
@@ -28,15 +29,60 @@ export default class MyCalendar extends React.Component {
 
   nDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
+  fetchEvents(){
+    setTimeout(() => {
+    fetch(url+'/getAllEventsSub',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userName: this.props.route.params.name
+    })
+    })
+
+    .then((response) => (response.json()))
+    
+    .then((res) => {
+      console.log("response");
+    //  console.warn(res);
+      if(res.success){
+        console.log("responsead");
+        console.log(res.data);
+      this.setState({entryArray:res.data});
+
+    console.warn(this.state.entryArray);
+
+    this.setState({dots:this.setDots()});
+      }
+      else{
+        alert("Couldn't fetch data. Please try again.");
+      }
+      //Alert.alert(res.message);
+      
+    })
+    
+    .catch(err => {
+      console.log(err);
+    });
+  },10);
+  }
+
   componentDidMount(){
     var a=[];
     for(var i=0;i<=31;i++){
       a.push(false);
     }
+    this._unsubscribeSiFocus = this.props.navigation.addListener('focus', ()=>{
+      this.fetchEvents();
+    });
   //  this.setState({dots:a});
-    this.setState({dots:this.setDots()});
   }
 
+  componentWillUnmount(){
+    this._unsubscribeSiFocus;
+  }
 
   changeMonth = (n) => {
     var a=this.state.activeDate;
@@ -122,10 +168,12 @@ dispMatrix(matrix){
 //
 setDots(){
   var a=this.state.entryArray;
+  console.log("helllo");
   console.log(a);
-  var b= a.filter(entry => entry.date.split(" ")[1]===this.months[this.state.activeDate.getMonth()]); //get entries in selected month
-  a = b.filter(entry => entry.date.split(" ")[2]===(""+this.state.activeDate.getFullYear())); //get entries in the selected year
-  b = a.map(entry => entry.date.split(" ")[0]); //get just the dates
+  console.log("helllo");
+  var b= a.filter(entry => (entry.title==="Event Reminder" || entry.title==="Special Event Reminder")?entry.month:entry.date.split(" ")[1]===this.months[this.state.activeDate.getMonth()]); //get entries in selected month
+  a = b.filter(entry => (entry.title==="Event Reminder" || entry.title==="Special Event Reminder")?entry.year:entry.date.split(" ")[2]===(""+this.state.activeDate.getFullYear())); //get entries in the selected year
+  b = a.map(entry => (entry.title==="Event Reminder" || entry.title==="Special Event Reminder")?entry.date:entry.date.split(" ")[0]); //get just the dates
   console.log("dots");
   console.log(b);
   console.log("dots");
@@ -136,9 +184,10 @@ setDots(){
   }
   for(var i=0;i<b.length;i++){
     console.log(b[i]);
-    ind = (b[i].length===3)?(b[i].substring(0,1)):(b[i].substring(0,2));
+
+    ind = (b[i].length<3)?b[i]:((b[i].length===3)?(b[i].substring(0,1)):(b[i].substring(0,2)));
     console.log(ind);
-    temp[ind]=true;
+    temp[Number(ind)]=true;
   }
   return temp;
 }
@@ -158,14 +207,24 @@ viewEntry(d,m,y){
   mydate=(y+'-'+m+'-'+d);
   }
   if(this.state.dots[d]){
-    var itt = this.state.entryArray.filter(entry => (entry.date.split(" ")[1]===this.months[m-1]));
-    var it = itt.filter(entry => entry.date.split(" ")[2]===(""+y));
-    itt = it.filter(entry => ((entry.date.substring(0,2)===(""+d)) || ((entry.date.substring(0,1)===(""+d) && d<10))));
-    this.props.navigation.navigate('NewEntry', {edit:false, key:itt[0].key, date:itt[0].date, title:itt[0].title, text:itt[0].text, name:this.props.route.params.name});
+    var mydate2=moment(mydate).format('Do MMMM YYYY');
+    var itt = this.state.entryArray.filter(entry => 
+      (entry.title==="Event Reminder" || entry.title==="Special Event Reminder")?
+        (Number(entry.date)===Number(mydate.substring(8,10)) && Number(entry.month)===Number(mydate.substring(5,7)) && entry.year===(""+y)):
+          entry.date===mydate2
+    );
+    console.log("eventArray")
+    console.log(itt);
+    itt = itt.map((i)=>{i.date=mydate2; return i});
+    console.log(itt);
+    console.log("eventArray")
+//    var it = itt.filter(entry => entry.date.split(" ")[2]===(""+y));
+  //  itt = it.filter(entry => ((entry.date.substring(0,2)===(""+d)) || ((entry.date.substring(0,1)===(""+d) && d<10))));
+    this.props.navigation.navigate('EventsDisplay', {eventArray:itt, name:this.props.route.params.name,date:mydate2});
   }
   else{
-    mydate=moment(mydate).format('Do MMMM YYYY')
-    this.props.navigation.navigate('NewEntry', {edit:true, key:Date.now(), date:mydate, name:this.props.route.params.name});
+  //  mydate=moment(mydate).format('Do MMMM YYYY');
+    this.props.navigation.navigate('EventsDisplay', {eventArray:[], name:this.props.route.params.name});
   }
   //get data from backend
   //this.props.navigation.navigate('NewEntry', {edit:false, key:key, date:itt[0].date, title:itt[0].title, text:itt[0].text, name:this.props.route.params.name});

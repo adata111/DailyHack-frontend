@@ -1,4 +1,3 @@
-/*tp*/
 import 'react-native-gesture-handler';
 import React, {useState, useEffect, useRef} from "react";
 import DateTimePicker from '@react-native-community/datetimepicker';

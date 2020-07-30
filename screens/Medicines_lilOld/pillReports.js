@@ -1,4 +1,3 @@
-/*tp*/
 import  React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Picker, TextInput } from 'react-native';
 import Constants from 'expo-constants';

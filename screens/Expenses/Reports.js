@@ -1,5 +1,5 @@
 import  React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Picker, TextInput } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Picker, TextInput, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import { VictoryChart, VictoryLine, VictoryTheme, VictoryLabel, VictoryZoomContainer } from 'victory-native';
 import { url } from './../../components/url';
@@ -12,14 +12,34 @@ export default class Reports extends React.Component {
     super(props);
     this.state={
       monthlyTrans:[],
-      month:"",
-      year:(new Date()).getFullYear(),
+      month:(moment(new Date()).format("YYYY-MM-DD")).substring(5,7),
+      year:""+(new Date()).getFullYear(),
+      fullData:[],
       pieData:[{ y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 10 }, { y: 100 }],
     }
     this.generateGraph = this.generateGraph.bind(this);
     this.fetchEntries = this.fetchEntries.bind(this);
     this.createPie = this.createPie.bind(this);
+    this.changeData = this.changeData.bind(this);
   }
+
+  changeData(){
+    var dd = this.state.fullData.filter(ex => ex._id.month===(this.state.month+"-"+this.state.year))
+        dd = dd.filter(ex => ex._id.type==="expenses")
+        const exp = dd.reduce((t,i)=> t + i.expenses, 0);
+        console.log(exp);
+        var data = dd.map((d)=>{
+          return({x:d._id.purpose, y:d.expenses})
+        })
+        console.warn(data);
+        data.sort((a,b)=>(a.x > b.x) ? 1 : ((b.x > a.x) ? -1 : 0)); 
+        this.setState({
+          exp,
+          pieData:data,
+        })
+        
+  }
+
   fetchEntries(){
     fetch(url+'/getPieChart',{
       method: 'POST',
@@ -40,14 +60,17 @@ export default class Reports extends React.Component {
       console.warn(res);
       //Alert.alert(res.message);
       if(res.success === true){
-        const exp = res.content.reduce((t,i)=> t + i.expenses, 0);
+        var dd = res.content.filter(ex => ex._id.month===this.state.month+"-"+this.state.year)
+        dd = dd.filter(ex => ex._id.type==="expenses")
+        const exp = dd.reduce((t,i)=> t + i.expenses, 0);
         console.log(exp);
-        var data = res.content.map((d)=>{
+        var data = dd.map((d)=>{
           return({x:d._id.purpose, y:d.expenses})
         })
+        console.warn(data);
         data.sort((a,b)=>(a.x > b.x) ? 1 : ((b.x > a.x) ? -1 : 0)); 
         this.setState({
-          
+          fullData:res.content,
           exp,
           pieData:data,
         })
@@ -64,11 +87,12 @@ export default class Reports extends React.Component {
   }
 
   componentDidMount(){
-    
+    this.fetchEntries();
     this.setState({
       monthlyTrans:this.props.route.params.monthlyTrans,
     });
   }
+
 months = ["Jan", "Feb", "Mar", "Apr", 
   "May", "Jun", "Jul", "Aug", "Sep", "Oct", 
   "Nov", "Dec"];
@@ -130,19 +154,20 @@ months = ["Jan", "Feb", "Mar", "Apr",
     console.log(this.props.exp);
     console.log("pie");
     return (
-      <View style={styles.container}>
-      <View style={{ top:20, position: 'absolute', }}>
+    
+     <View>
+      <View style={{ top:70, left:30, position: 'absolute', }}>
       <VictoryPie
         animate={{ easing: 'exp' }}
         data={this.state.pieData}
-        width={400}
-        height={400}
+        width={350}
+        height={350}
         colorScale={this.graphicColor}
-        innerRadius={80}
-        labels={({ datum }) => datum.y+" "+datum.x}
+        innerRadius={70}
+        labels={({ datum }) => datum.y}
       />
 
-      <View style={{ bottom: 170, left: 160, position: 'absolute', }}>
+      <View style={{ bottom: 140, left: 130, position: 'absolute', }}>
       <Text style={{ fontSize:18, fontWeight:"bold" }}>Expenses</Text>
       <Text style={{ fontSize:18, fontWeight:"bold" }}>{this.state.exp}</Text>
       </View>
@@ -156,7 +181,7 @@ months = ["Jan", "Feb", "Mar", "Apr",
        <Rect x="120" y="-100" width="200" height="800" strokeWidth="2" fill="#e63946" />
     </Svg>
       <View style={{ right: 140, bottom:5, }}>
-      <Text style={{ fontWeight:"bold" }}>Shopping</Text>
+      <Text style={{ fontWeight:"bold" }}>Fuel</Text>
       </View>
       </View>
       <View style={{ flexDirection:"row", }}>
@@ -166,7 +191,7 @@ months = ["Jan", "Feb", "Mar", "Apr",
        <Rect x="120" y="-100" width="200" height="800" strokeWidth="2" fill="#ee964b" />
     </Svg>
       <View style={{ right: 140, bottom:5, }}>
-      <Text style={{ fontWeight:"bold" }}>Restaurant</Text>
+      <Text style={{ fontWeight:"bold" }}>Medical</Text>
       </View>
       </View>
       <View style={{ flexDirection:"row", }}>
@@ -176,7 +201,7 @@ months = ["Jan", "Feb", "Mar", "Apr",
        <Rect x="120" y="-100" width="200" height="800" strokeWidth="2" fill="#ffd166" />
     </Svg>
       <View style={{ right: 140, bottom:5, }}>
-      <Text style={{ fontWeight:"bold" }}>Fuel</Text>
+      <Text style={{ fontWeight:"bold" }}>Other</Text>
       </View>
       </View>
       </View>
@@ -190,8 +215,8 @@ months = ["Jan", "Feb", "Mar", "Apr",
        >
        <Rect x="120" y="-100" width="200" height="800" strokeWidth="2" fill="#06d6a0" />
     </Svg>
-      <View style={{ right: 120, bottom:5, }}>
-      <Text style={{ fontWeight:"bold" }}>Medical</Text>
+      <View style={{ right: 150, bottom:5, }}>
+      <Text style={{ fontWeight:"bold" }}>Restaurant</Text>
       </View>
       </View>
 
@@ -201,8 +226,8 @@ months = ["Jan", "Feb", "Mar", "Apr",
        >
        <Rect x="120" y="-100" width="200" height="800" strokeWidth="2" fill="#118ab2" />
     </Svg>
-      <View style={{ right: 120, bottom:5, }}>
-      <Text style={{ fontWeight:"bold" }}>Travel</Text>
+      <View style={{ right: 150, bottom:5, }}>
+      <Text style={{ fontWeight:"bold" }}>Shopping</Text>
       </View>
       </View>
 
@@ -212,8 +237,8 @@ months = ["Jan", "Feb", "Mar", "Apr",
        >
        <Rect x="120" y="-100" width="200" height="800" strokeWidth="2" fill="#073b4c" />
     </Svg>
-      <View style={{ right: 120, bottom:5, }}>
-      <Text style={{ fontWeight:"bold" }}>Other</Text>
+      <View style={{ right: 150, bottom:5, }}>
+      <Text style={{ fontWeight:"bold" }}>Travel</Text>
       </View>
       </View>
       </View>  
@@ -224,10 +249,10 @@ months = ["Jan", "Feb", "Mar", "Apr",
   render() {
     console.log(this.props.route.params.monthlyTrans);
     return (
-    
       <View style={styles.container}>
-    {/*  <View>
-      <View style={{ flexDirection: 'row', justifyContent: 'flex-start', bottom: 100, }}>
+    <ScrollView>
+      <View style={{ height:1000}}>
+      <View style={{ flexDirection: 'row', justifyContent: 'flex-start', top: 50, }}>
       <View style={styles.dropdown}>
       <Picker mode='dropdown' 
       style={styles.picker} 
@@ -256,15 +281,16 @@ months = ["Jan", "Feb", "Mar", "Apr",
       value={""+this.state.year}/>
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={this.fetchEntries}>
+      <TouchableOpacity style={styles.button} onPress={this.changeData}>
       <Text style={styles.btntext}>Get Records</Text>
       </TouchableOpacity>
       {this.createPie()}
-      </View>*/}
+      </View>
 
       <Text>Expenditure Reports</Text>
       {this.generateGraph()}
      
+      </ScrollView>
       </View>
       );
     }
@@ -341,7 +367,7 @@ months = ["Jan", "Feb", "Mar", "Apr",
       borderColor: 'black',
       borderWidth: 1,
       borderRadius: 5,
-      bottom: 100,
+      top: 60,
       left: 80,
     },
 

@@ -30,7 +30,7 @@ render() {
     <Row>
 
     <Col style={{ borderColor: 'rgb(29, 53, 87)', borderWidth: 2, marginBottom: 10, marginRight: 10, justifyContent: 'center', borderRadius: 120, backgroundColor: '#fff',}}>
-    <TouchableOpacity onPress={() => this.props.navigation.navigate('AllListSports')}>
+    <TouchableOpacity onPress={() => this.props.navigation.navigate('AllListSports',{name:this.props.route.params.name})}>
     <View style={{ alignItems: 'center', }}>
     <Image
     source={require('../../assets/list.png')}

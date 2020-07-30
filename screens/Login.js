@@ -87,7 +87,7 @@ export default class Login extends React.Component{
       }  
         this.props.navigation.dispatch(
         CommonActions.reset({
-          
+          index: 1,
         routes: [
                   {name: 'Login'} , 
                   { name: 'loading',params: {age: res.age, name:this.state.name}},

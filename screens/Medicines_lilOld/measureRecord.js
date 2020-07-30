@@ -1,4 +1,3 @@
-/*Input and set reminder for Measurement reminder*/
 import 'react-native-gesture-handler';
 import React, {Component, useState, useEffect, useRef} from "react";
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -124,10 +123,7 @@ export default class App extends Component {
         title: "Measurement Reminder",
         body: "It's time to record your "+this.state.mode,
         data:{
-          key:this.state.key,
-          screen:"Reminder",
-          title:"Measurement Record",
-          head : this.state.mode,
+          measure : this.state.mode,
           desc: this.state.desc
         },
         start_year: Stdate.getFullYear(),
@@ -136,9 +132,10 @@ export default class App extends Component {
         end_year: date.split("-")[2],
         end_month: date.split("-")[1],
         end_date: parseInt(date.split("-")[0]),
-        timeArray: [this.state.time.split(" : ")[0]+":"+this.state.time.split(" : ")[1]+":00"],
+        hour: this.state.time.split(" : ")[0],
+        minutes: this.state.time.split(" : ")[1],
+        seconds: "00",
         curr_token: expoPushToken,
-        key:this.state.key,
       })
     });
       

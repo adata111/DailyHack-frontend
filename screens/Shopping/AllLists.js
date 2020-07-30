@@ -27,6 +27,7 @@ console.log("fethcing");
   //  return [{key:12345679, date:"22nd June 2020", title:"check", text:"this is some text"}];
  // }
   //else{
+    setTimeout(() => {
   fetch(url+'/getAllShopLists',{
       method: 'POST',
       headers: {
@@ -57,6 +58,7 @@ console.log("fethcing");
     .catch(err => {
       console.log(err);
     });
+  },10)
   //}
 }
   componentDidMount(){

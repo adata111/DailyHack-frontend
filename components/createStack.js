@@ -29,11 +29,13 @@ import Food from './../screens/Sports/Food.js';
 import Water from './../screens/Sports/Water.js';
 import Sleep from './../screens/Sports/Sleep.js';
 import { MedTab } from'./MedTab.js';
-import Inventory from './../screens/Medicines/inventory.js';
+import Record from './../screens/Medicines/recordMeas.js';
 import EventHome from './../screens/Events/eventRecord.js';
 import EveReminder from './../screens/Events/eveReminder.js';
 import EveNotes from './../screens/Events/eveNotes.js';
 import EveSpecial from './../screens/Events/eveSpecial.js';
+import EventsDisplay from './../screens/Events/eveDisplay.js';
+import MyCalendar from './../screens/Events/Calendar.js';
 const AdHomeStk = createStackNavigator();
 
 export function AdHomeStack({navigation}){
@@ -58,8 +60,8 @@ export function AdHomeStack({navigation}){
 		<AdHomeStk.Screen name="Food" component={Food} options={{title: "My Palate"}} />
 		<AdHomeStk.Screen name="Water" component={Water} options={{title: "Keep Yourself Hydrated"}} />
 		<AdHomeStk.Screen name="Sleep" component={Sleep} options={{title: "Sleep well"}} />
-		<AdHomeStk.Screen name="StopWatch" component={StopWatch} options={{title: "Stop Watch", headerShown: false}} />
-		<AdHomeStk.Screen name="Timer" component={Timer} options={{title: "Timer", headerShown: false}} />
+		<AdHomeStk.Screen name="StopWatch" component={StopWatch} options={{title: "Stop Watch", headerShown: true}} />
+		<AdHomeStk.Screen name="Timer" component={Timer} options={{title: "Timer", headerShown: true}} />
 		<AdHomeStk.Screen name="Diet" component={Diet} options={{title: "Diet", headerShown: false}} />
 		<AdHomeStk.Screen name="Manager" component={Manager} options={{title: "Daily Expenses Manager", headerShown: true,
 			headerRight: (props)=> (
@@ -80,11 +82,13 @@ export function AdHomeStack({navigation}){
 		<AdHomeStk.Screen name="AllTrans" component={AllTrans} options={{title: "All Transactions", headerShown: true}} />
 		<AdHomeStk.Screen name="Calculator" component={Calculator} options={{title: "Calculator", headerShown: false}} />
 		<AdHomeStk.Screen name="Medicine" component={MedTab} options={{title: "Medicine Home Page", headerShown: false}} />
-		<AdHomeStk.Screen name="Inventory" component={Inventory} options={{title: "Inventory", headerShown: true}} />
+		<AdHomeStk.Screen name="Record" component={Record} options={{headerShown: false}} />
 		<AdHomeStk.Screen name="EventHome" component={EventHome} options={{title: "Events", headerShown: true}} />
+		<AdHomeStk.Screen name="EveCal" component={MyCalendar} options={{title: "Event Entries", headerShown: true}} />
 		<AdHomeStk.Screen name="EveReminder" component={EveReminder} options={{title: "Add a Reminder", headerShown: true}} />
 		<AdHomeStk.Screen name="EveNotes" component={EveNotes} options={{title: "Make a Note", headerShown: true}} />
 		<AdHomeStk.Screen name="EveSpecial" component={EveSpecial} options={{title: "Special Events", headerShown: true}} />
+		<AdHomeStk.Screen name="EventsDisplay" component={EventsDisplay} options={{title: "Events List", headerShown: true}} />
 	</AdHomeStk.Navigator>
 	)
 }

@@ -1,4 +1,3 @@
-/*Input and set doctor appointment reminder*/
 import 'react-native-gesture-handler';
 import React, {useState} from "react";
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -95,7 +94,7 @@ import { StyleSheet,
             userName: this.props.route.params.name,
             title: "Appointment Reminder",
             body: "It's time for "+this.state.name+"'s appointment",
-            data: {key:this.state.key,screen:"docApp",title:"Doctor Appointment",head:this.state.name,desc:this.state.addr+"\n"+this.state.phn},
+            data: "measureRecord",
             year: Stdate.getFullYear(),
             month: ""+(parseInt(Stdate.getMonth())+1),
             date: Stdate.getDate(),
