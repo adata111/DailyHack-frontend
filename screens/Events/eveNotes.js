@@ -92,7 +92,7 @@ import { url } from './../../components/url';
       
       .then((res) => {
         console.log("response");
-        console.warn(res);
+        //console.warn(res);
         //Alert.alert(res.message);
         //if entry added
         if(res.success === true){
@@ -104,7 +104,7 @@ import { url } from './../../components/url';
         }
         else {
           alert(res.message);
-          console.warn("error");
+          //console.warn("error");
         }
       })
       
@@ -134,7 +134,7 @@ import { url } from './../../components/url';
     
     .then((res) => {
       console.log("response");
-      console.warn(res);
+      //console.warn(res);
       //Alert.alert(res.message);
       //if entry added
       if(res.success === true){
@@ -144,7 +144,7 @@ import { url } from './../../components/url';
       }
       else {
         alert(res.message);
-        console.warn("error");
+        //console.warn("error");
       }
     })
     

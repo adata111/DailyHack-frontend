@@ -111,7 +111,7 @@ import { StyleSheet,
     
     .then((res) => {
       console.log("response");
-      console.warn(res);
+      //console.warn(res);
       //Alert.alert(res.message);
       //if entry added
       if(res.success === true){
@@ -122,7 +122,7 @@ import { StyleSheet,
       }
       else {
         alert(res.message);
-        console.warn("error");
+        //console.warn("error");
       }
     })
     
@@ -151,7 +151,7 @@ import { StyleSheet,
     
     .then((res) => {
       console.log("response");
-      console.warn(res);
+      //console.warn(res);
       //Alert.alert(res.message);
       //if entry added
       if(res.success === true){
@@ -161,7 +161,7 @@ import { StyleSheet,
       }
       else {
         alert(res.message);
-        console.warn("error");
+        //console.warn("error");
       }
     })
     
@@ -211,7 +211,7 @@ console.log("jiji");
         <View style={styles.input}>
         <TouchableOpacity onPress={() => this.state.edit?(this.setState({ isDatePickerVisible: true})):null}>
         <TextInput style={styles.textinput} placeholder="Date" 
-        placeholderTextColor="black"
+        placeholderTextColor="grey"
         underlineColorAndroid={'transparent'} 
         editable={false}
         value={this.state.date}
@@ -227,7 +227,7 @@ console.log("jiji");
         />
         <TouchableOpacity onPress={() => this.state.edit?(this.setState({ isTimePickerVisible: true})):null}>
         <TextInput style={styles.textinput} placeholder="Time" 
-        placeholderTextColor="black"
+        placeholderTextColor="grey"
         underlineColorAndroid={'transparent'} 
         editable={false}
         value={this.state.time}
@@ -243,7 +243,7 @@ console.log("jiji");
         />
         
           <TextInput style={styles.textinput} placeholder="Amount" 
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
           underlineColorAndroid={'transparent'} 
           value={""+this.state.amt}
           onChange = {this.handleAmtChange}
@@ -266,7 +266,7 @@ console.log("jiji");
           </Picker>
           </View>
           <TextInput style={styles.textinputDiary} placeholder="Description (Optional)" 
-          placeholderTextColor="black" multiline={true}
+          placeholderTextColor="grey" multiline={true}
           underlineColorAndroid={'transparent'} 
           value={this.state.desc}
           onChange = {(e)=>this.setState({ desc: e.nativeEvent.text})}

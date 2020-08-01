@@ -31,7 +31,7 @@ export default class Reports extends React.Component {
         var data = dd.map((d)=>{
           return({x:d._id.purpose, y:d.expenses})
         })
-        console.warn(data);
+        //console.warn(data);
         data.sort((a,b)=>(a.x > b.x) ? 1 : ((b.x > a.x) ? -1 : 0)); 
         this.setState({
           exp,
@@ -57,7 +57,7 @@ export default class Reports extends React.Component {
     
     .then((res) => {
       console.log("response");
-      console.warn(res);
+      //console.warn(res);
       //Alert.alert(res.message);
       if(res.success === true){
         var dd = res.content.filter(ex => ex._id.month===this.state.month+"-"+this.state.year)
@@ -67,7 +67,7 @@ export default class Reports extends React.Component {
         var data = dd.map((d)=>{
           return({x:d._id.purpose, y:d.expenses})
         })
-        console.warn(data);
+        //console.warn(data);
         data.sort((a,b)=>(a.x > b.x) ? 1 : ((b.x > a.x) ? -1 : 0)); 
         this.setState({
           fullData:res.content,

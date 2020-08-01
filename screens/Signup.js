@@ -98,7 +98,7 @@ export default class Signup extends React.Component{
     
     .then((res) => {
       console.log("responseh");
-      console.warn(res);
+      console.log(res);
 //      console.log(" token");
   //    console.log(token);
     //  console.log(" token");
@@ -115,7 +115,7 @@ export default class Signup extends React.Component{
       }
       else {
         alert(res.message);
-        console.warn("user already exists or error");
+        console.log("user already exists or error");
       }
     })
     

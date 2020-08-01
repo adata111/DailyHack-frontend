@@ -44,7 +44,7 @@ export default class NewEntry extends React.Component{
 
   handleConfirm(date) {
     this.hideDatePicker();
-  //  console.warn(moment('2020-06-22').format('Do MMM YYYY'));
+  //  console.log(moment('2020-06-22').format('Do MMM YYYY'));
     this.setState({ date:moment(date).format('Do MMMM YYYY'), called:false});
   };
 
@@ -99,7 +99,7 @@ export default class NewEntry extends React.Component{
     
     .then((res) => {
       console.log("response");
-      console.warn(res);
+      console.log(res);
       //Alert.alert(res.message);
       //if entry added
       if(res.success === true){
@@ -113,7 +113,7 @@ export default class NewEntry extends React.Component{
       }
       else {
         alert(res.message);
-        console.warn("error");
+        console.log("error");
       }
     })
     

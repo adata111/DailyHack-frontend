@@ -16,10 +16,11 @@ export default class MedReports extends React.Component {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>- YOUR REPORTS -</Text>
+        <Text style={styles.headerText}>- My Reminders -</Text>
       </View>
 
-       <ScrollView style={styles.scrollContainer}>
+      <ScrollView>
+       <View style={styles.scrollContainer}>
       
       <View style={styles.note}>
 
@@ -41,9 +42,11 @@ export default class MedReports extends React.Component {
 
       <View style={styles.note}>
  <Text style={styles.noteText}>28/07/2020</Text>
-      <Text style={styles.noteText}>Vitamin B</Text>
+      <Text style={styles.noteText}>Vitamin A</Text>
       <Text style={styles.noteText}>13:00</Text>
       </View>
+      </View>
+
       </ScrollView>
 
      
@@ -76,21 +79,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#1e555c',
     alignItems: 'center',
     justifyContent: 'center',
-    borderBottomWidth: 10,
-    borderBottomColor: '#ddd',
+     borderBottomWidth: 10,
+      borderBottomColor: '#ddd',
     top:30,
   },
 
   scrollContainer: {
       flex: 1,
       marginBottom: 100,
-      top:60,
+      top:70,
     },
 
 
   note: {
       position: 'relative',
       padding: 20,
+      top:20,
       paddingRight: 100,
       borderBottomWidth: 2,
       borderBottomColor: '#ededed',

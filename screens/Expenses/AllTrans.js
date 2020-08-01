@@ -76,7 +76,7 @@ import { StyleSheet,
     
     .then((res) => {
       console.log("response");
-      console.warn(res);
+      //console.warn(res);
       if(res.success){
       this.setState({transArray:res.content[0].expense[0].contents});
       }
@@ -114,7 +114,7 @@ import { StyleSheet,
       <View style={styles.input}>
       <TouchableOpacity onPress={() => this.setState({ isDatePickerVisible: true})}>
       <TextInput style={styles.textinput} placeholder="Date" 
-      placeholderTextColor="black"
+      placeholderTextColor="grey"
       underlineColorAndroid={'transparent'} 
       editable={false}
       value={this.state.date}

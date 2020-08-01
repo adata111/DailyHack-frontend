@@ -47,8 +47,8 @@ export default class Food extends React.Component {
      <View style={{ alignItems: 'center', justifyContent: 'center', }}>
       <Text style={styles.headerText}>Calcium</Text>
       </View>
-      <Text style={styles.listText}>Unprocessed or minimally processed whole grains, vegetables, fruits and beans
-      are healthy sources of carbohydrates. Some of the sources are:</Text>   
+      <Text style={styles.listText}>Calcium enables our blood to clot, our muscles to contract, and our heart to beat.
+       Some of the sources are:</Text>   
       <Text style={styles.listText}>- Milk</Text> 
       <Text style={styles.listText}>- Some leafy vegetables</Text>
       <Text style={styles.listText}>- Soya beans</Text>

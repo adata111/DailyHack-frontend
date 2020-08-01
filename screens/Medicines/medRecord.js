@@ -49,11 +49,7 @@ import { StyleSheet,
         chStdate: new Date(),
         mode: "",
         time: "",
-        noteArray: [],
-        noteText: '',
-        curr: 15,
-        rem: 5,
-        each: 1
+        
       };
       this.hideStDatePicker = this.hideStDatePicker.bind(this);
       this.hideEnDatePicker = this.hideEnDatePicker.bind(this);
@@ -180,53 +176,7 @@ import { StyleSheet,
   return token;
 }
 
-      changeNumCurr = (n) => {
-        if(this.state.curr == 0)
-        {
-          if(n>0)
-          {
-            this.setState({ curr: this.state.curr + n});  
-          }
-          
-        }
-
-        else if(this.state.curr > 0)
-        {
-          this.setState({ curr: this.state.curr + n});  
-        }
-        
-      }
-
-      changeNumRem = (n) => {
-        if(this.state.rem == 0)
-        {
-          if(n>0)
-          {
-            this.setState({ rem: this.state.rem + n});  
-          }
-          
-        }
-
-        else if(this.state.rem > 0)
-        {
-          this.setState({ rem: this.state.rem + n});  
-        }
-        
-      }
-
-      changeNumEach = (n) => {
-        if(this.state.each == 0)
-        {
-          if(n>0)
-          {
-            this.setState({ each: this.state.each + n});  
-          }
-        }
-        else if(this.state.each > 0)
-        {
-          this.setState({ each: this.state.each + n});  
-        }        
-      }
+     
 
       showDialog(isShow){
         this.setState({isDialogVisible: isShow});
@@ -245,10 +195,6 @@ componentDidMount() {
 }
 
 render(){
- var notes = this.state.noteArray.map((val,key) => {
-        return <Note key={key} keyval={key} val={val}
-        deleteMethod={ ()=> this.deleteNote(key) } />
-      })
 
   return (
     <View style={styles.container}>
@@ -314,16 +260,6 @@ render(){
     value={this.state.desc}
     onChange = {(e)=>this.setState({ desc: e.nativeEvent.text})}/>
 
-    <View style={styles.scrollContainer}>
-
-          {notes}
-
-          </View>
-
-          <TouchableOpacity onPress={this.addNote.bind(this)} style={styles.button}>
-          <Text style={styles.btntext}>Add Reminder Time   <Feather name="clock" size={24} color="white" /></Text>
-          </TouchableOpacity>
-
     <TouchableOpacity style={styles.button} onPress={async () => {
       await this.sendPushNotification(this.state.expoPushToken);
     }}>
@@ -333,24 +269,6 @@ render(){
     </ScrollView>
     </View>
     );
-  }
-
-  addNote() {
-    var d = new Date();
-    this.state.noteArray.push({
-      'date' :  d.getFullYear() +
-      "/" + (d.getMonth() + 1) +
-      "/" + d.getDate(),
-      'note': this.state.noteText,
-      key: Date.now(),
-    });
-    this.setState({ noteArray: this.state.noteArray })
-    this.setState({ noteText: '' });
-  }
-
-  deleteNote(key) {
-    this.state.noteArray.splice(key, 1);
-    this.setState({ noteArray: this.state.noteArray })
   }
 
 

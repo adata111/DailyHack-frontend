@@ -5,18 +5,93 @@ import Constants from 'expo-constants';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Entypo, AntDesign, FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { url } from './../components/url';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class HelpCenter extends React.Component {
    constructor(props){
     super(props);
 
     this.state={
-      mode: "",
+      mode: "5",
       name: "",
+      uname: "",
       email: "",
       feed: "",
     };
+    this.save = this.save.bind(this);
+    this.getFromAsync=this.getFromAsync.bind(this);
   }
+
+  getFromAsync = async()=>{
+    if(Platform.OS === 'ios' || Platform.OS === 'android'){
+      const authData = await AsyncStorage.getItem('auth_data');
+      if(authData !== null){
+        const authDataJson = JSON.parse(authData);
+        this.setState({name: (authDataJson.fname + " " + authDataJson.lname),
+                        uname: authDataJson.name});
+      }
+    }
+    else{
+      const authData = localStorage.getItem('auth_data');
+      if(authData !== null){
+        console.log("hi");
+        const authDataJson = JSON.parse(authData);
+        this.setState({uname: authDataJson.name});
+      }
+    }     
+  }
+
+   save(){
+      fetch(url+'/feedback',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        edit: 1,
+        key:this.state.key,
+        name:this.state.name,
+        userName:this.state.uname,
+        comments:this.state.feed,
+        rating: Number(this.state.mode),
+      })
+    })
+
+    //recieve entry added confirmation from backend
+    .then((response) => (response.json()))
+    
+    .then((res) => {
+      console.log("response");
+      console.log(res);
+      //Alert.alert(res.message);
+      //if entry added
+      if(res.success === true){
+        alert(res.message);
+        
+      }
+      else {
+        alert(res.message);
+        console.log("error");
+      }
+    })
+    
+    .catch(err => {
+      console.log(err);
+    });
+    }
+
+    edit(){
+    //console.log(this.editMode);
+      this.setState({edit : !(this.state.edit)});
+    }
+
+    
+
+    componentDidMount(){
+      this.getFromAsync();
+    }
 
   render() {
     return (
@@ -72,7 +147,7 @@ export default class HelpCenter extends React.Component {
 
       </View>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={this.save}>
       <Text style={styles.btnText}>Submit</Text>
       </TouchableOpacity>
 
@@ -194,4 +269,3 @@ button: {
       alignItems: 'center',
     },
   });
-

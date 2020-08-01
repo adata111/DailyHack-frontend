@@ -21,7 +21,7 @@ export default class AllEntries extends React.Component {
     this.fetchEntries=this.fetchEntries.bind(this);
     this.createEntries=this.createEntries.bind(this);
      //   this._unsubscribeSiBlur = this.props.navigation.addListener('blur', e => {
-        //console.warn('blur diary');
+        ////console.warn('blur diary');
    // });
   }
 
@@ -46,7 +46,7 @@ console.log("fethcing");
     
     .then((res) => {
       console.log("response");
-      console.warn(res);
+      //console.warn(res);
       if(res.success){
       this.setState({eventArray:res.content});
       }
@@ -173,7 +173,7 @@ console.log("fethcing");
     
     .then((res) => {
       console.log("response");
-      console.warn(res);
+      //console.warn(res);
       //Alert.alert(res.message);
       //if entry added
       if(res.success === true){
@@ -185,7 +185,7 @@ console.log("fethcing");
       }
       else {
         alert(res.message);
-        console.warn("error");
+        //console.warn("error");
       }
     })
     

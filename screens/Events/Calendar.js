@@ -46,13 +46,13 @@ export default class MyCalendar extends React.Component {
     
     .then((res) => {
       console.log("response");
-    //  console.warn(res);
+    //  //console.warn(res);
       if(res.success){
         console.log("responsead");
         console.log(res.data);
       this.setState({entryArray:res.data});
 
-    console.warn(this.state.entryArray);
+    //console.warn(this.state.entryArray);
 
     this.setState({dots:this.setDots()});
       }

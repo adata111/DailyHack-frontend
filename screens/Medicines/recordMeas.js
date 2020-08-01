@@ -97,7 +97,7 @@ export default class Record extends React.Component {
     
     .then((res) => {
       console.log("response");
-      console.warn(res);
+      //console.warn(res);
       if(res.success){
 
       }
@@ -137,7 +137,7 @@ export default class Record extends React.Component {
     
     .then((res) => {
       console.log("response");
-      console.warn(res);
+      //console.warn(res);
       if(res.success){
         this.props.navigation.dispatch(
         CommonActions.reset({

@@ -71,7 +71,7 @@ export default class Login extends React.Component{
     
     .then((res) => {
       console.log("response");
-      console.warn(res);
+      //console.warn(res);
       //Alert.alert(res.message);
       //if login successful
       if(res.success === true){
@@ -96,7 +96,7 @@ export default class Login extends React.Component{
       }
       else {
         alert("Incorrect Username or Password");
-        console.warn("Incorrect Username or Password");
+        //console.warn("Incorrect Username or Password");
       }
     })
     

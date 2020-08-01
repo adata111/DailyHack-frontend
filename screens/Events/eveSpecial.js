@@ -182,7 +182,7 @@ componentDidMount() {
         <View style={styles.input}>
 
         <TextInput style={styles.textinput} placeholder="Special Event name" 
-        placeholderTextColor="black"
+        placeholderTextColor="grey"
         underlineColorAndroid={'transparent'} 
         value = {this.state.eventName}
         onChange = {(e)=>this.setState({ eventName: e.nativeEvent.text})}
@@ -190,7 +190,7 @@ componentDidMount() {
 
         <TouchableOpacity onPress={()  => this.state.edit?this.setState({ isStDatePickerVisible: true}):null}>
         <TextInput style={styles.textinput} placeholder="Date" 
-        placeholderTextColor="black"
+        placeholderTextColor="grey"
         underlineColorAndroid={'transparent'} 
         editable={false}
         value={this.state.Stdate}
@@ -208,7 +208,7 @@ componentDidMount() {
 
         <TouchableOpacity onPress={() => this.state.edit?this.setState({ isTimePickerVisible: true}):null}>
         <TextInput style={styles.textinput} placeholder="Time" 
-        placeholderTextColor="black"
+        placeholderTextColor="grey"
         underlineColorAndroid={'transparent'} 
         editable={false}
         value={this.state.time}
@@ -224,7 +224,7 @@ componentDidMount() {
         />
         
         <TextInput style={styles.textinputDiary} placeholder="Description (optional)" 
-        placeholderTextColor="black" multiline={true}
+        placeholderTextColor="grey" multiline={true}
         underlineColorAndroid={'transparent'} 
         value = {this.state.desc}
         onChange = {(e)=>this.setState({ desc: e.nativeEvent.text})}

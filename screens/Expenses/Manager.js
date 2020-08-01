@@ -56,7 +56,7 @@ export default class Manager extends React.Component {
     
     .then((res) => {
       console.log("response");
-      console.warn(res);
+      //console.warn(res);
       //Alert.alert(res.message);
       if(res.success === true){
         var d=moment(Date.now()).format('MM-YYYY');
@@ -69,7 +69,7 @@ export default class Manager extends React.Component {
           inc,
           exp,
           sav:(inc - exp),
-          graphicData:[{ x:"Sav", y:(inc-exp)}, {x:"Exp", y:exp}],
+          graphicData:[{ x:(inc-exp), y:(inc-exp)}, {x:exp, y:exp}],
           monthlyTrans:res.content,
         })
         

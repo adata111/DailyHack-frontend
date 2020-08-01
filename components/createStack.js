@@ -105,30 +105,54 @@ export function AdHomeStack({navigation}){
 
 const NotifStk = createStackNavigator();
 
-export function NotifStack(){
+export function NotifStack({navigation}){
 	return(
 	<NotifStk.Navigator>
-		<NotifStk.Screen name="Notifications" component={Notifications} options={{headerShown: true}} />
+		<NotifStk.Screen name="Notifications" component={Notifications} options={{
+		title: "Notifications",
+			headerShown: true,
+			headerLeft: (props)=>(<TouchableOpacity onPress={()=>{navigation.openDrawer()}}><Ionicons 
+                name="md-menu" 
+                size={25} 
+                color="blue" 
+                style={{ margin: 7,}} /></TouchableOpacity>)
+		}} />
 	</NotifStk.Navigator>
 	)
 }
 
 const ProfileStk = createStackNavigator();
 
-export function ProfileStack(){
+export function ProfileStack({navigation}){
 	return(
 	<ProfileStk.Navigator>
-		<ProfileStk.Screen name="Profile" component={Profile} options={{headerShown: true}} />
+		<ProfileStk.Screen name="Profile" component={Profile} options={{
+		title: "Profile",
+			headerShown: true,
+			headerLeft: (props)=>(<TouchableOpacity onPress={()=>{navigation.openDrawer()}}><Ionicons 
+                name="md-menu" 
+                size={25} 
+                color="blue" 
+                style={{ margin: 7,}} /></TouchableOpacity>)
+		}} />
 	</ProfileStk.Navigator>
 	)
 }
 
 const HelpStk = createStackNavigator();
 
-export function HelpStack(){
+export function HelpStack({navigation}){
 	return(
 	<HelpStk.Navigator>
-		<HelpStk.Screen name="Feedback" component={HelpCenter} options={{ title: "Feedback", headerShown: true }} />
+		<HelpStk.Screen name="Feedback" component={HelpCenter} options={{
+		title: "Feedback",
+			headerShown: true,
+			headerLeft: (props)=>(<TouchableOpacity onPress={()=>{navigation.openDrawer()}}><Ionicons 
+                name="md-menu" 
+                size={25} 
+                color="blue" 
+                style={{ margin: 7,}} /></TouchableOpacity>)
+		}} />
 	</HelpStk.Navigator>
 	)
 }

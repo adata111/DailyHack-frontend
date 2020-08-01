@@ -45,7 +45,7 @@ export default class AllListSports extends React.Component {
     
     .then((res) => {
       console.log("response");
-      console.warn(res);
+      //console.warn(res);
       if(res.success){
         this.setState({listArray:res.content });
       }
@@ -168,7 +168,7 @@ deleteList(key) {
     
     .then((res) => {
       console.log("rese");
-      console.warn(res);
+      //console.warn(res);
       //Alert.alert(res.message);
       //if entry added
       if(res.success === true){
@@ -180,7 +180,7 @@ deleteList(key) {
       }
       else {
         alert(res.message);
-        console.warn("error");
+        //console.warn("error");
       }
     })
     

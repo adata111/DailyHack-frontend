@@ -90,7 +90,7 @@ import { StyleSheet,
     
     .then((res) => {
       console.log("response");
-      console.warn(res);
+      //console.warn(res);
       //Alert.alert(res.message);
       //if entry added
       if(res.success === true){
@@ -101,7 +101,7 @@ import { StyleSheet,
       }
       else {
         alert(res.message);
-        console.warn("error");
+        //console.warn("error");
       }
     })
     
@@ -136,7 +136,7 @@ import { StyleSheet,
     
     .then((res) => {
       console.log("response");
-      console.warn(res);
+      //console.warn(res);
       //Alert.alert(res.message);
       //if entry added
       if(res.success === true){
@@ -146,7 +146,7 @@ import { StyleSheet,
       }
       else {
         alert(res.message);
-        console.warn("error");
+        //console.warn("error");
       }
     })
     
@@ -194,7 +194,7 @@ import { StyleSheet,
         <View style={styles.input}>
         <TouchableOpacity onPress={() => this.state.edit?(this.setState({ isDatePickerVisible: true})):null}>
         <TextInput style={styles.textinput} placeholder="Date" 
-        placeholderTextColor="black"
+        placeholderTextColor="grey"
         underlineColorAndroid={'transparent'} 
         editable={false}
         value={this.state.date}
@@ -210,7 +210,7 @@ import { StyleSheet,
         />
         <TouchableOpacity onPress={() => this.state.edit?(this.setState({ isTimePickerVisible: true})):null}>
         <TextInput style={styles.textinput} placeholder="Time" 
-        placeholderTextColor="black"
+        placeholderTextColor="grey"
         underlineColorAndroid={'transparent'} 
         editable={false}
         value={this.state.time}
@@ -226,21 +226,21 @@ import { StyleSheet,
         />
         
           <TextInput style={styles.textinput} placeholder="Amount" 
-          placeholderTextColor="black"
+          placeholderTextColor="grey"
           underlineColorAndroid={'transparent'} 
           onChange = {(e)=>this.setState({ amt: e.nativeEvent.text})}
           value={""+this.state.amt}
           editable={this.state.edit}
           keyboardType={'numeric'}/>
-          <TextInput style={styles.textinput} placeholder="Purpose (Shopping, Restaurant, Fuel, Medical, etc)" 
-          placeholderTextColor="black"
+          <TextInput style={styles.textinput} placeholder="Purpose" 
+          placeholderTextColor="grey"
           underlineColorAndroid={'transparent'} 
           editable={this.state.edit}
           value={this.state.pur}
           onChange = {(e)=>this.setState({ pur: e.nativeEvent.text})}
           />
           <TextInput style={styles.textinputDiary} placeholder="Description (Optional)" 
-          placeholderTextColor="black" multiline={true}
+          placeholderTextColor="grey" multiline={true}
           underlineColorAndroid={'transparent'} 
           value={this.state.desc}
           onChange = {(e)=>this.setState({ desc: e.nativeEvent.text})}

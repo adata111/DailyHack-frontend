@@ -47,7 +47,7 @@ export default class NewList extends React.Component {
     
     .then((res) => {
       console.log("response");
-      console.warn(res);
+      //console.warn(res);
       //Alert.alert(res.message);
       //if entry added
       if(res.success === true){
@@ -60,7 +60,7 @@ export default class NewList extends React.Component {
       }
       else {
         alert(res.message);
-        console.warn("error");
+        //console.warn("error");
       }
     })
     
@@ -184,7 +184,7 @@ export default class NewList extends React.Component {
       var itt=this.state.itemArray.filter(it => it.key===key);
       itt[0].checked = !itt[0].checked;
       var item=this.state.itemArray.map(it => it.key===key?itt[0]:it);
-      console.warn(item);
+      //console.warn(item);
       this.setState({ itemArray: item,called:false });
     
     }

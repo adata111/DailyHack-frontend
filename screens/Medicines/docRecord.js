@@ -109,6 +109,7 @@ import { StyleSheet,
             phoneNumber: this.state.phn,
           })
         });
+        this.props.navigation.navigate('MedHome')
       }
 
     }
