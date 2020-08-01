@@ -214,7 +214,7 @@ render() {
         color: '#fff',
       }}>
       {this.months[this.state.activeDate.getMonth()]} &nbsp;
-      {this.state.activeDate.getFullYear()}
+      {this.state.activeDate.getFullYear()} &nbsp;
       </RN.Text>
       <TouchableOpacity style={{
         position:'absolute',

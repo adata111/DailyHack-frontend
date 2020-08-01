@@ -171,8 +171,8 @@ setDots(){
   console.log("helllo");
   console.log(a);
   console.log("helllo");
-  var b= a.filter(entry => (entry.title==="Event Reminder" || entry.title==="Special Event Reminder")?entry.month:entry.date.split(" ")[1]===this.months[this.state.activeDate.getMonth()]); //get entries in selected month
-  a = b.filter(entry => (entry.title==="Event Reminder" || entry.title==="Special Event Reminder")?entry.year:entry.date.split(" ")[2]===(""+this.state.activeDate.getFullYear())); //get entries in the selected year
+  var b= a.filter(entry => (entry.title==="Event Reminder" || entry.title==="Special Event Reminder")?Number(entry.month)===(Number(this.state.activeDate.getMonth())+1):entry.date.split(" ")[1]===this.months[this.state.activeDate.getMonth()]); //get entries in selected month
+  a = b.filter(entry => (entry.title==="Event Reminder" || entry.title==="Special Event Reminder")?Number(entry.year)===Number(this.state.activeDate.getFullYear()):entry.date.split(" ")[2]===(""+this.state.activeDate.getFullYear())); //get entries in the selected year
   b = a.map(entry => (entry.title==="Event Reminder" || entry.title==="Special Event Reminder")?entry.date:entry.date.split(" ")[0]); //get just the dates
   console.log("dots");
   console.log(b);
@@ -273,7 +273,7 @@ render() {
         color: '#fff',
       }}>
       {this.months[this.state.activeDate.getMonth()]} &nbsp;
-      {this.state.activeDate.getFullYear()}
+      {this.state.activeDate.getFullYear()} &nbsp;
       </RN.Text>
       <TouchableOpacity style={{
         position:'absolute',

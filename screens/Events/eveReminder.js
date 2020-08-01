@@ -134,6 +134,23 @@ import { url } from './../../components/url';
 
 componentDidMount() {
   this.registerForPushNotificationsAsync();
+
+  if(!this.props.route.params.edit){
+        console.log(this.props.route.params);
+      this.setState({
+        edit:this.props.route.params.edit,
+        key: this.props.route.params.data.key,
+        Stdate:this.props.route.params.data.date,
+        eventName:this.props.route.params.data.eventName,
+        time:this.props.route.params.data.hour + " : " + this.props.route.params.data.minutes,
+        desc:this.props.route.params.data.description,
+        chStdate:moment(this.props.route.params.data.date,'Do MMMM YYYY'),
+        called:true,
+      });
+      }
+      else{
+        this.setState({key: this.props.route.params.key});
+      }
 }
 
     render(){
