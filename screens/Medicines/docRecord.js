@@ -223,7 +223,7 @@ render(){
     <TouchableOpacity style={styles.button} onPress={async () => {
       await this.sendPushNotification(this.state.expoPushToken);
     }}>
-    <Text style={styles.btntext}>Set a Reminder</Text>
+    <Text style={styles.btntext}>Set a Reminder </Text>
     </TouchableOpacity>
     </View>
 

@@ -142,7 +142,7 @@ export default class App extends Component {
         key:this.state.key,
       })
     });
-      
+      this.props.navigation.navigate('MedHome')
     }
 
 }
@@ -277,7 +277,7 @@ render(){
         <TouchableOpacity style={styles.button} onPress={async () => {
           await this.sendPushNotification(this.state.expoPushToken);
         }}>
-        <Text style={styles.btntext}>Set a Reminder</Text>
+        <Text style={styles.btntext}>Set a Reminder  </Text>
         </TouchableOpacity>
         </View>
         </ScrollView>
@@ -287,7 +287,6 @@ render(){
 }
 }
 
-// Can use this function below, OR use Expo's Push Notification Tool-> https://expo.io/dashboard/notifications
 
   const styles = StyleSheet.create({
     container: {

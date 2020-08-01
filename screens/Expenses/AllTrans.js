@@ -131,7 +131,7 @@ import { StyleSheet,
 
       <View style={{ alignItems: 'center', justifyContent: 'center', }}>
       <TouchableOpacity style={styles.button} onPress={this.getAllTrans}>
-      <Text style={styles.btntext}>Get Transactions</Text>
+      <Text style={styles.btntext}>Get Transactions  </Text>
       </TouchableOpacity>
       </View>
       {this.createTrans()}

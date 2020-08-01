@@ -95,6 +95,7 @@ import { url } from './../../components/url';
             description : this.state.desc
           })
         });
+        this.props.navigation.navigate('EventHome');
       }
     }
 
@@ -201,7 +202,7 @@ console.log(this.props.route.params.name);
         <TouchableOpacity style={styles.button} onPress={async () => {
           await this.sendPushNotification(this.state.expoPushToken);
         }}>
-        <Text style={styles.btntext}>Set a Reminder</Text>
+        <Text style={styles.btntext}>Set a Reminder  </Text>
         </TouchableOpacity>
         </View>
         </ScrollView>

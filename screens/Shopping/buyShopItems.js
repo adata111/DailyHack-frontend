@@ -53,7 +53,7 @@ export default class ShopItems extends React.Component {
 
 
       <TouchableOpacity style={styles.button}>
-      <Text style={styles.btntext}>Add Item</Text>
+      <Text style={styles.btntext}>Add Item  </Text>
       </TouchableOpacity>
 
       

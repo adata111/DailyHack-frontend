@@ -282,12 +282,12 @@ months = ["Jan", "Feb", "Mar", "Apr",
       </View>
 
       <TouchableOpacity style={styles.button} onPress={this.changeData}>
-      <Text style={styles.btntext}>Get Records</Text>
+      <Text style={styles.btntext}>Get Records  </Text>
       </TouchableOpacity>
       {this.createPie()}
       </View>
 
-      <Text>Expenditure Reports</Text>
+      <Text>Expenditure Reports  </Text>
       {this.generateGraph()}
      
       </ScrollView>

@@ -279,7 +279,7 @@ export default class NewListSports extends React.Component {
          <TouchableOpacity 
          style={styles.saveButton}
          onPress={this.saveList}>
-          <Text style={styles.saveButtonText}>Save</Text>
+          <Text style={styles.saveButtonText}>Save </Text>
         </TouchableOpacity>
         </View>
         <Modal animationIn="slideInUp" animationOut="slideOutDown" onBackdropPress={()=>this.closeModal()} onSwipeComplete={()=>this.closeModal()} swipeDirection="right" isVisible={this.state.isModalVisible} style={{backgroundColor:'white',maxHeight:200, top: 250,}}>
@@ -295,7 +295,7 @@ export default class NewListSports extends React.Component {
       <TouchableOpacity style={{backgroundColor:'rgb(29, 53, 87)',width:'50%', borderColor: 'white', borderWidth: 1,}}
         onPress={this.add}
       >
-      <Text style={{color:'white',textAlign:'center',padding:10}}>Add</Text>
+      <Text style={{color:'white',textAlign:'center',padding:10}}>Add </Text>
       </TouchableOpacity>
       </View>
       </View>
@@ -412,7 +412,7 @@ export default class NewListSports extends React.Component {
         position: 'absolute',
         zIndex: 11,
         right: 10,
-        bottom: 15,
+        bottom: 5,
         backgroundColor: 'rgb(29, 53, 87)',
         width: 60,
         height: 60,

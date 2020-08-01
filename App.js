@@ -33,10 +33,10 @@ function DrawerMenu()
   
   return(
     <Drawer.Navigator>
-      <Drawer.Screen name="Home" component={AdHomeStack}/>
-      <Drawer.Screen name="Notifications" component={NotifStack} />
-      <Drawer.Screen name="Profile" component={ProfileStack} />
-      <Drawer.Screen name="HelpCenter" component={HelpCenter} />
+      <Drawer.Screen name="Home " component={AdHomeStack}/>
+      <Drawer.Screen name="Notifications " component={NotifStack} />
+      <Drawer.Screen name="Profile " component={ProfileStack} />
+      <Drawer.Screen name="HelpCenter " component={HelpCenter} />
     </Drawer.Navigator>
   )
   

@@ -84,7 +84,7 @@ export default class MedHome extends React.Component {
       </View>
 
       <View style={{ flexDirection: 'row', alignItems: 'center', bottom: 130, left: 90, }}>
-      <Text style={styles.btnTextTitle}>Add a Reminder</Text>
+      <Text style={styles.btnTextTitle}> Add a Reminder  </Text>
       </View>
 
       <View style={{ paddingLeft: 20, paddingRight: 20, alignSelf: 'stretch', bottom: 20, }}>
@@ -92,7 +92,7 @@ export default class MedHome extends React.Component {
       <View style={{ flexDirection: 'row', alignItems: 'center', }}>
       <Image
       source={require('../../assets/pill.png')} style={styles.img}/>
-      <Text style={styles.btnText}>   Medicines</Text>
+      <Text style={styles.btnText}>   Medicines </Text>
       </View>
       </TouchableOpacity>
 
@@ -100,14 +100,14 @@ export default class MedHome extends React.Component {
       <View style={{ flexDirection: 'row', alignItems: 'center', }}>
       <Ionicons name="md-pulse" size={50} color="#1e555c" />
       
-      <Text style={styles.btnText}>   Measurment</Text>
+      <Text style={styles.btnText}>   Measurment </Text>
       </View>
       </TouchableOpacity>
 
       <TouchableOpacity style={ styles.button} onPress={() => this.props.navigation.navigate('DocRecord',{name:this.state.name,key:Date.now()})}>
       <View style={{ flexDirection: 'row', alignItems: 'center', }}>
       <FontAwesome name="stethoscope" size={50} color="#1e555c" />
-      <Text style={styles.btnText}>   Appointments</Text>
+      <Text style={styles.btnText}>   Appointments  </Text>
       </View>
       </TouchableOpacity>
       </View>

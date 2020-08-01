@@ -262,7 +262,7 @@ import { StyleSheet,
           </Picker>
           </View>
           <TouchableOpacity style={styles.button} onPress={this.state.edit?this.save:this.edit}>
-          <Text style={styles.btntext}>{this.state.edit?"Save":"Edit"}</Text>
+          <Text style={styles.btntext}>{this.state.edit?"Save ":"Edit "}</Text>
           </TouchableOpacity>
           </View>
           </ScrollView>

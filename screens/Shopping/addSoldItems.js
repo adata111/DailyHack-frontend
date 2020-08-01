@@ -34,7 +34,7 @@ export default class AddDeleteItems extends React.Component {
 
 
       <TouchableOpacity style={styles.button}>
-      <Text style={styles.btntext}>Save sales</Text>
+      <Text style={styles.btntext}>Save sales </Text>
       </TouchableOpacity>
 
       

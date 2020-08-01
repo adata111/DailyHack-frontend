@@ -23,19 +23,19 @@ export default class RtsOptions extends React.Component {
       </View>
 
        <View style={{ flexDirection: 'row', alignItems: 'center', bottom: 130, left: 30, }}>
-      <Text style={styles.btnTextTitle}>Choose Operating Mode</Text>
+      <Text style={styles.btnTextTitle}>Choose Operating Mode   </Text>
       </View>
 
       <View style={{ paddingLeft: 20, paddingRight: 20, alignSelf: 'stretch', bottom: 20, }}>
       <TouchableOpacity style={ styles.button} onPress={() => this.props.navigation.navigate('Buy')}>
       <View style={{ alignItems: 'center', right:20, }}>
-      <Text style={styles.btnText}>   Buy</Text>
+      <Text style={styles.btnText}>   Buy </Text>
       </View>
       </TouchableOpacity>
 
       <TouchableOpacity style={ styles.button} onPress={() => this.props.navigation.navigate('Sell')}>
       <View style={{ alignItems: 'center', right:20 }}>
-      <Text style={styles.btnText}>   Sell</Text>
+      <Text style={styles.btnText}>   Sell </Text>
       </View>
       </TouchableOpacity>
 

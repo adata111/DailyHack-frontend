@@ -197,7 +197,7 @@ console.log("jiji");
         <View style={styles.container}>
 
         <View style={styles.header}>
-        <Text style={styles.headerText}>- Add Expenses -</Text>
+        <Text style={styles.headerText}>- Add Expenses -  </Text>
         <TouchableOpacity style={styles.backBtn} onPress={() => {(this.props.route.params.edit)?this.props.navigation.navigate('Manager'):this.props.navigation.navigate('AllTrans')}}>
         <AntDesign name="arrowleft" size={24} color="black" />
         </TouchableOpacity>
@@ -286,7 +286,7 @@ console.log("jiji");
           </Picker>
           </View>
           <TouchableOpacity style={styles.button} onPress={this.state.edit?this.save:this.edit}>
-          <Text style={styles.btntext}>{this.state.edit?"Save":"Edit"}</Text>
+          <Text style={styles.btntext}>{this.state.edit?"Save  ":"Edit  "}  </Text>
           </TouchableOpacity>
           </View>
 

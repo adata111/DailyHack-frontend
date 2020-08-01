@@ -131,10 +131,10 @@ export default class Login extends React.Component{
    onChange = {(e) => this.setState({ pass: e.nativeEvent.text})}
    />
    <TouchableOpacity style={ styles.button } onPress={this.handleLogin}>
-   <Text style={ styles.buttonText }>Login</Text>
+   <Text style={ styles.buttonText }>Login </Text>
    </TouchableOpacity>
    <TouchableOpacity style={ styles.button } onPress={() => this.props.navigation.navigate('signup')}>
-   <Text style={ styles.buttonText }>Sign Up</Text>
+   <Text style={ styles.buttonText }>Sign Up </Text>
    </TouchableOpacity>
    </View>
    </ImageBackground>

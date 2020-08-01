@@ -17,7 +17,7 @@ export default class MyShop extends React.Component {
     return (
       <View style={styles.container}>
       <View style={styles.header}>
-      <Text style={styles.headerText}>- MY SHOPS -</Text>
+      <Text style={styles.headerText}>- MY SHOPS -  </Text>
       </View>
 
       <ScrollView style={styles.scrollContainer}>

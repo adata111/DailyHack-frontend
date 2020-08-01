@@ -17,7 +17,7 @@ export default class DocApp extends React.Component {
     return (
       <View style={styles.container}>
       <View style={styles.header}>
-      <Text style={styles.headerText}>- My Doctor's Appointment -</Text>
+      <Text style={styles.headerText}>- My Doctor's Appointment - </Text>
       </View>
 
       <ScrollView style={styles.scrollContainer}>

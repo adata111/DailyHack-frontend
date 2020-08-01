@@ -110,6 +110,7 @@ import { url } from './../../components/url';
             description : this.state.desc,
           })
         });
+        this.props.navigation.navigate('EventHome');
       }
     }
 
@@ -234,7 +235,7 @@ componentDidMount() {
           if(this.state.edit)
           await this.sendPushNotification(this.state.expoPushToken);
         }}>
-        <Text style={styles.btntext}>Get Notified!</Text>
+        <Text style={styles.btntext}>Get Notified!  </Text>
         </TouchableOpacity>
         </View>
         </ScrollView>

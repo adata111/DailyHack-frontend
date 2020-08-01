@@ -148,7 +148,7 @@ export default class Manager extends React.Component {
 
       }}
       />
-      <Text style={styles.nameText}>Add Income</Text>
+      <Text style={styles.nameText}>Add Income  </Text>
       </View>
       </TouchableOpacity>
       </Col>
@@ -165,7 +165,7 @@ export default class Manager extends React.Component {
 
       }}
       />
-      <Text style={styles.nameText}>Add Expenses</Text>
+      <Text style={styles.nameText}>Add Expenses  </Text>
       </View>
       </TouchableOpacity>
       </Col>
@@ -183,7 +183,7 @@ export default class Manager extends React.Component {
 
       }}
       />
-      <Text style={styles.nameText}>Reports</Text>
+      <Text style={styles.nameText}>Reports  </Text>
       </View>
       </TouchableOpacity>
       </Col>
@@ -199,7 +199,7 @@ export default class Manager extends React.Component {
         left: 15,
       }}
       />
-      <Text style={styles.nameText}>All Transactions</Text>
+      <Text style={styles.nameText}>All Transactions  </Text>
       </View>
       </TouchableOpacity>
       </Col>

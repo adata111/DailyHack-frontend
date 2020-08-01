@@ -41,7 +41,7 @@ render() {
 
     }}
     />
-    <Text style={styles.nameText}>All Lists</Text>
+    <Text style={styles.nameText}>All Lists </Text>
     </View>
     </TouchableOpacity>
     </Col>
@@ -58,7 +58,7 @@ render() {
 
     }}
     />
-    <Text style={styles.nameText}>Stop Watch</Text>
+    <Text style={styles.nameText}>Stop Watch  </Text>
     </View>
     </TouchableOpacity>
     </Col>
@@ -76,7 +76,7 @@ render() {
 
     }}
     />
-    <Text style={styles.nameText}>Timer</Text>
+    <Text style={styles.nameText}>Timer </Text>
     </View>
     </TouchableOpacity>
     </Col>
@@ -92,7 +92,7 @@ render() {
         //left: 15,
       }}
       />
-      <Text style={styles.nameText}>Health</Text>
+      <Text style={styles.nameText}>Health </Text>
       </View>
       </TouchableOpacity>
       </Col>

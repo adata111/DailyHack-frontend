@@ -21,7 +21,7 @@ export default class ShopHome extends React.Component {
       <TouchableOpacity style={ styles.button} onPress={() => this.props.navigation.navigate('Shopping',{name:this.props.route.params.name})}>
       <View style={{ flexDirection: 'row', alignItems: 'center', }}>
       <FontAwesome5 name="list-ul" size={40} color="#e91e63" /> 
-      <Text style={styles.btnText}>   Shopping List</Text>
+      <Text style={styles.btnText}>   Shopping List  </Text>
       </View>
       </TouchableOpacity>
 
@@ -29,14 +29,14 @@ export default class ShopHome extends React.Component {
       <View style={{ flexDirection: 'row', alignItems: 'center', }}>
       <FontAwesome5 name="shopping-cart" size={40} color="#e91e63" /> 
 
-      <Text style={styles.btnText}>   Real Time Shopping</Text>
+      <Text style={styles.btnText}>   Real Time Shopping  </Text>
       </View>
       </TouchableOpacity>
 
       <TouchableOpacity style={ styles.button}>
       <View style={{ flexDirection: 'row', alignItems: 'center', }}>
       <FontAwesome5 name="cart-plus" size={40} color="#e91e63" /> 
-      <Text style={styles.btnText}>   Place orders</Text>
+      <Text style={styles.btnText}>   Place orders  </Text>
       </View>
       </TouchableOpacity>
       </View>

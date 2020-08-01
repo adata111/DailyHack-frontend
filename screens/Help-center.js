@@ -103,7 +103,7 @@ export default class HelpCenter extends React.Component {
       </View>
 
       <View style={{ flexDirection: 'row', alignItems: 'center', bottom: 70, left: 140, }}>
-      <Text style={styles.btnTextTitle}>Feedback</Text>
+      <Text style={styles.btnTextTitle}>Feedback </Text>
       </View>
 
       <View style={{ paddingLeft: 20, paddingRight: 20, alignSelf: 'stretch', bottom: 50, right:30 }}>
@@ -127,7 +127,7 @@ export default class HelpCenter extends React.Component {
       value={this.state.feed}/>
 
       <View style={{ flexDirection: 'row', alignItems: 'center', bottom: 10, left: 40, }}>
-      <Text style={styles.btnTextRate}>Please Enter a Rating :-</Text>
+      <Text style={styles.btnTextRate}>Please Enter a Rating :-  </Text>
       </View>
 
 
@@ -148,7 +148,7 @@ export default class HelpCenter extends React.Component {
       </View>
 
       <TouchableOpacity style={styles.button} onPress={this.save}>
-      <Text style={styles.btnText}>Submit</Text>
+      <Text style={styles.btnText}>Submit </Text>
       </TouchableOpacity>
 
       </View>

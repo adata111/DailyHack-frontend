@@ -174,7 +174,7 @@ import { StyleSheet,
 
 
        <TouchableOpacity style={styles.button}>
-       <Text style={styles.btntext}>Save</Text>
+       <Text style={styles.btntext}>Save </Text>
        </TouchableOpacity>
        </View>
 

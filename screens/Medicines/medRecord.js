@@ -139,6 +139,7 @@ import { StyleSheet,
             dose: this.state.each
           })
         });
+        this.props.navigation.navigate('MedHome')
       }
 
     }
@@ -205,7 +206,7 @@ render(){
     <View style={styles.input}>
 
     <TextInput style={styles.textinput} placeholder="Name of the Medicine" 
-    placeholderTextColor="black"
+    placeholderTextColor="grey"
     underlineColorAndroid={'transparent'} 
     value = {this.state.name}
     onChange = {(e)=>this.setState({ name: e.nativeEvent.text})}/>
@@ -238,7 +239,7 @@ render(){
 
     <TouchableOpacity onPress={() => this.setState({ isTimePickerVisible: true})}>
     <TextInput style={styles.textinput} placeholder="Time" 
-    placeholderTextColor="black"
+    placeholderTextColor="grey"
     underlineColorAndroid={'transparent'} 
     editable={false}
     value={this.state.time}
@@ -255,7 +256,7 @@ render(){
 
 
     <TextInput style={styles.textinputDiary} placeholder="Description (Optional)" 
-    placeholderTextColor="black" multiline={true}
+    placeholderTextColor="grey" multiline={true}
     underlineColorAndroid={'transparent'} 
     value={this.state.desc}
     onChange = {(e)=>this.setState({ desc: e.nativeEvent.text})}/>
@@ -263,7 +264,7 @@ render(){
     <TouchableOpacity style={styles.button} onPress={async () => {
       await this.sendPushNotification(this.state.expoPushToken);
     }}>
-    <Text style={styles.btntext}>Set a Reminder</Text>
+    <Text style={styles.btntext}>Set a Reminder  </Text>
     </TouchableOpacity>
     </View>
     </ScrollView>

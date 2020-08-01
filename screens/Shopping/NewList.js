@@ -128,7 +128,7 @@ export default class NewList extends React.Component {
         <TouchableOpacity 
          style={styles.saveButton}
          onPress={this.saveList}>
-          <Text style={styles.saveButtonText}>Save</Text>
+          <Text style={styles.saveButtonText}>Save </Text>
         </TouchableOpacity>
         </View>
 

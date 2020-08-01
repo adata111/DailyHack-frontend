@@ -186,7 +186,7 @@ export default class Profile extends React.Component {
       <View style={styles.container}>
 
       <View style={{ alignItems: 'center', }}>
-      <Text style={styles.title}>My Profile</Text>
+      <Text style={styles.title}>My Profile </Text>
       </View>
 
       <View style={{marginTop:50}}>

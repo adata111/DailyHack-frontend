@@ -196,7 +196,7 @@ import { url } from './../../components/url';
         </TouchableOpacity>}
         <View style={styles.input}>
 
-        <TextInput style={styles.textinput} placeholder="Event" 
+        <TextInput style={styles.textinput} placeholder="Note Title" 
         placeholderTextColor="black"
         underlineColorAndroid={'transparent'}  
         onChange = {(e)=>this.setState({ title: e.nativeEvent.text, called:false})}
@@ -236,7 +236,7 @@ import { url } from './../../components/url';
         onCancel={() => this.setState({ isTimePickerVisible: false})}
         />
         
-        <TextInput style={styles.textinputDiary} placeholder="Description" 
+        <TextInput style={styles.textinputDiary} placeholder="Your Notes" 
         placeholderTextColor="black" multiline={true}
         underlineColorAndroid={'transparent'} 
         value={this.state.desc}
@@ -244,10 +244,10 @@ import { url } from './../../components/url';
         editable={this.state.edit}/>
         {this.state.edit?(
         <TouchableOpacity style={styles.button} onPress={this.save}>
-          <Text style={styles.btntext}>Save</Text>
+          <Text style={styles.btntext}>Save  </Text>
         </TouchableOpacity>):
         (<TouchableOpacity style={styles.button} onPress={this.edit}>
-          <Text style={styles.btntext}>Edit</Text>
+          <Text style={styles.btntext}>Edit  </Text>
         </TouchableOpacity>)}
         </View>
         </ScrollView>

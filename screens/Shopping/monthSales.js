@@ -43,7 +43,7 @@ export default class MonthSales extends React.Component {
       </View>
 
       <TouchableOpacity style={styles.button}>
-      <Text style={styles.btntext}>Get Records</Text>
+      <Text style={styles.btntext}>Get Records  </Text>
       </TouchableOpacity>
 
       
