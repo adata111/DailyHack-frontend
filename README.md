@@ -4,6 +4,7 @@
 This is a cute multipurpose mobile app with several features that fulfills your daily requirements. 
 Created in approximately 50 days as a part of Summer up 2020, this is a Walmart prize winning submission. 
 Frontend has been coded in React Native and backend using Nodejs and the database used is MongoDB. 
+Backend server is hosted on Heroku, and not included in this repo. 
 
 ### How to run:
 - Install expo on your system. 
@@ -61,7 +62,7 @@ This feature helps the user keep a track of his transactions and expenditure on 
 - Graphical analysis of the expenditure date-wise in the specified month, and a pie-chart showing a sectoral analysis of the purpose of expenditure.
 - There is also a calculator, for quicker calculations.
 
-<img src="/screenshots/img13.jpg" width="200" height="400"> <img src="/screenshots/img14.jpg" width="200" height="400"> <img src="/screenshots/img15.jpg" width="200" height="400">  
+<img src="/screenshots/img13.jpg" width="200" height="400">  <img src="/screenshots/img14.jpg" width="200" height="400">  <img src="/screenshots/img15.jpg" width="200" height="400">  
 
 
 ##### Events Manager
