@@ -5,11 +5,18 @@ This is a cute multipurpose mobile app with several features that fulfills your 
 Created in approximately 50 days as a part of Summer up 2020, this is a Walmart prize winning submission. 
 Frontend has been coded in React Native and backend using Nodejs and the database used is MongoDB. 
 
+### How to run:
+- Install expo on your system. 
+- install expo app on your android device
+- open the cloned folder on the terminal and run `expo start`
+- Scan the QR code shown in the browser using the expo app on your device.
+- Enjoy the app :)
+
 #### Login Page:
 You can access your data anywhere, anytime and on any device by simply logging into the app.
 
-![image][/screenshots/img1.jpg]
-![image][/screenshots/img2.jpg]
+![image](/screenshots/img1.jpg)
+![image](/screenshots/img2.jpg)
 
 You can: 
 Maintain a Daily diary
@@ -19,7 +26,7 @@ Make a note of your Doctor appointments and medicines
 Maintain your Expenditure record
 Make a note of upcoming important events and set reminders
 
-![image][/screenshots/img3.jpg]
+![image](/screenshots/img3.jpg)
  
 
 #### Salient features of the app:
