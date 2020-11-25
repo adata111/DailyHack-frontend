@@ -15,79 +15,68 @@ Frontend has been coded in React Native and backend using Nodejs and the databas
 #### Login Page:
 You can access your data anywhere, anytime and on any device by simply logging into the app.
 
-<img src="/screenshots/img1.jpg" width="200">
+<img src="/screenshots/img1.jpg" width="200" height="400">  <img src="/screenshots/img2.jpg" width="200" height="400">
+
 
 You can: 
-Maintain a Daily diary
-Shopping feature with Lists, Real time Shopping and Placing Online Orders.
-Different features related to Fitness
-Make a note of your Doctor appointments and medicines
-Maintain your Expenditure record
-Make a note of upcoming important events and set reminders
+- Maintain a Daily diary
+- Shopping feature with Lists, Real time Shopping and Placing Online Orders.
+- Different features related to Fitness
+- Make a note of your Doctor appointments and medicines
+- Maintain your Expenditure record
+- Make a note of upcoming important events and set reminders
 
-![image](/screenshots/img3.jpg)
+<img src="/screenshots/img3.jpg" width="200" height="400">
  
 
 #### Salient features of the app:
-Diary 
+##### Diary 
 This feature helps the user maintain an E-Diary. It includes :
-Create new entries, as many as the user wishes in a day.
-Display all the existing entries.
-Modify or delete existing entries 
+- Create new entries, as many as the user wishes in a day.
+- Display all the existing entries.
+- Modify or delete existing entries 
  
-![image][/screenshots/img4.jpg]
-![image][/screenshots/img5.jpg]
-![image][/screenshots/img6.jpg]
-
-Shopping 
+<img src="/screenshots/img4.jpg" width="200" height="400"> <img src="/screenshots/img5.jpg" width="200" height="400"> <img src="/screenshots/img6.jpg" width="200" height="400">
+##### Shopping 
 This feature helps the user make a list of all the items needed to be bought. It includes :
-Create new lists.
-Display all the existing entries.
-Modify existing lists, including - add, delete or modify existing items, with a counter for quantity and check box to tick off bought items.
-Users input the cost of one item each, calculate the total cost of the list, making it easier for pre-planned transactions.
+- Create new lists.
+- Display all the existing entries.
+- Modify existing lists, including - add, delete or modify existing items, with a counter for quantity and check box to tick off bought items.
+- Users input the cost of one item each, calculate the total cost of the list, making it easier for pre-planned transactions.
 
-![image][/screenshots/img7.jpg]
-![image][/screenshots/img8.jpg]
+<img src="/screenshots/img7.jpg" width="200" height="400">  <img src="/screenshots/img8.jpg" width="200" height="400">
 
-Fitness
+##### Fitness
 This feature helps the user know more about fitness and healthy lifestyle. This includes :
-Creating new fitness goals and workout schedules and updating existing ones.
-Stop-watch and Timer features to support time managed workout sessions.
-A health feature, advising the user on healthy lifestyle, which includes diet, body hydration and enhanced sleeping habits.
+- Creating new fitness goals and workout schedules and updating existing ones.
+- Stop-watch and Timer features to support time managed workout sessions.
+- A health feature, advising the user on healthy lifestyle, which includes diet, body hydration and enhanced sleeping habits.
 
-![image][/screenshots/img9.jpg]
-![image][/screenshots/img10.jpg]
-![image][/screenshots/img11.jpg]
-![image][/screenshots/img12.jpg]
+<img src="/screenshots/img9.jpg" width="200" height="400">  <img src="/screenshots/img10.jpg" width="200" height="400">  <img src="/screenshots/img11.jpg" width="200" height="400">  <img src="/screenshots/img12.jpg" width="200" height="400">
 
-Expense Manager
+##### Expense Manager
 This feature helps the user keep a track of his transactions and expenditure on user input. This includes  :
-Taking input on savings(income) and expenditure of the user, with the purpose.
-Showing to the user all the transactions in a month, with the date and purpose as inputted by the user.
-Graphical analysis of the expenditure date-wise in the specified month, and a pie-chart showing a sectoral analysis of the purpose of expenditure.
-There is also a calculator, for quicker calculations.
+- Taking input on savings(income) and expenditure of the user, with the purpose.
+- Showing to the user all the transactions in a month, with the date and purpose as inputted by the user.
+- Graphical analysis of the expenditure date-wise in the specified month, and a pie-chart showing a sectoral analysis of the purpose of expenditure.
+- There is also a calculator, for quicker calculations.
 
-![image][/screenshots/img13.jpg]
-![image][/screenshots/img14.jpg]
-![image][/screenshots/img15.jpg]
+<img src="/screenshots/img13.jpg" width="200" height="400"> <img src="/screenshots/img14.jpg" width="200" height="400"> <img src="/screenshots/img15.jpg" width="200" height="400">  
 
 
-Events Manager
+##### Events Manager
 This feature helps the user store general information and events, and get reminded of them. This includes :
-A calendar showing all the dates, marked with the events.
-An event or a notes section, which acts as a multi-purpose section. If the user wants to get reminded, it acts like an event manager, else acts like a notes storage, which stores notes.
+- A calendar showing all the dates, marked with the events.
+- An event or a notes section, which acts as a multi-purpose section. If the user wants to get reminded, it acts like an event manager, else acts like a notes storage, which stores notes.
 
-![image][/screenshots/img16.jpg]
-![image][/screenshots/img18.jpg]
+<img src="/screenshots/img16.jpg" width="200" height="400">  <img src="/screenshots/img18.jpg" width="200" height="400"> 
 
-Medicines
+##### Medicines
 This feature provides the user medicine reminders. This includes :
-A reminder feature, which takes input from the user a medicine name, time to get reminded and the duration of the course, reminding the user for that duration.
-Taking input from the user the time, location, doctor name and specialization for reminding the user at the right time.
-Users can store their health checkup measurements, like height, weight, blood sugar, blood pressure and any others.
-This feature also reminds the user at the user inputted time of the day for the measurements.
+- A reminder feature, which takes input from the user a medicine name, time to get reminded and the duration of the course, reminding the user for that duration.
+- Taking input from the user the time, location, doctor name and specialization for reminding the user at the right time.
+- Users can store their health checkup measurements, like height, weight, blood sugar, blood pressure and any others.
+- This feature also reminds the user at the user inputted time of the day for the measurements.
 
-![image][/screenshots/img19.jpg]
-![image][/screenshots/img20.jpg]
-![image][/screenshots/img21.jpg]
+<img src="/screenshots/img19.jpg" width="200" height="400">  <img src="/screenshots/img20.jpg" width="200" height="400">  <img src="/screenshots/img21.jpg" width="200" height="400"> 
 
