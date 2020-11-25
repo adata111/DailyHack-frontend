@@ -15,8 +15,7 @@ Frontend has been coded in React Native and backend using Nodejs and the databas
 #### Login Page:
 You can access your data anywhere, anytime and on any device by simply logging into the app.
 
-![image](/screenshots/img1.jpg)
-![image](/screenshots/img2.jpg)
+<img src="/screenshots/img1.jpg" width="200">
 
 You can: 
 Maintain a Daily diary
