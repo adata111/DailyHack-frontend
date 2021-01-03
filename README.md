@@ -62,7 +62,7 @@ This feature helps the user keep a track of his transactions and expenditure on 
 - Graphical analysis of the expenditure date-wise in the specified month, and a pie-chart showing a sectoral analysis of the purpose of expenditure.
 - There is also a calculator, for quicker calculations.
 
-<img src="/screenshots/img13.jpg" width="200" height="400">  <img src="/screenshots/img14.jpg" width="200" height="400">  <img src="/screenshots/img15.jpg" width="200" height="400">  
+<img src="/screenshots/img13.jpg" width="200" height="400">  <img src="/screenshots/img14.jpg" width="200" height="400"> <img src="/screenshots/img22.jpg" width="200" height="400">  <img src="/screenshots/img15.jpg" width="200" height="400">  
 
 
 ##### Events Manager
