@@ -38,7 +38,7 @@
     "react-native-svg": "12.1.0",
     "react-native-unordered-list": "^1.0.4",
     "react-native-web": "~0.11.7",
-    "react-native-webview": "9.4.0",
+    "react-native-webview": "11.0.0",
     "react-navigation": "^4.3.9",
     "victory-native": "^35.0.0"
   },
