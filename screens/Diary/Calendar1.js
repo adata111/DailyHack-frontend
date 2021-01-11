@@ -59,40 +59,30 @@ export default class MyCalendar extends React.Component {
     var month = this.state.activeDate.getMonth();
     var firstDay = new Date(year, month, 1).getDay();
     var maxDays = this.nDays[month];
-  if (month == 1) { // February
-    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
-      maxDays += 1;
+    if (month == 1) { // February
+      if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+        maxDays += 1;
+      }
     }
+    var counter = 1;
+    for (var row = 1; row < 7; row++) {
+      matrix[row] = [];
+      for (var col = 0; col < 7; col++) {
+        matrix[row][col] = " ";
+        if (row == 1 && col >= firstDay) {
+          // Fill in rows only after the first day of the month
+          matrix[row][col] =  counter++;
+        } else if (row > 1 && counter <= maxDays) {
+          // Fill in rows only if the counter's not greater than
+          // the number of days in the month
+          matrix[row][col] = counter++;
+        }
+      }
+    }
+  //console.log("hi"+matrix[1][0]+"hi");
+  //console.log(typeof(matrix[1][0]));
+    return matrix;
   }
-var counter = 1;
-for (var row = 1; row < 7; row++) {
-  matrix[row] = [];
-  for (var col = 0; col < 7; col++) {
-    matrix[row][col] = " ";
-    if (row == 1 && col >= firstDay) {
-      // Fill in rows only after the first day of the month
-      matrix[row][col] =  counter++;
-    } else if (row > 1 && counter <= maxDays) {
-      // Fill in rows only if the counter's not greater than
-      // the number of days in the month
-      matrix[row][col] = counter++;
-    }
-  }
-}
-//console.log("hi"+matrix[1][0]+"hi");
-//console.log(typeof(matrix[1][0]));
-return matrix;
-
-}
-
-_onPress = (item) => {    
-  this.setState(() => {
-    if (!item.match && item != -1) {
-      this.state.activeDate.setDate(item);
-      return this.state;
-    }
-  });
-};
 
 dispMatrix(matrix){
   var m = matrix.map((row, k)=>{

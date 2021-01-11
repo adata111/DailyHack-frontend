@@ -61,16 +61,20 @@ export default class Reports extends React.Component {
       //Alert.alert(res.message);
       if(res.success === true){
         var dd = res.content.filter(ex => ex._id.month===this.state.month+"-"+this.state.year)
+        //dd has current month and year ke transactions
         dd = dd.filter(ex => ex._id.type==="expenses")
+        //now dd has current month and year's expenditure details
         const exp = dd.reduce((t,i)=> t + i.expenses, 0);
+        //exp has the total expenditure of the month
         console.log(exp);
         var data = dd.map((d)=>{
           return({x:d._id.purpose, y:d.expenses})
         })
         //console.warn(data);
         data.sort((a,b)=>(a.x > b.x) ? 1 : ((b.x > a.x) ? -1 : 0)); 
+        //data got sorted in ascending order of purpose 
         this.setState({
-          fullData:res.content,
+          fullData:res.content, // all months' transaction details
           exp,
           pieData:data,
         })
@@ -97,13 +101,14 @@ months = ["Jan", "Feb", "Mar", "Apr",
   "May", "Jun", "Jul", "Aug", "Sep", "Oct", 
   "Nov", "Dec"];
  graphicColor = ['#ef476f', '#ee964b', '#ffd166',  '#06d6a0', '#118ab2', '#073b4c'];
+
   generateGraph(){
     var allYears = this.state.monthlyTrans.map((i) => {
-      var year = i._id.month.split("-")[1];
+      var year = i._id.month.split("-")[1];//i._id.month is of the form 'MM-YYYY'
       return(year?year:null)});
     //allYears = ["2020","2020"];
     var years = [...new Set(allYears)];
-    years.sort(function(a, b){return (b-a)});
+    years.sort(function(a, b){return (b-a)});//sort in descending order
     var graphs = years.map((year) =>{
       var graphData = this.months.map( (m, ind) =>{
         var ex=this.state.monthlyTrans.filter(i => 
