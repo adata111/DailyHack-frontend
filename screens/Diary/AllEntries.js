@@ -65,7 +65,7 @@ console.log("fethcing");
     .catch(err => {
       console.log(err);
     });
-  },10)
+  },10)fetchEntries
   //}
 }
   componentDidMount(){
@@ -96,7 +96,7 @@ console.log("fethcing");
           deleteMethod={ ()=> this.deleteEntry(val.key) }  view={ ()=> this.viewEntry(val.key)}/>
     })
    )
- }
+  }
 
   render() {
     console.log("diary render");
@@ -196,14 +196,14 @@ console.log("fethcing");
       })
     })
 
-    //recieve entry added confirmation from backend
+    //recieve entry deleted confirmation from backend
     .then((response) => (response.json()))
     
     .then((res) => {
       console.log("response");
       //console.warn(res);
       //Alert.alert(res.message);
-      //if entry added
+      //if entry deleted
       if(res.success === true){
     //    alert(res.message);
     //    this.setState({entryArray:res.content});

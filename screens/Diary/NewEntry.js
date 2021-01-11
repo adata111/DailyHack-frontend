@@ -134,14 +134,14 @@ export default class NewEntry extends React.Component{
     });
     if(!this.props.route.params.edit){
       console.log(this.props.route.params);
-    this.setState({
-      editMode:this.props.route.params.edit,
-      key: this.props.route.params.key,
-      date:this.props.route.params.date,
-      title:this.props.route.params.title,
-      text:this.props.route.params.text,
-      called:true,
-    });
+      this.setState({
+        editMode:this.props.route.params.edit,
+        key: this.props.route.params.key,
+        date:this.props.route.params.date,
+        title:this.props.route.params.title,
+        text:this.props.route.params.text,
+        called:true,
+      });
     }
     else{
       this.setState({key: this.props.route.params.key, date:this.props.route.params.date});
