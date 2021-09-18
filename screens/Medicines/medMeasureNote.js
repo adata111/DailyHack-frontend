@@ -39,19 +39,6 @@ export default class Note extends React.Component {
 		}
 	}
 
-	/*For measure
-	<View style={{ bottom:15, }}>
-	<Ionicons name="md-pulse" size={40} color="black" />
-	</View>
-	For Medicine
-	<View style={{ bottom:15, }}>
-	<FontAwesome5 name="briefcase-medical" size={40} color="#e63946" />
-	</View>
-
-	*/
-
-
-
 	const styles = StyleSheet.create({
 		note: {
 			position: 'relative',
@@ -72,7 +59,6 @@ export default class Note extends React.Component {
 			position: 'absolute',
 			justifyContent: 'center',
 			alignItems: 'center',
-			//backgroundColor: '#2980b9',
 			padding: 10,
 			top: 30,
 			bottom: 10,
