@@ -9,8 +9,6 @@ import { url } from './../../components/url';
 
 export default class MedReports extends React.Component {
 
- 
-
   render() {
     
   return (
@@ -54,19 +52,11 @@ export default class MedReports extends React.Component {
     );
   }
 
-  
-
-  
+ 
   viewEntry(key){
     console.log("view");
     console.log(key);
     var itt=this.state.reportsArray.filter(it => it.key===key);
-    //get text value from backend
-    console.log(this.state.reportsArray);
-    console.log(itt);
-    //var itt = JSON.parse(ittt);
-    console.log(itt[0]);
-  //  this.props.navigation.navigate('NewEntry', {edit:false, key:key, date:itt[0].date, title:itt[0].title, text:itt[0].text, name:this.props.route.params.name})
   }
 }
 
